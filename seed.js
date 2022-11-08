@@ -8,7 +8,6 @@ const main = async () => {
 
     const park = await parks.createPark("Name", "Location", "Image", "09/15/1995","introduction", "https://www.nps.gov/yell/index.htm");
     const park2 = await parks.createPark("Name2", "Location2", "Image2", "09/15/1995","introduction2", "https://www.nps.gov/yell/index.htm");
-    const allPark = await parks.getAllParks();
     let removeId = await parks.removePark(park._id);
     console.log(allPark);
     await connection.closeConnection();

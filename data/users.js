@@ -14,17 +14,6 @@ const createUser = async (
   let parksHaveVisited = [];
   let parksWishToGo = [];
   let likes = [];
-  const newUser = {
-    userName: userName,
-    email: email,
-    birthDate: birthDate,
-    hashedPassword: hashedPassword,
-    reviews: reviews,
-    comments: comments,
-    parksHaveVisited: parksHaveVisited,
-    parksWishToGo: parksWishToGo,
-    likes: likes,
-  };
 
   if (!userName) throw 'You must provide a user name';
   if (typeof userName !== 'string') throw 'User name must be a string';
@@ -46,6 +35,17 @@ const createUser = async (
   birthDate = birthDate.trim();
   if (!helper.validateDate(birthDate)) throw 'Birth date is not valid';
 
+  const newUser = {
+    userName: userName,
+    email: email,
+    birthDate: birthDate,
+    hashedPassword: hashedPassword,
+    reviews: reviews,
+    comments: comments,
+    parksHaveVisited: parksHaveVisited,
+    parksWishToGo: parksWishToGo,
+    likes: likes,
+  };
   const userCollection = await users();
   const insertInfo = await userCollection.insertOne(newUser);
   if (insertInfo.insertedCount === 0) throw 'Could not add user';
