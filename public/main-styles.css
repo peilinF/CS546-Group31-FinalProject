@@ -1,0 +1,68 @@
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	font-size: 14pt;
+}
+
+body {
+	font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+main {
+	max-width: 75%;
+	margin: auto;
+}
+
+header {
+	border-bottom: 1px solid #afafaf;
+}
+
+h1{
+	color: rgb(247, 5, 5);
+	margin-bottom: 5px;
+    font-size: 2rem;
+}
+
+
+h2 {
+	font-size: 1.5rem;
+}
+p {
+	font-size: 1rem;
+	line-height: 2;
+}
+.people li{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: rgb(248, 152, 200);
+}
+.not-found{
+    background-color: red;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    padding: 10px;
+}
+
+.personFound{
+    background-color: rgb(61, 248, 61);
+    color: black;
+    font-size: 2rem;
+    text-align: left;
+    padding: 10px;
+}
+.personFound dl{
+    justify-content: space-between;
+    color: black;
+    font-size: 2rem;
+    padding: 10px;
+    margin: 0;
+}
+.personFound dd{
+    text-decoration: underline;
+    text-align: center;
+}
