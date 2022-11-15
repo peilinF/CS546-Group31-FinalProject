@@ -22,10 +22,6 @@ function validTime (time) {
     return true;
 }
 
-function validLink (link) {
-    if(!/^https?:\/\/[a-zA-Z0-9-\.]+\.[a-z]{2,4}(\/\S*)?$/.test(link)) throw 'Link is not valid';
-    return true;
-}
 
 function vaildEmailAddr (email) {
     if(!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) throw 'Email address is not valid';
@@ -38,6 +34,6 @@ function hashPassword(password) {
 module.exports = {
     validDate,
     validTime,
-    validLink,
-    vaildEmailAddr
+    vaildEmailAddr,
+    hashPassword
 }
