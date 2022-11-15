@@ -1,12 +1,15 @@
 const mongoCollections = require('../config/mongoCollections');
 const parks = mongoCollections.parks;
+const users = mongoCollections.users;
+// const reviews = mongoCollections.reviews;
 const parksClass = require('./parks');
+const usersClass = require('./users');
 const {ObjectId} = require('mongodb');
 const e = require('express');
 const createReview = async (
   parkId,
-  reviewTitle,
   userId,
+  reviewTitle,
   content,
   rating
 ) => {
@@ -14,9 +17,6 @@ const createReview = async (
   if (!parkId) throw 'You must provide an id to search for';
   if (typeof parkId !== 'string' && typeof parkId !== 'object')
     throw 'Id must be a string or ObjectId';
-  if (typeof parkId === 'string') {
-    if (!ObjectId.isValid(parkId)) throw 'Id is not a valid ObjectId';
-  }
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
 
@@ -27,7 +27,7 @@ const createReview = async (
   if(!userId) throw 'You must provide a user id';
   if(typeof userId !== 'string' && typeof userId !== 'object') throw 'userId must be a string or ObjectId';
   if(typeof userId === 'string'){
-    if(!ObjectId.isValid(userId)) throw 'userId is not a valid ObjectId';
+    if(!ObjectId.isValid(userId)) throw 'userId is not a user r valid ObjectId';
   }
   if(userId.trim().length === 0) throw 'userId cannot be an empty string or just spaces';
 
@@ -40,28 +40,41 @@ const createReview = async (
 
   if (typeof rating !== 'number') throw 'Rating must be a number';
   if (rating < 0 || rating > 5) throw 'Rating must be between 0 and 5';
-  //const parkReview = park.reviews;
-  //const parkCollection = await parks();
+
+
+
+  const park = await parksClass.getParkById(parkId);
+  const user = await usersClass.getUserById(userId);
   const newReview = {
-    _id: ObjectId(),
+    _id : ObjectId(),
     title: reviewTitle,
-    reviewer: reviewerName,
-    review: review,
+    parkName: park.parkName,
+    reviewer: user.userName,
+    content: content,
     rating: rating,
     date: new Date().toLocaleDateString(),
   };
-  
-  const query = {
-    _id: ObjectId(parkId),
+  const parkCollection = await parks();
+  const userCollection = await users();
+  const parkQuery = {
+    _id: parkId,
+  };
+  const userQuery = {
+    _id: ObjectId(userId),
   };
 
-  const parkCollection = await parks();
-  const updateReview = await parkCollection.updateOne(query, {$push: {reviews : newReview}});
-  if (updateReview.modifiedCount === 0) {
-    throw 'could not update review successfully';
+  const updateParkReview = await parkCollection.updateOne(parkQuery, {$push: {reviews : newReview}});
+  const updateUserReview = await userCollection.updateOne(userQuery, {$push: {reviews : newReview}});
+  if (updateParkReview.modifiedCount === 0) {
+    throw 'could not update Park review successfully';
   }
-  const reviews = await getAllReviews(parkId);
-  const thisPark = await parkCollection.findOne({ _id: ObjectId(parkId) });
+  if (updateUserReview.modifiedCount === 0) {
+    throw 'could not update User review successfully';
+  }
+
+
+  const thisPark = await parksClass.getParkById(parkId);
+  const reviews = thisPark.reviews;
   let ratingSum = 0;
   for (let i = 0; i < reviews.length; i++){
     ratingSum += reviews[i].rating;
@@ -72,7 +85,7 @@ const createReview = async (
   }
   if (newRating != thisPark.overallRating){
 
-    const updateRating = await parkCollection.updateOne(query, {$set: {overallRating : newRating}});
+    const updateRating = await parkCollection.updateOne(parkQuery, {$set: {overallRating : newRating}});
     if (updateRating.modifiedCount === 0) {
       throw 'could not update rating successfully';
     } 
@@ -80,28 +93,41 @@ const createReview = async (
   return newReview._id.toString();
 };
 
+
 const getAllReviews = async (parkId) => {
   if (!parkId) throw 'You must provide an id to search for';
   if (typeof parkId !== 'string' && typeof parkId !== 'object')
     throw 'Id must be a string or ObjectId';
-  if (typeof parkId === 'string') {
-    if (!ObjectId.isValid(parkId)) throw 'Id is not a valid ObjectId';
-  }
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   parkId = parkId.trim();
-  const parkCollection = await parks();
-  const thisPark = await parkCollection.findOne({ _id: ObjectId(parkId) });
+  
+  const thisPark = await parksClass.getParkById(parkId);
   if (!thisPark) throw 'park not found';
 
   let reviews = thisPark.reviews;
   for ( let i = 0; i < reviews.length; i++){
     reviews[i]._id = reviews[i]._id.toString();
-    //console.log(reviews[i]._id);
   }
   return reviews;
 };
 
+const getAllUserReviews = async (userId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim(); 
+  const thisUser = await usersClass.getUserById(userId);
+  if (!thisUser) throw 'user not found';
+
+  let reviews = thisUser.reviews;
+  for ( let i = 0; i < reviews.length; i++){
+    reviews[i]._id = reviews[i]._id.toString();
+  }
+  return reviews;
+};
 const getReview = async (reviewId) => {
   if (!reviewId) throw 'You must provide an id to search for';
   if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
@@ -114,7 +140,8 @@ const getReview = async (reviewId) => {
 
   reviewId = reviewId.trim();
 
-  const allpark = await parkClass.getAllparks();
+  
+  const allpark = await parksClass.getAllparks();
   let review = [];
   for (let i = 0; i < allpark.length; i++){
     for (let j = 0; j < allpark[i].reviews.length; j++){
@@ -125,7 +152,6 @@ const getReview = async (reviewId) => {
       }
     }
   }
-  throw 'Review not found';
 };
 
 const removeReview = async (reviewId) => {
@@ -139,37 +165,50 @@ const removeReview = async (reviewId) => {
       throw 'id cannot be an empty string or just spaces';
 
   reviewId = reviewId.trim();
-  const allparks = await parkClass.getAllparks();
+  const allparks = await parksClass.getAllParks();
   let parkId = '';
+  let userId = '';
   for (let i = 0; i < allparks.length; i++){
     let reviews = allparks[i].reviews;
     for (let j = 0; j < reviews.length; j++){
       if (reviews[j]._id.toString() === reviewId){
         parkId = allparks[i]._id.toString();
+        let userName = reviews[j].reviewer;
+        let user = await usersClass.getUserByName(userName);
+        userId = user._id.toString();
         break;
       }
     }
   }
+
   const parkCollection = await parks();
   let removepark;
   let removeAllreviews = await getAllReviews(parkId);
   if (removeAllreviews.length === 1){
-    removepark = await parkCollection.updateOne({_id: ObjectId(parkId)}, {$pop: {reviews: -1}});
-    //removepark = await parkCollection.updateOne({_id: ObjectId(parkId)}, {$set: {reviews: []}});
+    removepark = await parkCollection.updateOne({_id: parkId}, {$pop: {reviews: -1}});
   } else {
-    removepark = await parkCollection.updateOne({ _id: ObjectId(parkId) }, { $pull: { reviews: { _id: ObjectId(reviewId) } } });
+    removepark = await parkCollection.updateOne({ _id: parkId }, { $pull: { reviews: { _id: ObjectId(reviewId) } } });
   }
-
-  
   if (removepark.modifiedCount === 0) {
-    throw 'could not delete review successfully';
+    throw 'could not delete review Park successfully';
   }
 
+  let removeuser;
+  const userCollection = await users();
+  const user = await usersClass.getUserById(userId);
+  if (user.reviews.length === 1){
+    removeuser = await userCollection.updateOne({_id: ObjectId(userId)}, {$pop: {reviews: -1}});
+  } else {
+    removeuser = await userCollection.updateOne({ _id: ObjectId(userId)}, { $pull: { reviews: { _id: ObjectId(reviewId) } } });
+  }
+  if (removeuser.modifiedCount === 0) {
+    throw 'could not delete review User successfully';
+  }
 
-  const thisPark = await parkCollection.findOne({ _id: ObjectId(parkId) });
+  const thisPark = await parkCollection.findOne({ _id: parkId });
   let ratingSum = 0;
   const query = {
-    _id: ObjectId(parkId),
+    _id: parkId,
   };
   for (let i = 0; i < removeAllreviews.length; i++){
     ratingSum += removeAllreviews[i].rating;
@@ -189,7 +228,7 @@ const removeReview = async (reviewId) => {
 
     await parkCollection.updateOne(query, {$set: {overallRating : newRating}});
   }
-  return await parkClass.getparkById(parkId);
+  
 };
 
 module.exports = {
@@ -197,4 +236,5 @@ module.exports = {
   getAllReviews,
   getReview,
   removeReview,
+  getAllUserReviews
 };

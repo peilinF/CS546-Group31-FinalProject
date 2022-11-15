@@ -1,6 +1,8 @@
 const data = require('./data');
 const parks = data.parks;
 const users = data.users;
+const reviews = data.reviews;
+const update = data.updates;
 const { ObjectId } = require('mongodb');
 const connection = require('./config/mongoConnection');
 const axios = require('axios');
@@ -10,15 +12,28 @@ const main = async () => {
     const db = await connection.dbConnection();
     await db.dropDatabase();
     await creatPark();
-    await createUser();
+    const user = await createUser();
+    const park = await parks.getParkByName('Acadia National Park');
+    const review = await createReview(park._id.toString(), user._id.toString());
+    const review2 = await reviews.createReview(park._id.toString(), user._id.toString(), 'title1', 'content1', 3);
+
+    await reviews.removeReview(review);
+    //await parks.updateReviewById(park._id.toString(), review._id.toString());
     //console.log(allPark);
     await connection.closeConnection();
     console.log('Done!');
+    //await parks.updateReviewById(park._id.toString(), review._id.toString());
+};
 
+const createReview = async (parkId, userID) => {
+    const review = await reviews.createReview(parkId, userID, 'title', 'content', 5);
+    //await update.updateParkReviewById(parkId, review._id.toString());
+    return review;
 };
 
 const createUser = async () => {
     const user = await users.createUser('aaa', 'xixi@gmail.com','08/08/1998',helper.hashPassword('Feng@fpl1997'));
+    return user;
 };
 
 const creatPark = async() => {

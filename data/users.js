@@ -48,8 +48,8 @@ const createUser = async (
   };
   const userCollection = await users();
   const insertInfo = await userCollection.insertOne(newUser);
-  if (insertInfo.insertedCount === 0) return false;
-  return true;
+  if (insertInfo.insertedCount === 0) throw 'Could not add user';
+  return await getUserById(insertInfo.insertedId.toString());
 };
 
 const getAllUsers = async () => {
@@ -67,19 +67,30 @@ const getUserById = async (userId) => {
   if (typeof userId !== 'string' && typeof userId !== 'object')
     throw 'Id must be a string or ObjectId';
   if (typeof userId === 'string') {
-    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid User idObjectId';
   }
   if (userId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   userId = userId.trim();
   const userCollection = await users();
-  const user = await userCollection.findOne({ _id: ObjectId(movieId) });
+  const user = await userCollection.findOne({ _id: ObjectId(userId) });
   if (!user) throw 'Movie not found';
   user._id = user._id.toString();
   return user;
 };
-
-const removeUsers = async (userId) => {
+const getUserByName = async (userName) => {
+  if (!userName) throw 'You must provide an user name to search for';
+  if (typeof userName !== 'string') throw 'User name must be a string';
+  if (userName.trim().length === 0)
+      throw 'User name cannot be an empty string or just spaces';
+  userName = userName.trim();
+  const userCollection = await users();
+  const user = await userCollection.findOne({ userName: userName });
+  if (!user) throw 'User not found';
+  user._id = user._id.toString();
+  return user;
+};
+const removeUser = async (userId) => {
   if (!userId) throw 'You must provide an id to search for';
   if (typeof userId !== 'string' && typeof userId !== 'object')
     throw 'Id must be a string or ObjectId';
@@ -165,6 +176,7 @@ module.exports = {
   createUser,
   getAllUsers,
   getUserById,
-  removeUsers,
+  removeUser,
   updateUser,
+  getUserByName,
 };

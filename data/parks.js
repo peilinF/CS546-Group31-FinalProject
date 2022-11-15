@@ -1,5 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const parks = mongoCollections.parks;
+const reviews = mongoCollections.reviews;
 const {ObjectId} = require('mongodb');
 const helper = require("../helpers.js");
 const createPark = async (
@@ -30,8 +31,8 @@ const createPark = async (
 
   const parksCollection = await parks();
   const insertInfo = await parksCollection.insertOne(newPark);
-  if (insertInfo.insertedCount === 0) return false;
-  return true;
+  if (insertInfo.insertedCount === 0) throw 'Could not add park';
+  return await getParkById(insertInfo.insertedId.toString());
 };
 
 const getAllParks = async () => {
@@ -49,15 +50,11 @@ const getParkById = async (parkId) => {
 
 
     if (!parkId) throw 'You must provide an id to search for';
-    
-    if (typeof parkId === 'string') {
-        if (!ObjectId.isValid(parkId)) throw 'Id is not a valid ObjectId';
-    }
     if (parkId.trim().length === 0)
         throw 'id cannot be an empty string or just spaces';
     parkId = parkId.trim();
     const parksCollection = await parks();
-    const park = await parksCollection.findOne({ _id: ObjectId(parkId) });
+    const park = await parksCollection.findOne({ _id: parkId });
     if (!park) throw 'Park not found';
     park._id = park._id.toString();
     for(let j = 0; j < park.reviews.length; j++){
@@ -81,6 +78,8 @@ const getParkByName = async (parkName) => {
     }
     return park;
   };
+
+  
 module.exports = {
     createPark,
     getAllParks,
