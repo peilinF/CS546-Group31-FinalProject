@@ -170,7 +170,30 @@ const updateUser = async (
 
 };
 
+const addReview = async (userId, reviewId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+  if (!reviewId) throw 'You must provide an id to search for';
+  if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof reviewId === 'string') {
+    if (!ObjectId.isValid(reviewId)) throw 'Id is not a valid ObjectId';
+  }
+  if (reviewId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  reviewId = reviewId.trim();
 
+  const userCollection = await users();
+  const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { reviews: reviewId } });
+
+};
 
 module.exports = {
   createUser,
@@ -179,4 +202,5 @@ module.exports = {
   removeUser,
   updateUser,
   getUserByName,
+  addReview,
 };

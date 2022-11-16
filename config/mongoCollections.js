@@ -20,6 +20,6 @@ NOTE: YOU WILL NEED TO CHANGE THE CODE BELOW TO HAVE THE COLLECTION(S) REQUIRED 
 module.exports = {
   users: getCollectionFn('users'),
   parks: getCollectionFn('parks'),
-  //reviews: getCollectionFn('reviews')
+  reviews: getCollectionFn('reviews')
 
 };
