@@ -195,6 +195,212 @@ const addReview = async (userId, reviewId) => {
 
 };
 
+const removeReview = async (userId, reviewId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+  if (!reviewId) throw 'You must provide an id to search for';
+  if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof reviewId === 'string') {
+    if (!ObjectId.isValid(reviewId)) throw 'Id is not a valid ObjectId';
+  }
+  if (reviewId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  reviewId = reviewId.trim();
+
+  const userCollection = await users();
+  const user = await userCollection.findOne({ _id: ObjectId(userId) });
+  let updatedUser = 0;
+  let userReview = user.reviews;
+  if ( userReview.length === 1){
+    updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { reviews: -1 } });
+  } else {
+    updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { reviews: reviewId } });
+  }
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not remove review successfully';
+  }
+
+};
+const addComment = async (userId, commentId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  } 
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+  if (!commentId) throw 'You must provide an id to search for';
+  if (typeof commentId !== 'string' && typeof commentId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof commentId === 'string') {
+    if (!ObjectId.isValid(commentId)) throw 'Id is not a valid ObjectId';
+  }
+  if (commentId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  commentId = commentId.trim();
+
+  const userCollection = await users();
+  const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { comments: commentId } });
+};
+
+const removeComment = async (userId, commentId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+  if (!commentId) throw 'You must provide an id to search for'; 
+  if (typeof commentId !== 'string' && typeof commentId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof commentId === 'string') {
+    if (!ObjectId.isValid(commentId)) throw 'Id is not a valid ObjectId';
+  }
+  if (commentId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  commentId = commentId.trim();
+
+  const userCollection = await users();
+  const user = await userCollection.findOne({ _id: ObjectId(userId) });
+  let updatedUser = 0;
+  let userComment = user.comments;
+  if ( userComment.length === 1){
+    updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { comments: -1 } });
+  } else {
+    updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { comments: commentId } });
+  }
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not remove comment successfully';
+  } 
+};
+
+const addParksWishToGO = async (userId, parkId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+  if (!parkId) throw 'You must provide an id to search for';
+  if (typeof parkId !== 'string' && typeof parkId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (parkId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  parkId = parkId.trim();
+
+  const userCollection = await users();
+  const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { parksWishToGo: parkId } });
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not add park successfully';
+  }
+};
+
+
+
+const removeParksWishToGO = async (userId, parkId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+  if (!parkId) throw 'You must provide an id to search for';
+  if (typeof parkId !== 'string' && typeof parkId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (parkId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  parkId = parkId.trim();
+
+  const userCollection = await users();
+  const user = await userCollection.findOne({ _id: ObjectId(userId) });
+  let updatedUser = 0;
+  let userPark = user.parksWishToGo;
+  if ( userPark.length === 1){
+    updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { parksWishToGo: -1 } });
+  } else {
+    updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { parksWishToGo: parkId } });
+  }
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not remove park successfully';
+  }
+
+};
+
+const addParksHaveVisited = async (userId, parkId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+  if (!parkId) throw 'You must provide an id to search for';
+  if (typeof parkId !== 'string' && typeof parkId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (parkId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  parkId = parkId.trim();
+
+  const userCollection = await users();
+  const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { parksHaveVisited: parkId } });
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not add park successfully';
+  }
+};
+
+const removeParksHaveVisited = async (userId, parkId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+  if (!parkId) throw 'You must provide an id to search for';
+  if (typeof parkId !== 'string' && typeof parkId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (parkId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  parkId = parkId.trim();
+
+  const userCollection = await users();
+  const user = await userCollection.findOne({ _id: ObjectId(userId) });
+  let updatedUser = 0;
+  let userPark = user.parksWishToGo;
+  if ( userPark.length === 1){
+    updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { parksHaveVisited: -1 } });
+  } else {
+    updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { parksHaveVisited: parkId } });
+  }
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not remove park successfully';
+  }
+};
+
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -203,4 +409,11 @@ module.exports = {
   updateUser,
   getUserByName,
   addReview,
+  removeReview,
+  addComment,
+  removeComment,
+  addParksWishToGO,
+  removeParksWishToGO,
+  addParksHaveVisited,
+  removeParksHaveVisited
 };
