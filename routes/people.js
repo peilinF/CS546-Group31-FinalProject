@@ -6,7 +6,7 @@ const path = require('path');
 
 router.route("/").get(async (req, res) => {
   //code here for GET
-  res.sendFile(path.resolve('static/homepage.html'));
+  res.sendFile(path.resolve('static/people.html'));
 
 });
 

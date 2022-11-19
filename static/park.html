@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Park</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/public/main-styles.css">
+</head>
+
+<body>
+    <main>
+      <h1>Park</h1>
+      <article>
+        <h2>Search</h2>
+        <p>Seach the national park, and learn more information!</p>
+        <footer>
+          <form action="/searchpark" method="POST">
+              <label for="name" id="searchParkNameLabel">Park Name:</label>
+              <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here">
+              <input type="submit" value="Search">
+          </form>
+        </footer>
+      </article>
+    </main>
+</body>
+
+</html>
