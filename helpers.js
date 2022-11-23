@@ -28,6 +28,15 @@ function vaildEmailAddr (email) {
     return true;
 }
 
+function validUserName (name) {
+    if (!name) throw 'You must provide an user name to search for';
+    if (typeof name !== 'string') throw 'User name must be a string';
+    if (name.trim().length === 0)
+        throw 'User name cannot be an empty string or just spaces';
+    name = name.trim()
+    return name
+}
+
 function hashPassword(password) {
     return bcrypt.hashSync(password, 16);
 }
@@ -35,5 +44,6 @@ module.exports = {
     validDate,
     validTime,
     vaildEmailAddr,
+    validUserName,
     hashPassword
 }
