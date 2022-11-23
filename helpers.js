@@ -37,6 +37,14 @@ function validUserName (name) {
     return name
 }
 
+function validParkId (parkId) {
+    if (!parkId) throw 'You must provide an id to search for'
+    if (parkId.trim().length === 0)
+        throw 'id cannot be an empty string or just spaces'
+    parkId = parkId.trim()
+    return parkId
+}
+
 function hashPassword(password) {
     return bcrypt.hashSync(password, 16);
 }
@@ -45,5 +53,6 @@ module.exports = {
     validTime,
     vaildEmailAddr,
     validUserName,
+    validParkId,
     hashPassword
 }

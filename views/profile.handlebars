@@ -8,24 +8,27 @@
         <li>Total like sent: {{user.likes.length}}</li>
     </ul>
 </article>
-<article>
-    <h5>Parks have visited:</h5>
-    <ol>
-        {{#each vistedParks}}
-        <li>
-            <a href="/park/{{id}}">{{ParkName}}</a>
-        </li>
-        {{/each}}
-    </ol>
-</article>
-<article>
-    <h5>Parks wish to visit:</h5>
-    <ol>
-        {{#each wishedParks}}
-        <li>
-            <a href="/park/{{id}}">{{ParkName}}</a>
-        </li>
-        {{/each}}
-    </ol>
-</article>
+<div class="park-visited-and-wished">
+    <div class="park-visited">
+        <h5>Parks have visited:</h5>
+        <ol>
+            {{#each vistedParks}}
+            <li>
+                <a href="/park/{{id}}">{{ParkName}}</a>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+    <div class="park-wished">
+        <h5>Parks wish to visit:</h5>
+        <ol>
+            {{#each wishedParks}}
+            <li>
+                <a href="/park/{{id}}">{{ParkName}}</a>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+</div>
 
+<script src="/public/js/profile.js"></script>

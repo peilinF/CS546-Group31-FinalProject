@@ -49,8 +49,6 @@ const getAllParks = async () => {
 };
 
 const getParkById = async (parkId) => {
-
-
     if (!parkId) throw 'You must provide an id to search for';
     if (parkId.trim().length === 0)
         throw 'id cannot be an empty string or just spaces';
