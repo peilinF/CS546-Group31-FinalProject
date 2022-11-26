@@ -46,7 +46,7 @@ router.route("/id/:id").get(async (req, res) => {
   try {
     userId = helpers.isValidObjectId(userId)
   } catch(e) {
-    res.render('error', {path: '/user/:id', statucode: 400, error : e});
+    res.render('error', {path: '/user/id', statucode: 400, error : e});
     res.status(400);
     return;
   }
@@ -56,11 +56,11 @@ router.route("/id/:id").get(async (req, res) => {
     res.status(200)
   } catch (e) {
     if (e === "No person found") {
-      res.render('error', {path: '/user/:id', statucode: 404, error : e});
+      res.render('error', {path: '/user/id', statucode: 404, error : e});
       res.status(404);
       return;
   } else {
-    res.render('error', {path: '/user/:id', statucode: 500, error : e});
+    res.render('error', {path: '/user/id', statucode: 500, error : e});
     res.status(500);
     return;
   }
