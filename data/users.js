@@ -14,6 +14,7 @@ const createUser = async (
   let parksHaveVisited = [];
   let parksWishToGo = [];
   let likes = [];
+  let followers = [];
 
   if (!userName) throw 'You must provide a user name';
   if (typeof userName !== 'string') throw 'User name must be a string';
@@ -42,9 +43,11 @@ const createUser = async (
     hashedPassword: hashedPassword,
     reviews: reviews,
     comments: comments,
+    followers: followers,
     parksHaveVisited: parksHaveVisited,
     parksWishToGo: parksWishToGo,
     likes: likes,
+    likesRecievedAmount: 0,
   };
   const userCollection = await users();
   const insertInfo = await userCollection.insertOne(newUser);
