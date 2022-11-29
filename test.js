@@ -16,16 +16,15 @@ const DUMMY_REVIEW = {
 }
 
 const seed = require('./seed')
-const parkInfo = seed.parkInfo
+// const parkInfo = seed.parkInfo
+const parkInfo = axios.get('https://developer.nps.gov/api/v1/parks?api_key=52KiEVABmztoxDerGdxyqMEYVGIPiO5nmkBXGII4');
 const parsePark = seed.parsePark
 const fetchAllParks = async() => {
   const parkList = await parkInfo;
-  console.log(Object.keys(parkList))
   if (!parkList) throw `[fetchAllParks] no parkList ${parkList}`
-  const parkData = JSON.parse(parkList.data).data;
+  const parkData = parkList.data.data;
   if (!parkData) throw `[fetchAllParks] no parkData ${parkData}`
   let allparks = []
-  console.log(typeof parkData)
   
   for (let i = 0; i < parkData.length; i++) {
       let park = parkData[i]
