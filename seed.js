@@ -15,8 +15,10 @@ const main = async () => {
     await creatPark();
     const user = await createUser();
     const park = await parks.getParkByName('Acadia National Park');
+
     const review = await reviews.createReview(park._id.toString(), user._id.toString(),'title', 'content', 4);
     const review2 = await reviews.createReview(park._id.toString(), user._id.toString(), 'title1', 'content1', 3);
+
     const comment = await comments.createComment(review._id.toString(), user._id.toString(), 'comment');
     const comment2 = await comments.createComment(review2._id.toString(), user._id.toString(), 'comment2');
 
@@ -39,45 +41,55 @@ const createUser = async () => {
     return user;
 };
 
+const parsePark = (park) => {
+    let id = park.id;
+    let parkName = park.fullName;
+    let address = park.addresses[0].line1 + ' ' + park.addresses[0].city + ' ' + park.addresses[0].stateCode + ' ' + park.addresses[0].postalCode;
+    let park_picture = park.images[0].url;
+    let introduction = park.description;
+    let linkInformation = park.url;
+
+    let contacts = [];
+    for (let j = 0; j < park.contacts.phoneNumbers.length; j++) {
+        let phone = park.contacts.phoneNumbers[j].phoneNumber;
+        let type = park.contacts.phoneNumbers[j].type;
+        let contact = {
+            phone: phone,
+            type: type
+        }
+        contacts.push(contact);
+    }
+
+    let fee = [];
+    for (let j = 0; j < park.entranceFees.length; j++) {
+        let cost = park.entranceFees[j].cost;
+        let description = park.entranceFees[j].description;
+        let title = park.entranceFees[j].title;
+        let feeInfo = {
+            cost: cost,
+            description: description,
+            title: title
+        }
+        fee.push(feeInfo);
+    }
+    return id, parkName, address, park_picture, introduction, linkInformation, contacts, fee
+}
+
 const creatPark = async() => {
     const parkList = await parkInfo;
     const parkData = parkList.data.data;
     
     for (let i = 0; i < parkData.length; i++) {
-        let park = parkData[i];
-        let id = park.id;
-        let parkName = park.fullName;
-        let address = park.addresses[0].line1 + ' ' + park.addresses[0].city + ' ' + park.addresses[0].stateCode + ' ' + park.addresses[0].postalCode;
-        let park_picture = park.images[0].url;
-        let introduction = park.description;
-        let linkInformation = park.url;
-
-        let contacts = [];
-        for (let j = 0; j < park.contacts.phoneNumbers.length; j++) {
-            let phone = park.contacts.phoneNumbers[j].phoneNumber;
-            let type = park.contacts.phoneNumbers[j].type;
-            let contact = {
-                phone: phone,
-                type: type
-            }
-            contacts.push(contact);
-        }
-
-        let fee = [];
-        for (let j = 0; j < park.entranceFees.length; j++) {
-            let cost = park.entranceFees[j].cost;
-            let description = park.entranceFees[j].description;
-            let title = park.entranceFees[j].title;
-            let feeInfo = {
-                cost: cost,
-                description: description,
-                title: title
-            }
-            fee.push(feeInfo);
-        }
+        let park = parkData[i]
+        let id, parkName, address, park_picture, introduction, linkInformation, contacts, fee = parsePark(park)
 
         await parks.createPark(id, parkName, address, park_picture, introduction, linkInformation, contacts, fee);
     }
 };
 
 main().catch(console.log);
+
+module.exports = {
+    parkInfo,
+    parsePark
+};
