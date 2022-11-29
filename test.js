@@ -23,7 +23,7 @@ const parkInfo = axios.get('https://developer.nps.gov/api/v1/parks?api_key=52KiE
 const creatPark = async() => {
     const parkList = await parkInfo;
     const parkData = parkList.data.data;
-    let park = [];  
+    let parks = [];  
     for (let i = 0; i < parkData.length; i++) {
         let park = parkData[i];
         let id = park.id;
@@ -57,9 +57,9 @@ const creatPark = async() => {
             fee.push(feeInfo);
         }
 
-        park.push({ id : id, parkName : parkName, address : address, park_picture : park_picture, introduction : introduction, linkInformation : linkInformation, contacts : contacts, fee : fee});
+        parks.push({ id : id, parkName : parkName, address : address, park_picture : park_picture, introduction : introduction, linkInformation : linkInformation, contacts : contacts, fee : fee});
     }
-    return park;
+    return parks;
 };
 module.exports = {
   DUMMY_USER,
