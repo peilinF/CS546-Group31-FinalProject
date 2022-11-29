@@ -11,6 +11,50 @@ const DUMMY_USER = {
     "likes" : ["507f1f77bcf86cd799439013","507f1f77bcf86cd799439012","603d992b919a503b9afb856e"]
   }
 
-  module.exports = {
-    DUMMY_USER
-  };
+const DUMMY_REVIEW = {
+
+}
+
+const seed = require('./seed')
+const parkInfo = seed.parkInfo
+const parsePark = seed.parsePark
+const fetchAllParks = async() => {
+  const parkList = await parkInfo;
+  console.log(Object.keys(parkList))
+  if (!parkList) throw `[fetchAllParks] no parkList ${parkList}`
+  const parkData = JSON.parse(parkList.data).data;
+  if (!parkData) throw `[fetchAllParks] no parkData ${parkData}`
+  let allparks = []
+  console.log(typeof parkData)
+  
+  for (let i = 0; i < parkData.length; i++) {
+      let park = parkData[i]
+      let id, parkName, address, park_picture, introduction, linkInformation, contacts, fee
+      try {
+        id, parkName, address, park_picture, introduction, linkInformation, contacts, fee = parsePark(park)
+      } catch (e) {
+        throw `[parsePark] Error: ${e}`
+      }
+      let reviews = [];
+      let overallRating = 0;
+      let newPark = {
+        _id : id,
+        parkName: parkName,
+        address: address,
+        park_picture: park_picture,
+        introduction: introduction,
+        linkInformation: linkInformation,
+        contacts: contacts,
+        entranceFees: fee,
+        reviews: reviews,
+        overallRating: overallRating,
+      }
+      allparks.push(newPark)
+  }
+  return allparks
+}
+
+module.exports = {
+  DUMMY_USER,
+  fetchAllParks
+};
