@@ -15,13 +15,14 @@ const main = async () => {
     await creatPark();
     const user = await createUser();
     const park = await parks.getParkByName('Acadia National Park');
-    const review = await createReview(park._id.toString(), user._id.toString());
-    const createdReview = await reviews.createReview(park._id.toString(), user._id.toString(), 'title1', 'content1', 3);
+
+    const review = await reviews.createReview(park._id.toString(), user._id.toString(),'title', 'content', 4);
+    const review2 = await reviews.createReview(park._id.toString(), user._id.toString(), 'title1', 'content1', 3);
 
     const comment = await comments.createComment(review._id.toString(), user._id.toString(), 'comment');
-    const comment2 = await comments.createComment(createdReview._id.toString(), user._id.toString(), 'comment2');
+    const comment2 = await comments.createComment(review2._id.toString(), user._id.toString(), 'comment2');
 
-    await comments.removeComment(user._id.toString(), createdReview._id.toString(),comment._id.toString());
+    await comments.removeComment(user._id.toString(), review2._id.toString(),comment._id.toString());
     //await parks.updateReviewById(park._id.toString(), review._id.toString());
     //console.log(allPark);
     await connection.closeConnection();
