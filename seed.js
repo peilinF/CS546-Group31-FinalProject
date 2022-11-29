@@ -15,9 +15,8 @@ const main = async () => {
     await creatPark();
     const user = await createUser();
     const park = await parks.getParkByName('Acadia National Park');
-    const review = await createReview(park._id.toString(), user._id.toString());
+    const review = await reviews.createReview(park._id.toString(), user._id.toString(),'title', 'content', 4);
     const review2 = await reviews.createReview(park._id.toString(), user._id.toString(), 'title1', 'content1', 3);
-
     const comment = await comments.createComment(review._id.toString(), user._id.toString(), 'comment');
     const comment2 = await comments.createComment(review2._id.toString(), user._id.toString(), 'comment2');
 

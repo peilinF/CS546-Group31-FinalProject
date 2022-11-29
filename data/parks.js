@@ -97,10 +97,7 @@ const addReview = async (parkId, reviewId,rating) => {
     const reviews = thisPark.reviews;
     let ratingSum = (reviews.length - 1)* thisPark.overallRating + rating;
     let length = reviews.length;
-    //console.log(ratingSum);
-    //console.log(ratingSum / length);
-    const newRating = ratingSum / length;
-    //console.log(newRating + " " + ratingSum + " " + reviews.length);
+    let newRating = ratingSum/length;
     if(!Number.isInteger(newRating)){
         newRating = newRating.toFixed(1);
     }
