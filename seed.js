@@ -2,6 +2,7 @@ const data = require('./data');
 const parks = data.parks;
 const users = data.users;
 const reviews = data.reviews;
+const comments = data.comments;
 const update = data.updates;
 const { ObjectId } = require('mongodb');
 const connection = require('./config/mongoConnection');
@@ -17,7 +18,10 @@ const main = async () => {
     const review = await createReview(park._id.toString(), user._id.toString());
     const review2 = await reviews.createReview(park._id.toString(), user._id.toString(), 'title1', 'content1', 3);
 
-    await reviews.removeReview(review);
+    const comment = await comments.createComment(review._id.toString(), user._id.toString(), 'comment');
+    const comment2 = await comments.createComment(review2._id.toString(), user._id.toString(), 'comment2');
+
+    await comments.removeComment(user._id.toString(), review2._id.toString(),comment._id.toString());
     //await parks.updateReviewById(park._id.toString(), review._id.toString());
     //console.log(allPark);
     await connection.closeConnection();

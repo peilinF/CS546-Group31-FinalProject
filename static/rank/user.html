@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Rank User</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/public/main-styles.css">
+</head>
+
+<body>
+    <main>
+      <h1>Rank User</h1>
+      <article>
+        <h2>Select options how to rank the user!</h2>
+        <p>
+            Welcome to Rank User Page. You can rank user with multiple options.
+        </p>
+        <form action="/rank/user/results" method="GET">
+            <label for="option" id="rankUserOptionLabel">Sort by:</label>
+            <select name="option" id="rankUserSelect" selected="followersAmount">
+                <option value="followersAmount">followers amount</option>
+                <option value="likesRecieved">likes recieved</option>
+                <option value="commentsAmount">comments amount</option>
+            </select>
+            <label for="itemsNum" id="rankUserItemsNumLabel">itemsNum:</label>
+            <input type="number" id="rankUserItemsNumInput">
+            <label for="reverse" id="rankUserReverseLabel">Reverse:</label>
+            <select name="reverse" id="rankUserReverseSelect" selected="false">
+                <option value="false">false</option>
+                <option value="true">true</option>
+            </select>
+            <input type="submit" value="Rank">
+        </form>
+      </article>
+    </main>
+</body>
+
+</html>

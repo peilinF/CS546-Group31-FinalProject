@@ -1,0 +1,36 @@
+<h1>{{user.userName}}'s Profile</h1>
+<article>
+    <ul>
+        <li>Name: {{user.userName}}</li>
+        <li>User ID: {{user.userID}}</li>
+        <li>Email: {{user.email}}</li>
+        <li>Birth Date: {{user.birthDate}}</li>
+        <li>Total Reviews Amount: {{user.reviews.length}}</li>
+        <li>Total like sent: {{user.likes.length}}</li>
+    </ul>
+</article>
+<input type="button" value="Display parks visited and wished list" id="btn-park-list" onclick="btnHideDisplay()"></input>
+<div id="profile-park-visited-and-wished" class="park-visited-and-wished" style="display:none">
+    <div class="park-visited">
+        <h5>Parks have visited:</h5>
+        <ol>
+            {{#each user.ParksHaveVisited}}
+            <li>
+                <a href="/park/{{this}}">{{this}}</a>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+    <div class="park-wished">
+        <h5>Parks wish to visit:</h5>
+        <ol>
+            {{#each user.ParksWishToGo}}
+            <li>
+                <a href="/park/{{this}}">{{this}}</a>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+</div>
+
+<script src="/public/js/profile.js"></script>

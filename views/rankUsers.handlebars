@@ -1,0 +1,29 @@
+<h1>User Rank</h1>
+<article>
+    <p>Sort by {{option}}</p>
+    <p>Items number {{itemsNum}}</p>
+    <p>Reverse? {{reverse}}</p>
+</article>
+<div>
+    <h5>Results:</h5>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>followers amount</th>
+            <th>likes recieved</th>
+            <th>comments amount</th>
+        </tr>
+        {{#each results}}
+        <tr>
+            <th>{{rank}}</th>
+            <th>{{userID}}</th>
+            <th>{{userName}}</th>
+            <th>{{followers.length}}</th>
+            <th>{{likesRecievedAmount}}</th>
+            <th>{{comments.length}}</th>
+        </tr>
+        {{/each}}
+    </table>
+</div>

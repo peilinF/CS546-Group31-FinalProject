@@ -5,7 +5,8 @@ const reviews = mongoCollections.reviews;
 const parksClass = require('./parks');
 const usersClass = require('./users');
 const {ObjectId} = require('mongodb');
-const e = require('express');
+const app = require('express');
+
 const createReview = async (
   parkId,
   userId,
@@ -53,7 +54,7 @@ const createReview = async (
     userName: user.userName,
     content: content,
     rating: rating,
-    date: new Date().toLocaleDateString(),
+    lastUpdatedTimeStamp : new Date().toLocaleDateString(),
     comments:[],
     number_of_likes: 0,
   };
@@ -66,7 +67,8 @@ const createReview = async (
   await parksClass.addReview(parkId, newId,rating);
   await usersClass.addReview(userId, newId);
   
-  return newId;
+  const review = await reviewCollection.findOne({ _id: ObjectId(newId) });
+  return review;
 };
 
 
@@ -133,76 +135,61 @@ const removeReview = async (reviewId) => {
   const review = await getReview(reviewId);
   const parkId = review.parkId;
   await parksClass.removeReview(parkId, reviewId);
-  // const allparks = await parksClass.getAllParks();
-  // let parkId = '';
-  // let userId = '';
-  // for (let i = 0; i < allparks.length; i++){
-  //   let reviews = allparks[i].reviews;
-  //   for (let j = 0; j < reviews.length; j++){
-  //     if (reviews[j]._id.toString() === reviewId){
-  //       parkId = allparks[i]._id.toString();
-  //       let userName = reviews[j].reviewer;
-  //       let user = await usersClass.getUserByName(userName);
-  //       userId = user._id.toString();
-  //       break;
-  //     }
-  //   }
-  // }
-
-  // const parkCollection = await parks();
-  // let removepark;
-  // let removeAllreviews = await getAllReviews(parkId);
-  // if (removeAllreviews.length === 1){
-  //   removepark = await parkCollection.updateOne({_id: parkId}, {$pop: {reviews: -1}});
-  // } else {
-  //   removepark = await parkCollection.updateOne({ _id: parkId }, { $pull: { reviews: { _id: ObjectId(reviewId) } } });
-  // }
-  // if (removepark.modifiedCount === 0) {
-  //   throw 'could not delete review Park successfully';
-  // }
-
-  // let removeuser;
-  // const userCollection = await users();
-  // const user = await usersClass.getUserById(userId);
-  // if (user.reviews.length === 1){
-  //   removeuser = await userCollection.updateOne({_id: ObjectId(userId)}, {$pop: {reviews: -1}});
-  // } else {
-  //   removeuser = await userCollection.updateOne({ _id: ObjectId(userId)}, { $pull: { reviews: { _id: ObjectId(reviewId) } } });
-  // }
-  // if (removeuser.modifiedCount === 0) {
-  //   throw 'could not delete review User successfully';
-  // }
-
-  // const thisPark = await parkCollection.findOne({ _id: parkId });
-  // let ratingSum = 0;
-  // const query = {
-  //   _id: parkId,
-  // };
-  // for (let i = 0; i < removeAllreviews.length; i++){
-  //   ratingSum += removeAllreviews[i].rating;
-  // }
-  // let newRating = 0;
-  // try{
-  //   if(reviews.length !== 0){
-  //     newRating = ratingSum / removeAllreviews.length;
-  //   } 
-  //   if(!Number.isInteger(newRating)){
-  //     newRating = newRating.toFixed(1);
-  //   }
-  // } catch (e){
-  //   newRating = 0;
-  // }
-  // if (newRating != thisPark.overallRating){
-
-  //   await parkCollection.updateOne(query, {$set: {overallRating : newRating}});
-  // }
-  
+  await usersClass.removeReview(review.userId, reviewId);
+  const reviewCollection = await reviews();
+  const deletionInfo = await reviewCollection.deleteOne({ _id: ObjectId(reviewId) });
+  if (deletionInfo.deletedCount === 0) {
+    throw `Could not delete review with id of ${reviewId}`;
+  }  
 };
 
+const addComment = async (reviewId, commentId) => {
+
+  const reviewsCollection = await reviews();
+  const updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $push: { comments: commentId } });
+  if (updatedInfo.modifiedCount === 0) {
+    throw 'could not add comment successfully';
+  }
+};
+
+const removeComment = async (reviewId, commentId) => {
+  const reviewsCollection = await reviews();
+  const review = await reviewsCollection.findOne({ _id: ObjectId(reviewId) });
+  if (!review) throw 'review not found';
+  const comments = review.comments;
+  if (comments.length === 1){
+    const updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $pop: { comments: -1 } });
+    if (updatedInfo.modifiedCount === 0) {
+      throw 'could not remove comment successfully';
+    }
+  } else {
+    const updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $pull: { comments: commentId } });
+    if (updatedInfo.modifiedCount === 0) {
+      throw 'could not remove comment successfully';
+    }
+  }
+};
+
+const updateReview = async (reviewId, conent) => {
+
+  const reviewsCollection = await reviews();
+  const updatedReview = {
+    content: conent,
+    lastUpdatedTimeStamp: new Date().toLocaleDateString(),
+  };
+  const updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $set: updatedReview });
+  if (updatedInfo.modifiedCount === 0) {
+    throw 'could not update review successfully';
+  }
+  return await getReview(reviewId);
+};
 module.exports = {
   createReview,
   getAllReviews,
   getReview,
   removeReview,
-  getAllUserReviews
+  getAllUserReviews,
+  addComment,
+  removeComment,
+  updateReview,
 };

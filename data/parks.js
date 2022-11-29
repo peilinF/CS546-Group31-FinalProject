@@ -49,8 +49,6 @@ const getAllParks = async () => {
 };
 
 const getParkById = async (parkId) => {
-
-
     if (!parkId) throw 'You must provide an id to search for';
     if (parkId.trim().length === 0)
         throw 'id cannot be an empty string or just spaces';
@@ -147,6 +145,9 @@ const removeReview = async (parkId, reviewId) => {
     let rating = review.rating;
     let ratingSum = (parkReviews.length + 1) * overallRating - rating;
     let newRating = ratingSum / parkReviews.length;
+    if (parkReviews.length === 0){
+        newRating = 0;
+    }
     if(!Number.isInteger(newRating)){
         newRating = newRating.toFixed(1);
     }

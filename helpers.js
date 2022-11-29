@@ -1,5 +1,6 @@
 //You can add and export any helper functions you want here. If you aren't using any, then you can just leave this file as is.
 const bcrypt = require('bcryptjs');
+const {ObjectId} = require('mongodb');
 
 function validDate(date) {
     if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(date)) throw   'Date must be in the format MM/DD/YYYY';
@@ -28,6 +29,36 @@ function vaildEmailAddr (email) {
     return true;
 }
 
+function validUserName (name) {
+    if (!name) throw 'You must provide an user name to search for';
+    if (typeof name !== 'string') throw 'User name must be a string';
+    if (name.trim().length === 0)
+        throw 'User name cannot be an empty string or just spaces';
+    name = name.trim()
+    return name
+}
+
+function validParkId (parkId) {
+    if (!parkId) throw 'You must provide an id to search for'
+    if (parkId.trim().length === 0)
+        throw 'id cannot be an empty string or just spaces'
+    parkId = parkId.trim()
+    return parkId
+}
+
+function isValidObjectId (objectId) {
+    if (!objectId) throw 'You must provide an id to search for';
+    if (typeof objectId !== 'string' && typeof objectId !== 'object')
+      throw `Id ${objectId} must be a string or ObjectId`;
+    if (typeof objectId === 'string') {
+      if (!ObjectId.isValid(objectId)) throw `Id ${objectId} is not a valid User idObjectId`;
+    }
+    if (objectId.trim().length === 0)
+        throw 'id cannot be an empty string or just spaces';
+    objectId = objectId.trim();
+    return objectId
+}
+
 function hashPassword(password) {
     return bcrypt.hashSync(password, 16);
 }
@@ -35,5 +66,8 @@ module.exports = {
     validDate,
     validTime,
     vaildEmailAddr,
+    validUserName,
+    validParkId,
+    isValidObjectId,
     hashPassword
 }
