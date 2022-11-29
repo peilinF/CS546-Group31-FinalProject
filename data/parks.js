@@ -28,7 +28,6 @@ const createPark = async (
     entranceFees: fee,
     reviews: reviews,
     overallRating: overallRating,
-
   };
 
   const parksCollection = await parks();
