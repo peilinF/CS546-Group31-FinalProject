@@ -1,0 +1,12 @@
+<form method="POST" action="/register" id="registration-form">
+  <label for="usernameInput">Username</label>
+  <input type="text" name="usernameInput" id="usernameInput">
+  <label for="passwordInput">Password</label>
+  <input type="password" name="passwordInput" id="passwordInput">
+  
+  <div>
+    <button type="submit">Register</button>
+  </div>
+</form>
+<a href="/">Already have an account? Click here to log-in</a>
+{{#if error}}<div class="error">{{error}}</div>{{/if}}

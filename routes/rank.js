@@ -3,6 +3,9 @@ const router = express.Router();
 const data = require('../data');
 const rankData = data.rank
 const path = require('path');
+const reviewData = data.reviews;
+
+
 
 router.route("/").get(async (req, res) => {
   //code here for GET
@@ -42,7 +45,7 @@ router.route("/user/results").get(async (req, res) => {
     itemsNum = req.params.itemsNum
     reverse = req.params.reverse
   } catch (e) {
-    res.render('error', {path: '/rank/user/result', statucode: 400, error : e});
+    res.render('error', {path: '/rank/user/result', statuscode: 400, error : e});
     res.status(400);
     return;
   }
