@@ -7,7 +7,7 @@ const update = data.updates;
 const { ObjectId } = require('mongodb');
 const connection = require('./config/mongoConnection');
 const axios = require('axios');
-const parkurl = 'https://developer.nps.gov/api/v1/parks?api_key=52KiEVABmztoxDerGdxyqMEYVGIPiO5nmkBXGII4'
+const parkurl = 'https://developer.nps.gov/api/v1/parks?limit=468&api_key=52KiEVABmztoxDerGdxyqMEYVGIPiO5nmkBXGII4'
 const parkRequest = axios.request(parkurl, {
     headers: { Accept: 'application/json', 'Accept-Encoding': 'identity' }, 
     params: { trophies: true }
