@@ -4,6 +4,11 @@ const data = require('../data');
 const path = require('path');
 const test = require('../test')
 
+const parkData = data.parks;
+const userData = data.users;
+const reviewData = data.reviews;
+const xss = require('xss');
+
 router.route("/").get(async (req, res) => {
   //code here for GET
   res.sendFile(path.resolve('static/park.html'));
@@ -21,4 +26,33 @@ router.route("/test").get(async (req, res) => {
   return
   }
 );
+
+router.route("/:name").get(async (req, res) => {
+  const name = req.params.name;
+  try {
+    let park = await parkData.getParkById(name);
+    park = await getReview(park);
+    res.render('singlePark', {park: park});
+    res.status(200)    
+  } catch (e) {
+    res.status(500);
+  }
+});
+
+const getReview = async (park) => {
+  let reviews = [];
+  let hasReviews = false;
+  for (let i = 0; i < park.reviews.length; i++) {
+    let review = await reviewData.getReview(park.reviews[i]);
+    delete review._id;
+    reviews.push(review);
+  }
+  if (reviews.length !== 0) {
+    hasReviews = true;
+  }
+  park.reviews = reviews;
+  park.hasReviews = hasReviews;
+  return park;
+};
+
 module.exports = router;

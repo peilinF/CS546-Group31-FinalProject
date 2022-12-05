@@ -24,9 +24,9 @@ const main = async () => {
     const review2 = await reviews.createReview(park._id.toString(), user._id.toString(), 'title1', 'content1', 3);
 
     const comment = await comments.createComment(review._id.toString(), user._id.toString(), 'comment');
-    const comment2 = await comments.createComment(review2._id.toString(), user._id.toString(), 'comment2');
+    // const comment2 = await comments.createComment(review2._id.toString(), user._id.toString(), 'comment2');
 
-    await comments.removeComment(user._id.toString(), review2._id.toString(),comment._id.toString());
+    // await comments.removeComment(user._id.toString(), review2._id.toString(),comment._id.toString());
     //await parks.updateReviewById(park._id.toString(), review._id.toString());
     //console.log(allPark);
     await connection.closeConnection();
@@ -46,9 +46,11 @@ const createUser = async () => {
 };
 
 const parsePark = (park) => {
+
     let id = park.id;
     let parkName = park.fullName;
     let address = park.addresses[0].line1 + ' ' + park.addresses[0].city + ' ' + park.addresses[0].stateCode + ' ' + park.addresses[0].postalCode;
+    let map = `https://www.google.com/maps/place/${park.addresses[0].line1}+${park.addresses[0].city}+${park.addresses[0].stateCode}+${park.addresses[0].postalCode}`;
     let park_picture = park.images[0].url;
     let introduction = park.description;
     let linkInformation = park.url;
@@ -76,19 +78,16 @@ const parsePark = (park) => {
         }
         fee.push(feeInfo);
     }
-    return id, parkName, address, park_picture, introduction, linkInformation, contacts, fee
+    return [id, parkName, address, map, park_picture, introduction, linkInformation, contacts, fee];
 }
 
 const creatPark = async() => {
     const parkResponse = await parkRequest
-    console.log(Array.isArray(parkResponse.data.data))
     const parkData = parkResponse.data.data;
-    
     for (let i = 0; i < parkData.length; i++) {
         let park = parkData[i]
-        let id, parkName, address, park_picture, introduction, linkInformation, contacts, fee = parsePark(park)
-
-        await parks.createPark(id, parkName, address, park_picture, introduction, linkInformation, contacts, fee);
+        const information = parsePark(park);
+        await parks.createPark(information[0], information[1], information[2], information[3], information[4], information[5], information[6], information[7], information[8]);
     }
 };
 

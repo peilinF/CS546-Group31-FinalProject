@@ -1,0 +1,40 @@
+<div class = park_information>
+    <h1 id = 'park_head'><a href = "{{park.linkInformation}}" id = "park_url" target="_blank">{{park.parkName}}</a></h1>
+    <img src="{{park.park_picture}}" alt="{{park.parkName}}">
+    <p id = 'park_description'> Park introduction: {{park.introduction}}</p>
+    <p id = 'park_address'>Park address: <a href="{{park.map}}" target="_blank"> {{park.address}}</a></p>
+    <ul class = 'contacts'>
+        {{#each park.contacts}}
+        <li>
+            <p class = 'phone'>Phone Number: {{this.phone}}</p>
+            <p class = 'phone'>Type: {{this.type}}</p>
+        </li>
+        {{/each}}
+    </ul>
+
+    <ul class = 'fee'>
+        {{#each park.entranceFees}}
+        <li>
+            <p class = 'fee'>Cost: {{this.cost}}</p>
+            <p class = 'fee'>Description: {{this.description}}</p>
+            <p class = 'fee'>Title: {{this.title}}</p>
+        </li>
+        {{/each}}
+    </ul>
+    <p id = "park_rating">Overall Rating: {{park.overallRating}}</p>
+
+    {{#if park.hasReviews}}
+    <div class = 'reviews'>
+        <h2>Reviews</h2>
+        {{#each park.reviews}}
+        <div class = 'review'>
+            <p class = 'review'>Author: {{this.userName}}</p>
+            <p class = 'review'>Rating: {{this.rating}}</p>
+            <p class = 'review'>Review: {{this.content}}</p>
+            <p class = 'review'>Date: {{this.lastUpdatedTimeStamp}}</p>
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+
+</div>

@@ -6,35 +6,37 @@ const reviewsClass = require('./reviews');
 const {ObjectId} = require('mongodb');
 const helper = require("../helpers.js");
 const createPark = async (
-  id,
-  parkName,
-  address,
-  park_picture,
-  introduction,
-  linkInformation,
-  contacts,
-  fee
-) => {
-  let reviews = [];
-  let overallRating = 0;
-  const newPark = {
-    _id : id,
-    parkName: parkName,
-    address: address,
-    park_picture: park_picture,
-    introduction: introduction,
-    linkInformation: linkInformation,
-    contacts: contacts,
-    entranceFees: fee,
-    reviews: reviews,
-    overallRating: overallRating,
+    id,
+    parkName,
+    address,
+    map,
+    park_picture,
+    introduction,
+    linkInformation,
+    contacts,
+    fee
+  ) => {
+    let reviews = [];
+    let overallRating = 0;
+    const newPark = {
+      _id : id,
+      parkName: parkName,
+      address: address,
+      map: map,
+      park_picture: park_picture,
+      introduction: introduction,
+      linkInformation: linkInformation,
+      contacts: contacts,
+      entranceFees: fee,
+      reviews: reviews,
+      overallRating: overallRating,
+    };
+  
+    const parksCollection = await parks();
+    const insertInfo = await parksCollection.insertOne(newPark);
+    if (insertInfo.insertedCount === 0) throw 'Could not add park';
+    return await getParkById(insertInfo.insertedId.toString());
   };
-
-  const parksCollection = await parks();
-  const insertInfo = await parksCollection.insertOne(newPark);
-  if (insertInfo.insertedCount === 0) throw 'Could not add park';
-  return await getParkById(insertInfo.insertedId.toString());
-};
 
 const getAllParks = async () => {
 

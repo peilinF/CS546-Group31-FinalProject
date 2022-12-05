@@ -140,3 +140,18 @@ body {
     padding: 0.4rem;
   }
   
+  img {
+    width: 100%;
+    height: auto;
+    display: flex;
+  }
+
+  #park_head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  #park_url{
+   text-decoration: none;
+  }
