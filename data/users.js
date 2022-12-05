@@ -173,29 +173,28 @@ const updateUser = async (
 
 };
 
-const checkUser = async (username, password) => {
-  if(!username || !password){
+const checkUser = async (email, password) => {
+  if(!email || !password){
     throw 'All fields need to have valid values.'
   }
 
-  //check username
-  checkStringName(username);
-  checkUserNameValid(username);
+  //check email
+  helper.validEmailAddr(email);
 
   //check password
-  checkPasswordString(password);
-  checkPassword(password);
+  helper.checkPasswordString(password);
+  helper.checkPassword(password);
 
   //Query the db for the username supplied, if it is not found, throw an error
   const usersCollection = await users();
-  const user = await usersCollection.findOne({username: username.toLowerCase()});
-  if(user === null) throw 'Either the username or password is invalid.'
+  const user = await usersCollection.findOne({email: email.toLowerCase()});
+  if(user === null) throw 'Either the email or password is invalid.'
 
   const compareToPassword = await bcrypt.compare(password,user.password);
   if(compareToPassword){
     return {authenticatedUser: true};
   }else{
-    throw 'Either the username or password is invalid.'
+    throw 'Either the email or password is invalid.'
   }
 };
 

@@ -62,6 +62,31 @@ function isValidObjectId (objectId) {
 function hashPassword(password) {
     return bcrypt.hashSync(password, 16);
 }
+
+function checkPasswordString(password){
+    if(typeof password != "string"){
+      throw 'password should be valid string.'
+    }
+    if(password.trim().length === 0){
+      throw 'password should not be all empty spaces.'
+    }
+  }
+  function checkPassword(password){
+    //The constraints for password will be: There needs to be at least one uppercase character, 
+    //there has to be at least one number and there has to be at least one special character,
+    //at least 6 characters long
+    //var regex = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/g;
+    for(let i = 0; i < password.length; i ++){
+      if(password.charAt(i) === " "){
+        throw 'No spaces between password.'
+      }
+    }
+    let strongPassword = new RegExp('(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,})')
+    if(!strongPassword.test(password)){
+      throw 'Not valid password-At least one upper case character,at least one number,at least one special character,at least 6 character.'
+    }
+  }
+
 module.exports = {
     validDate,
     validTime,
@@ -69,5 +94,7 @@ module.exports = {
     validUserName,
     validParkId,
     isValidObjectId,
-    hashPassword
+    hashPassword,
+    checkPassword,
+    checkPasswordString
 }
