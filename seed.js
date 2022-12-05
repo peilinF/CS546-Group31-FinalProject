@@ -7,7 +7,11 @@ const update = data.updates;
 const { ObjectId } = require('mongodb');
 const connection = require('./config/mongoConnection');
 const axios = require('axios');
-const parkInfo = axios.get('https://developer.nps.gov/api/v1/parks?api_key=52KiEVABmztoxDerGdxyqMEYVGIPiO5nmkBXGII4')
+const parkurl = 'https://developer.nps.gov/api/v1/parks?api_key=52KiEVABmztoxDerGdxyqMEYVGIPiO5nmkBXGII4'
+const parkRequest = axios.request(parkurl, {
+    headers: { Accept: 'application/json', 'Accept-Encoding': 'identity' }, 
+    params: { trophies: true }
+  });
 const helper = require('./helpers');
 const main = async () => {
     const db = await connection.dbConnection();
@@ -76,8 +80,9 @@ const parsePark = (park) => {
 }
 
 const creatPark = async() => {
-    const parkList = await parkInfo;
-    const parkData = parkList.data.data;
+    const parkResponse = await parkRequest
+    console.log(Array.isArray(parkResponse.data.data))
+    const parkData = parkResponse.data.data;
     
     for (let i = 0; i < parkData.length; i++) {
         let park = parkData[i]
@@ -90,6 +95,6 @@ const creatPark = async() => {
 main().catch(console.log);
 
 module.exports = {
-    parkInfo,
+    parkRequest,
     parsePark
 };
