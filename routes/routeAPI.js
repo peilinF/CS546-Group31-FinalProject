@@ -2,8 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
-const { checkStringName, checkUserNameValid, checkPasswordString, checkPassword } = require('../helpers');
+const helper = require("../helpers.js");
 const usersData = data.users;
+const xss = require('xss');
 
 //If the user is authenticated, it will redirect to /protected.
 //If the user is not authenticated, this route will render a view with a sign-up form. The form will contain two inputs, one for the username and one for password. 
@@ -20,8 +21,8 @@ router
   })
   .post(async (req, res) => {
     //code here for POST
-    const userName = req.body.usernameInput;
-    const passWord = req.body.passwordInput;
+    const userName = xss(req.body.usernameInput);
+    const passWord = xss(req.body.passwordInput);
     if(!userName || !passWord){
       error = 'All fields need to have valid values';
       res.status(400).render('../views/userRegister',{error:error,  title:"Welcome to register!"});
@@ -56,19 +57,18 @@ router
   .route('/login')
   .post(async (req, res) => {
     //code here for POST
-    const userName = req.body.usernameInput;
-    const passWord = req.body.passwordInput;
-    if(!userName || !passWord){
+    const email = xss(req.body.emailInput);
+    const passWord = xss(req.body.passwordInput);
+    if(!email || !passWord){
       error = 'All fields need to have valid values';
       res.status(400).render('../views/userLogin',{error:error, title:"Welcome to login!"});
       return;
     }
 
     try{
-      checkStringName(userName);
-      checkUserNameValid(userName);
-      checkPasswordString(passWord);
-      checkPassword(passWord);
+      helper.validEmailAddr(email);
+      helper.checkPasswordString(passWord);
+      helper.checkPassword(passWord);
       //console.log("Success!")
     }catch(e){
       res.status(400).render('../views/userLogin',{error:e, title:"Welcome to login!"});
@@ -76,7 +76,7 @@ router
     }
 
     try{
-      const checkUser = await usersData.checkUser(userName,passWord);
+      const checkUser = await usersData.checkUser(email,passWord);
       //console.log('Yea');
       // if not matched, back to login with error message
       if(JSON.stringify(checkUser) === JSON.stringify({authenticatedUser: true})){

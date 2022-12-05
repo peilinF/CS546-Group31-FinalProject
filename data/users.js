@@ -16,10 +16,9 @@ const createUser = async (
   let likes = [];
   let followers = [];
 
+  //check UserName
   if (!userName) throw 'You must provide a user name';
-  if (typeof userName !== 'string') throw 'User name must be a string';
-  if (userName.trim().length === 0)
-    throw 'User name cannot be an empty string or just spaces';
+  helper.validUserName(userName);
   userName = userName.trim();
   
   if (!email) throw 'You must provide an email';
@@ -38,7 +37,7 @@ const createUser = async (
 
   const newUser = {
     userName: userName,
-    email: email,
+    email: email.toLowerCase(),
     birthDate: birthDate,
     hashedPassword: hashedPassword,
     reviews: reviews,
@@ -151,7 +150,7 @@ const updateUser = async (
   const update = {
 
     userName: userName,
-    email: email,
+    email: email.toLowerCase(),
     birthDate: birthDate,
     hashedPassword: hashedPassword,
   };
@@ -190,7 +189,7 @@ const checkUser = async (email, password) => {
   const user = await usersCollection.findOne({email: email.toLowerCase()});
   if(user === null) throw 'Either the email or password is invalid.'
 
-  const compareToPassword = await bcrypt.compare(password,user.password);
+  const compareToPassword = await bcrypt.compare(password,user.hashedPassword);
   if(compareToPassword){
     return {authenticatedUser: true};
   }else{

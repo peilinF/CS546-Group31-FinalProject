@@ -14,6 +14,16 @@ app.set('view engine', 'handlebars');
 
 configRoutes(app);
 
+app.use(
+  session({
+    name: 'AuthCookie',
+    secret: "This is a secret.. shhh don't tell anyone",
+    saveUninitialized: false,
+    resave: false,
+    cookie: {maxAge: 60000}
+  })
+);
+
 app.listen(3000, () => {
   console.log("We've now got a server!");
   console.log('Your routes will be running on http://localhost:3000');
