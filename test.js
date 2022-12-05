@@ -18,37 +18,36 @@ const DUMMY_REVIEW = {
 const seed = require('./seed')
 // const parkInfo = seed.parkInfo
 const axios = require('axios');
-const parkInfo = axios.get('https://developer.nps.gov/api/v1/parks?api_key=52KiEVABmztoxDerGdxyqMEYVGIPiO5nmkBXGII4');
 const parsePark = seed.parsePark
 const fetchAllParks = async() => {
-    const parkList = await parkInfo;
-    const parkData = parkList.data.data;
-    let allparks = [];  
-    for (let i = 0; i < parkData.length; i++) {
-        let park = parkData[i];
-        let id, parkName, address, park_picture, introduction, linkInformation, contacts, fee
-        try {
-          id, parkName, address, park_picture, introduction, linkInformation, contacts, fee = parsePark(park)
-        } catch (e) {
-          throw `[fetchAllPraks][parsePark] error: ${e}`
-        }
-        let reviews = [];
-        let overallRating = 0;
-        let newPark = {
-          _id : id,
-          parkName: parkName,
-          address: address,
-          park_picture: park_picture,
-          introduction: introduction,
-          linkInformation: linkInformation,
-          contacts: contacts,
-          entranceFees: fee,
-          reviews: reviews,
-          overallRating: overallRating,
-        };
-        allparks.push(newPark)
-    }
-    return allparks;
+  const parkResponse = await seed.parkRequest
+  const parkData = parkResponse.data.data;
+  let allparks = [];  
+  for (let i = 0; i < parkData.length; i++) {
+      let park = parkData[i];
+      let id, parkName, address, park_picture, introduction, linkInformation, contacts, fee
+      try {
+        id, parkName, address, park_picture, introduction, linkInformation, contacts, fee = parsePark(park)
+      } catch (e) {
+        throw `[fetchAllPraks][parsePark] error: ${e}`
+      }
+      let reviews = [];
+      let overallRating = 0;
+      let newPark = {
+        _id : id,
+        parkName: parkName,
+        address: address,
+        park_picture: park_picture,
+        introduction: introduction,
+        linkInformation: linkInformation,
+        contacts: contacts,
+        entranceFees: fee,
+        reviews: reviews,
+        overallRating: overallRating,
+      };
+      allparks.push(newPark)
+  }
+  return allparks;
 };
 module.exports = {
   DUMMY_USER,
