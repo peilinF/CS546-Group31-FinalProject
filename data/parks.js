@@ -8,6 +8,7 @@ const helper = require("../helpers.js");
 const createPark = async (
     id,
     parkName,
+    stateCode,
     address,
     map,
     park_picture,
@@ -21,6 +22,7 @@ const createPark = async (
     const newPark = {
       _id : id,
       parkName: parkName,
+      stateCode: stateCode,
       address: address,
       map: map,
       park_picture: park_picture,
@@ -49,6 +51,22 @@ const getAllParks = async () => {
     return parkList;
 };
 
+const getParkByState = async (stateCode) => {
+    if (!stateCode) throw 'You must provide an id to search for';
+    if (typeof stateCode !== 'string') throw 'Id must be a string';
+    if (stateCode.trim().length === 0)
+        throw 'id cannot be an empty string or just spaces';
+    stateCode = stateCode.trim();
+    const allParks = await getAllParks();
+    let parks = [];
+    for (let i = 0; i < allParks.length; i++) {
+        if (allParks[i].stateCode === stateCode) {
+            parks.push(allParks[i]);
+        }
+    }
+    return parks;
+
+};
 const getParkById = async (parkId) => {
     if (!parkId) throw 'You must provide an id to search for';
     if (parkId.trim().length === 0)
@@ -161,6 +179,7 @@ module.exports = {
     getAllParks,
     getParkById,
     getParkByName,
+    getParkByState,
     addReview,
     removeReview
 }

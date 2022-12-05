@@ -4,6 +4,7 @@ const users = data.users;
 const reviews = data.reviews;
 const comments = data.comments;
 const update = data.updates;
+const parkList = require('./constant');
 const { ObjectId } = require('mongodb');
 const connection = require('./config/mongoConnection');
 const axios = require('axios');
@@ -18,12 +19,13 @@ const main = async () => {
     await db.dropDatabase();
     await creatPark();
     const user = await createUser();
-    const park = await parks.getParkByName('Acadia National Park');
+    const park = await parks.getParkByName('Lake Clark National Park & Preserve');
 
     const review = await reviews.createReview(park._id.toString(), user.userId,'title', 'content', 4);
     const review2 = await reviews.createReview(park._id.toString(), user.userId, 'title1', 'content1', 3);
 
     const comment = await comments.createComment(review._id.toString(), user.userId.toString(), 'comment');
+
     // const comment2 = await comments.createComment(review2._id.toString(), user._id.toString(), 'comment2');
 
     // await comments.removeComment(user._id.toString(), review2._id.toString(),comment._id.toString());
@@ -49,6 +51,7 @@ const parsePark = (park) => {
 
     let id = park.id;
     let parkName = park.fullName;
+    let stateCode = park.addresses[0].stateCode;
     let address = park.addresses[0].line1 + ' ' + park.addresses[0].city + ' ' + park.addresses[0].stateCode + ' ' + park.addresses[0].postalCode;
     let map = `https://www.google.com/maps/place/${park.addresses[0].line1}+${park.addresses[0].city}+${park.addresses[0].stateCode}+${park.addresses[0].postalCode}`;
     let park_picture = park.images[0].url;
@@ -78,16 +81,20 @@ const parsePark = (park) => {
         }
         fee.push(feeInfo);
     }
-    return [id, parkName, address, map, park_picture, introduction, linkInformation, contacts, fee];
+    return [id, parkName,stateCode ,address, map, park_picture, introduction, linkInformation, contacts, fee];
 }
 
 const creatPark = async() => {
-    const parkResponse = await parkRequest
+    const parkResponse = await parkRequest;
     const parkData = parkResponse.data.data;
-    for (let i = 0; i < parkData.length; i++) {
-        let park = parkData[i]
-        const information = parsePark(park);
-        await parks.createPark(information[0], information[1], information[2], information[3], information[4], information[5], information[6], information[7], information[8]);
+    for (let name of parkList.parkNameList) {
+        for (let i = 0; i < parkData.length; i++) {
+            let park = parkData[i]
+            if (park.fullName.includes(name)) {
+                const information = parsePark(park);
+                await parks.createPark(information[0], information[1], information[2], information[3], information[4], information[5], information[6], information[7], information[8], information[9]);
+            }
+        }
     }
 };
 
