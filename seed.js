@@ -20,10 +20,10 @@ const main = async () => {
     const user = await createUser();
     const park = await parks.getParkByName('Acadia National Park');
 
-    const review = await reviews.createReview(park._id.toString(), user._id.toString(),'title', 'content', 4);
-    const review2 = await reviews.createReview(park._id.toString(), user._id.toString(), 'title1', 'content1', 3);
+    const review = await reviews.createReview(park._id.toString(), user.userId,'title', 'content', 4);
+    const review2 = await reviews.createReview(park._id.toString(), user.userId, 'title1', 'content1', 3);
 
-    const comment = await comments.createComment(review._id.toString(), user._id.toString(), 'comment');
+    const comment = await comments.createComment(review._id.toString(), user.userId.toString(), 'comment');
     // const comment2 = await comments.createComment(review2._id.toString(), user._id.toString(), 'comment2');
 
     // await comments.removeComment(user._id.toString(), review2._id.toString(),comment._id.toString());
@@ -41,7 +41,7 @@ const createReview = async (parkId, userID) => {
 };
 
 const createUser = async () => {
-    const user = await users.createUser('aaa', 'xixi@gmail.com','08/08/1998',helper.hashPassword('Feng@fpl1997'));
+    const user = await users.createUser('aaaaa', 'xixi@gmail.com','08/08/1998',helper.hashPassword('Feng@fpl1997'));
     return user;
 };
 

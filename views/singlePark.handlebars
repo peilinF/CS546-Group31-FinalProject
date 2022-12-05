@@ -24,17 +24,17 @@
     <p id = "park_rating">Overall Rating: {{park.overallRating}}</p>
 
     {{#if park.hasReviews}}
+    
+    <h2>Reviews</h2>
+    {{#each park.reviews}}
     <div class = 'reviews'>
-        <h2>Reviews</h2>
-        {{#each park.reviews}}
-        <div class = 'review'>
-            <p class = 'review'>Author: {{this.userName}}</p>
-            <p class = 'review'>Rating: {{this.rating}}</p>
-            <p class = 'review'>Review: {{this.content}}</p>
-            <p class = 'review'>Date: {{this.lastUpdatedTimeStamp}}</p>
-        </div>
-        {{/each}}
+        <p class = 'review'>Author: {{this.userName}}</p>
+        <p class = 'review'>Rating: {{this.rating}}</p>
+        <p class = 'review'>Review: {{this.content}}</p>
+        <p class = 'review'>Date: {{this.lastUpdatedTimeStamp}}</p>
     </div>
+    {{/each}}
+    
     {{/if}}
 
 </div>

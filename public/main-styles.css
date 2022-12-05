@@ -155,3 +155,16 @@ body {
   #park_url{
    text-decoration: none;
   }
+
+ .reviews{
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
+    border: black 1px solid;
+    margin-bottom: 5%;
+  }
+  .review{
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }

@@ -52,7 +52,7 @@ const createUser = async (
   const insertInfo = await userCollection.insertOne(newUser);
   if (insertInfo.insertedCount === 0) throw 'Could not add user';
   //return await getUserById(insertInfo.insertedId.toString());
-  return {userInserted: true}
+  return {userInserted: true, userId: insertInfo.insertedId.toString()};
 };
 
 const getAllUsers = async () => {
