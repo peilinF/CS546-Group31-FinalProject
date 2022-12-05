@@ -14,7 +14,7 @@ router
   .get(async (req, res) => {
     //code here for GET
     if(req.session.user){
-      res.redirect('/protected');
+      res.render('../views/profile',{ user: xss(req.session.user), title:"Successfully authenticated!"});
     }else{
       res.render('../views/userRegister',{title:"Welcome to register!"});
     }
@@ -23,24 +23,27 @@ router
     //code here for POST
     const userName = xss(req.body.usernameInput);
     const passWord = xss(req.body.passwordInput);
-    if(!userName || !passWord){
+    const email = xss(req.body.emailInput);
+    const birthday = xss(req.body.birthDateInput);
+    if(!userName || !passWord || !email || !birthday){
       error = 'All fields need to have valid values';
       res.status(400).render('../views/userRegister',{error:error,  title:"Welcome to register!"});
       return;
     }
 
     try{
-      checkStringName(userName);
-      checkUserNameValid(userName);
-      checkPasswordString(passWord);
-      checkPassword(passWord);
+      helper.validUserName(userName);
+      helper.validEmailAddr(email);
+      helper.validTime(birthday);
+      helper.checkPasswordString(passWord);
+      helper.checkPassword(passWord);
     }catch(e){
       res.status(400).render('../views/userRegister',{error:e,  title:"Welcome to register!"});
       return;
     }
 
     try{
-      const createUser = await usersData.createUser(userName,passWord);
+      const createUser = await usersData.createUser(userName,email,birthday,passWord);
       if(JSON.stringify(createUser) === JSON.stringify({userInserted: true})){
         //req.session.user = {username:userName}; //if not command, will login automatically. Go to '/', then "/protected",render user information.
         return res.redirect('/login');
