@@ -173,6 +173,32 @@ const updateUser = async (
 
 };
 
+const checkUser = async (username, password) => {
+  if(!username || !password){
+    throw 'All fields need to have valid values.'
+  }
+
+  //check username
+  checkStringName(username);
+  checkUserNameValid(username);
+
+  //check password
+  checkPasswordString(password);
+  checkPassword(password);
+
+  //Query the db for the username supplied, if it is not found, throw an error
+  const usersCollection = await users();
+  const user = await usersCollection.findOne({username: username.toLowerCase()});
+  if(user === null) throw 'Either the username or password is invalid.'
+
+  const compareToPassword = await bcrypt.compare(password,user.password);
+  if(compareToPassword){
+    return {authenticatedUser: true};
+  }else{
+    throw 'Either the username or password is invalid.'
+  }
+};
+
 const addReview = async (userId, reviewId) => {
   if (!userId) throw 'You must provide an id to search for';
   if (typeof userId !== 'string' && typeof userId !== 'object')
@@ -411,6 +437,7 @@ module.exports = {
   removeUser,
   updateUser,
   getUserByName,
+  checkUser,
   addReview,
   removeReview,
   addComment,
