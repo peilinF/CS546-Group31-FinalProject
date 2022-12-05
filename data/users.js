@@ -47,7 +47,7 @@ const createUser = async (
     parksHaveVisited: parksHaveVisited,
     parksWishToGo: parksWishToGo,
     likes: likes,
-    likesRecievedAmount: 0,
+    likesReceivedAmount: 0,
   };
   const userCollection = await users();
   const insertInfo = await userCollection.insertOne(newUser);
