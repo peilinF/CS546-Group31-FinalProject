@@ -37,7 +37,6 @@ function validUserName (name) {
     if (typeof name !== 'string') throw 'User name must be a string';
     if (name.trim().length === 0)
         throw 'User name cannot be an empty string or just spaces';
-    name = name.trim()
     let nameValidFlag = false;
     let counter = 0;
     for(let i = 0; i < name.length; i++){
@@ -110,6 +109,24 @@ function checkPasswordString(password){
     }
   }
 
+  function checkParkName(parkName){
+    if (!parkName) throw 'You must provide an user name to search for';
+    if (typeof parkName !== 'string') throw 'User name must be a string';
+    if (parkName.trim().length === 0)
+        throw 'park name cannot be an empty string or just spaces';
+  }
+
+  function checkReviewID(reviewId){
+    if (!reviewId) throw 'You must provide an id to search for';
+    if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
+      throw 'Id must be a string or ObjectId';
+    if (typeof reviewId === 'string') {
+      if (!ObjectId.isValid(reviewId)) throw 'Id is not a valid ObjectId';
+    }
+    if (reviewId.trim().length === 0)
+        throw 'id cannot be an empty string or just spaces';
+  }
+
 module.exports = {
     validDate,
     validTime,
@@ -119,5 +136,7 @@ module.exports = {
     isValidObjectId,
     hashPassword,
     checkPassword,
-    checkPasswordString
+    checkPasswordString,
+    checkParkName,
+    checkReviewID
 }

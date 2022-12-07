@@ -170,11 +170,11 @@ const removeComment = async (reviewId, commentId) => {
   }
 };
 
-const updateReview = async (reviewId, conent) => {
+const updateReview = async (reviewId, content) => {
 
   const reviewsCollection = await reviews();
   const updatedReview = {
-    content: conent,
+    content: content,
     lastUpdatedTimeStamp: new Date().toLocaleDateString(),
   };
   const updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $set: updatedReview });
