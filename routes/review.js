@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const helper = require("../helpers.js");
-const usersData = data.users;
 const reviewData = data.reviews;
-const commentData = data.comments;
 const path = require('path');
 const xss = require('xss');
 
@@ -118,4 +116,35 @@ router
       res.status(500).json({error: e});
     }
   })
-  
+  .patch(async (req, res) => {
+    const info = req.body;
+    try{
+      //if (!reviewTitle) throw 'You must provide a review title';
+      if(typeof info.reviewTitle !== 'string') throw 'reviewTitle must be a string';
+      info.reviewTitle = info.reviewTitle.trim();
+      //if (!content) throw 'You must provide a content';
+      if(typeof info.content !== 'string') throw 'content must be a string';
+      if(info.content.trim().length === 0) throw 'content cannot be an empty string or just spaces';
+      info.content = info.content.trim();
+      if (typeof info.rating !== 'number') throw 'Rating must be a number';
+      if (info.rating < 0 || info.rating > 5) throw 'Rating must be between 0 and 5';
+      info.rating = info.rating.trim();
+    }catch(e){
+      return res.status(400).json({error: e});
+    }
+
+    try{
+      await reviewData.getReview(req.params.reviewID);
+    }catch(e){
+      return res.status(404).json({error: 'Review not found'});
+    }
+
+    try{
+      const updateReview = await reviewData.updateReview(req.params.reviewID,info.content,info.reviewTitle);
+      res.status(200).jason(updateReview);
+    }catch(e){
+      res.status(500).json({error: e});
+    }
+  });
+
+  module.exports = router;
