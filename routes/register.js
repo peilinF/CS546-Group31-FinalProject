@@ -23,7 +23,6 @@ router
     const passWord = xss(req.body.passwordInput);
     const email = xss(req.body.emailInput);
     let birthday = xss(req.body.birthDateInput);
-    console.log(birthday);
     if(!userName || !passWord || !email || !birthday){
       error = 'All fields need to have valid values';
       res.status(400).render('../views/userRegister',{error:error,  title:"Welcome to register!"});
@@ -31,7 +30,7 @@ router
     }
 
     try{
-      const createUser = await usersData.createUser(userName,email,birthday,passWord);
+      await usersData.createUser(userName,email,birthday,passWord);
       
       res.redirect('/login');
       return;

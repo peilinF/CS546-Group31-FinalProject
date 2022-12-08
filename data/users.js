@@ -30,10 +30,10 @@ const createUser = async (
   if (!helper.validEmailAddr(email)) throw 'Email is not valid';
 
   if (!birthDate) throw 'You must provide a birth date';
-  if (typeof birthDate !== 'string') throw 'Birth date must be a string';
-  if (birthDate.trim().length === 0)
-    throw 'Birth date cannot be an empty string or just spaces';
-  birthDate = birthDate.trim();
+  // if (typeof birthDate !== 'string') throw 'Birth date must be a string';
+  // if (birthDate.trim().length === 0)
+  //   throw 'Birth date cannot be an empty string or just spaces';
+  // birthDate = birthDate.trim();
   hashedPassword = helper.hashPassword(hashedPassword);
   const newUser = {
     userName: userName,
@@ -142,11 +142,11 @@ const updateUser = async (
   if (!helper.validateEmail(email)) throw 'Email is not valid';
 
   if (!birthDate) throw 'You must provide a birth date';
-  if (typeof birthDate !== 'string') throw 'Birth date must be a string';
-  if (birthDate.trim().length === 0)
-    throw 'Birth date cannot be an empty string or just spaces';
-  birthDate = birthDate.trim();
-  if (!helper.validDate(birthDate)) throw 'Birth date is not valid';
+  // if (typeof birthDate !== 'string') throw 'Birth date must be a string';
+  // if (birthDate.trim().length === 0)
+  //   throw 'Birth date cannot be an empty string or just spaces';
+  // birthDate = birthDate.trim();
+  // if (!helper.validDate(birthDate)) throw 'Birth date is not valid';
 
   const update = {
 
