@@ -2,6 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const {ObjectId} = require('mongodb');
 const helper = require("../helpers.js");
+const bcrypt = require("bcryptjs");
 const createUser = async (
   userName,
   email,
@@ -33,8 +34,7 @@ const createUser = async (
   if (birthDate.trim().length === 0)
     throw 'Birth date cannot be an empty string or just spaces';
   birthDate = birthDate.trim();
-  if (!helper.validDate(birthDate)) throw 'Birth date is not valid';
-
+  hashedPassword = helper.hashPassword(hashedPassword);
   const newUser = {
     userName: userName,
     email: email.toLowerCase(),
@@ -188,13 +188,13 @@ const checkUser = async (email, password) => {
   //Query the db for the username supplied, if it is not found, throw an error
   const usersCollection = await users();
   const user = await usersCollection.findOne({email: email.toLowerCase()});
-  if(user === null) throw 'Either the email or password is invalid.'
+  if(user === null) throw 'email is not sign up'
 
   const compareToPassword = await bcrypt.compare(password,user.hashedPassword);
   if(compareToPassword){
-    return {authenticatedUser: true};
+    return {authenticatedUser: true, userName: user.userName};
   }else{
-    throw 'Either the email or password is invalid.'
+    throw 'password is invalid.'
   }
 };
 

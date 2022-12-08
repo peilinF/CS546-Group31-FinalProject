@@ -13,7 +13,6 @@ app.use(express.urlencoded({extended: true}));
 app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-configRoutes(app);
 
 app.use(
   session({
@@ -31,10 +30,10 @@ app.use('/login', (req, res, next) => {
   } else {
     //here I',m just manually setting the req.method to post since it's usually coming from a form
     //req.method = 'POST'; // if it req.method = 'POST', it will add route as: get login: http://localhost:3000/login
-    next();
   }
+  next();
 });
-
+configRoutes(app);
 app.listen(3000, () => {
   console.log("We've now got a server!");
   console.log('Your routes will be running on http://localhost:3000');

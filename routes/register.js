@@ -10,27 +10,20 @@ const xss = require('xss');
 //If the user is authenticated, it will redirect to /protected.
 //If the user is not authenticated, this route will render a view with a sign-up form. The form will contain two inputs, one for the username and one for password. 
 //Post: You must make sure that usernameInput and passwordInput are supplied in the req.body
-router.route("/").get(async (req, res) => {
-  //code here for GET
-  res.sendFile(path.resolve('static/register.html'));
-});
-
 router
-  .route('/register')
+  .route("/")
   .get(async (req, res) => {
     //code here for GET
-    if(req.session.user){
-      res.render('../views/profile',{ user: req.session.user, title:"Successfully authenticated!"});
-    }else{
-      res.render('../views/userRegister',{title:"Welcome to register!"});
-    }
+    res.sendFile(path.resolve('static/register.html'));
   })
   .post(async (req, res) => {
     //code here for POST
+    
     const userName = xss(req.body.usernameInput);
     const passWord = xss(req.body.passwordInput);
     const email = xss(req.body.emailInput);
-    const birthday = xss(req.body.birthDateInput);
+    let birthday = xss(req.body.birthDateInput);
+    console.log(birthday);
     if(!userName || !passWord || !email || !birthday){
       error = 'All fields need to have valid values';
       res.status(400).render('../views/userRegister',{error:error,  title:"Welcome to register!"});
@@ -38,28 +31,65 @@ router
     }
 
     try{
-      helper.validUserName(userName);
-      helper.validEmailAddr(email);
-      helper.validTime(birthday);
-      helper.checkPasswordString(passWord);
-      helper.checkPassword(passWord);
-    }catch(e){
-      res.status(400).render('../views/userRegister',{error:e,  title:"Welcome to register!"});
-      return;
-    }
-
-    try{
       const createUser = await usersData.createUser(userName,email,birthday,passWord);
-      if(JSON.stringify(createUser) === JSON.stringify({userInserted: true})){
-        //req.session.user = {username:userName}; //if not command, will login automatically. Go to '/', then "/protected",render user information.
-        return res.redirect('/profile');
-      }else{
-        res.status(500).json({message: "Internal Server Error"});
-      }
+      
+      res.redirect('/login');
+      return;
+    
     }catch(e){
-      res.status(400).render('../views/userRegister',{error:e, title:"Welcome to register!"});
+      res.status(400).render('userRegister',{error:e, title:"Welcome to register!"});
     }
   })
+
+
+
+// router
+//   .route('/register')
+//   .get(async (req, res) => {
+//     //code here for GET
+//     if(req.session.user){
+//       res.render('profile',{ user: req.session.user, title:"Successfully authenticated!"});
+//     }else{
+//       res.render('userRegister',{title:"Welcome to register!"});
+//     }
+//   })
+//   .post(async (req, res) => {
+//     //code here for POST
+    
+//     const userName = xss(req.body.usernameInput);
+//     const passWord = xss(req.body.passwordInput);
+//     const email = xss(req.body.emailInput);
+//     const birthday = xss(req.body.birthDateInput);
+//     console.log(userName);
+//     if(!userName || !passWord || !email || !birthday){
+//       error = 'All fields need to have valid values';
+//       res.status(400).render('../views/userRegister',{error:error,  title:"Welcome to register!"});
+//       return;
+//     }
+
+//     try{
+//       helper.validUserName(userName);
+//       helper.validEmailAddr(email);
+//       helper.validTime(birthday);
+//       helper.checkPasswordString(passWord);
+//       helper.checkPassword(passWord);
+//     }catch(e){
+//       res.status(400).render('../views/userRegister',{error:e,  title:"Welcome to register!"});
+//       return;
+//     }
+
+//     try{
+//       const createUser = await usersData.createUser(userName,email,birthday,passWord);
+//       if(JSON.stringify(createUser) === JSON.stringify({userInserted: true})){
+//         //req.session.user = {username:userName}; //if not command, will login automatically. Go to '/', then "/protected",render user information.
+//         return res.redirect('/profile');
+//       }else{
+//         res.status(500).json({message: "Internal Server Error"});
+//       }
+//     }catch(e){
+//       res.status(400).render('../views/userRegister',{error:e, title:"Welcome to register!"});
+//     }
+//   })
  
 router
   .route('/profile')
