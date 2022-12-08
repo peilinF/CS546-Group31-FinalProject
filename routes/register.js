@@ -14,23 +14,25 @@ router
   .route("/")
   .get(async (req, res) => {
     //code here for GET
-    res.sendFile(path.resolve('static/register.html'));
+    //res.sendFile(path.resolve('static/register.html'));
+    res.render('../views/userRegister');
   })
   .post(async (req, res) => {
     //code here for POST
     
     const userName = xss(req.body.usernameInput);
     const passWord = xss(req.body.passwordInput);
+    const confirmPassword = xss(req.body.confirmPasswordInput);
     const email = xss(req.body.emailInput);
-    let birthday = xss(req.body.birthDateInput);
-    if(!userName || !passWord || !email || !birthday){
+    const birthday = xss(req.body.birthDateInput);
+    if(!userName || !passWord || !email || !birthday || !confirmPassword){
       error = 'All fields need to have valid values';
       res.status(400).render('../views/userRegister',{error:error,  title:"Welcome to register!"});
       return;
     }
 
     try{
-      await usersData.createUser(userName,email,birthday,passWord);
+      await usersData.createUser(userName,email,birthday,passWord,confirmPassword);
       
       res.redirect('/login');
       return;

@@ -105,7 +105,7 @@ function checkPasswordString(password){
 
     let strongPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
     if(!strongPassword.test(password)){
-      throw 'Not valid password-At least one upper case character,at least one number,at least one special character,at least 6 character.'
+      throw 'Not valid password-At least one upper case character,at least one number,at least one special character,at least 8 character.'
     }
   }
 

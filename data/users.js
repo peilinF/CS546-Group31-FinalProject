@@ -3,11 +3,13 @@ const users = mongoCollections.users;
 const {ObjectId} = require('mongodb');
 const helper = require("../helpers.js");
 const bcrypt = require("bcryptjs");
+const { helpers } = require('handlebars');
 const createUser = async (
   userName,
   email,
   birthDate,
-  hashedPassword
+  Password,
+  ConfirmPassword
 ) => {
   
   let reviews = [];
@@ -34,12 +36,22 @@ const createUser = async (
   // if (birthDate.trim().length === 0)
   //   throw 'Birth date cannot be an empty string or just spaces';
   // birthDate = birthDate.trim();
-  hashedPassword = helper.hashPassword(hashedPassword);
+  if(!Password) throw 'You must provide password!';
+  if(!ConfirmPassword) throw 'Please confirm your password!';
+
+  helper.checkPasswordString(Password);
+  helper.checkPassword(Password);
+
+  //Compare password with confirmPassword
+  
+
+  hashedPassword = helpers.hashedPassword(Password);
+
   const newUser = {
     userName: userName,
     email: email.toLowerCase(),
     birthDate: birthDate,
-    hashedPassword: hashedPassword,
+    hashedPassword: Password,
     reviews: reviews,
     comments: comments,
     followers: followers,
