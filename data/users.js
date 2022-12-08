@@ -8,8 +8,7 @@ const createUser = async (
   userName,
   email,
   birthDate,
-  Password,
-  ConfirmPassword
+  Password
 ) => {
   
   let reviews = [];
@@ -37,17 +36,6 @@ const createUser = async (
   //   throw 'Birth date cannot be an empty string or just spaces';
   // birthDate = birthDate.trim();
   if(!Password) throw 'You must provide password!';
-  if(!ConfirmPassword) throw 'Please confirm your password!';
-
-  helper.checkPasswordString(Password);
-  helper.checkPassword(Password);
-
-  //Compare password with confirmPassword
-  if(Password === ConfirmPassword){
-    Password = helper.hashPassword(Password);
-  }else{
-    console.log("password Not Match!");
-  }
 
   const newUser = {
     userName: userName,
@@ -66,7 +54,7 @@ const createUser = async (
   const insertInfo = await userCollection.insertOne(newUser);
   if (insertInfo.insertedCount === 0) throw 'Could not add user';
   //return await getUserById(insertInfo.insertedId.toString());
-  return {userInserted: true};
+  return {userInserted: true, userId: insertInfo.insertedId.toString()};
 };
 
 const getAllUsers = async () => {
