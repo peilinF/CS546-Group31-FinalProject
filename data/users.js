@@ -43,15 +43,17 @@ const createUser = async (
   helper.checkPassword(Password);
 
   //Compare password with confirmPassword
-  
-
-  hashedPassword = helpers.hashedPassword(Password);
+  if(Password === ConfirmPassword){
+    Password = helper.hashPassword(Password);
+  }else{
+    console.log("password Not Match!");
+  }
 
   const newUser = {
     userName: userName,
     email: email.toLowerCase(),
     birthDate: birthDate,
-    hashedPassword: Password,
+    Password: Password,
     reviews: reviews,
     comments: comments,
     followers: followers,
@@ -64,7 +66,7 @@ const createUser = async (
   const insertInfo = await userCollection.insertOne(newUser);
   if (insertInfo.insertedCount === 0) throw 'Could not add user';
   //return await getUserById(insertInfo.insertedId.toString());
-  return {userInserted: true, userId: insertInfo.insertedId.toString()};
+  return {userInserted: true};
 };
 
 const getAllUsers = async () => {

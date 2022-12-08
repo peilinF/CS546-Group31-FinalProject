@@ -32,11 +32,13 @@ router
     }
 
     try{
-      await usersData.createUser(userName,email,birthday,passWord,confirmPassword);
-      
-      res.redirect('/login');
-      return;
-    
+      const result = await usersData.createUser(userName,email,birthday,passWord,confirmPassword);
+      if(JSON.stringify(result) === JSON.stringify({userInserted: true})){
+        res.redirect('/login');
+        return;
+      }else{
+        res.status(500).json({message: "Internal Server Error"});
+      }
     }catch(e){
       res.status(400).render('userRegister',{error:e, title:"Welcome to register!"});
     }

@@ -1,4 +1,14 @@
-<form method="POST" action="/register" id="registration-form">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to register!</title>
+  <script src="public/js/confPass.js"></script>
+</head>
+<body>
+  <form method="POST" action="/register" id="myForm">
   <label for="usernameInput">Username</label>
   <input type="text" name="usernameInput" id="usernameInput">
 
@@ -7,6 +17,7 @@
 
   <label for="confirmPasswordInput">Confirm Password</label>
   <input type="password" name="confirmPasswordInput" id="confirmPasswordInput">
+  <span id='message'></span>
 
   <label for="emailInput">Email</label>
   <input type="emailInput" name="emailInput" id="emailInput">
@@ -15,8 +26,10 @@
   <input type="date" name="birthDateInput" min="1899-01-01" max="2023-01-01" id="birthDateInput">
   
   <div>
-    <button type="submit">Register</button>
+    <button type="submit" onclick="check()">Register</button>
   </div>
 </form>
 <a href="/login">Already have an account? Click here to log-in</a>
 {{#if error}}<div class="error">{{error}}</div>{{/if}}
+</body>
+</html>
