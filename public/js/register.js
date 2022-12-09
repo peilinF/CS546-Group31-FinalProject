@@ -20,7 +20,8 @@
                 })
             }
             $.ajax(requestConfig).then(function (responseMessage) {
-                alert(responseMessage);
+                
+                window.location.href = '/login';
             });
 
         }
