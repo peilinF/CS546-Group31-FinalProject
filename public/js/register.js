@@ -2,12 +2,16 @@
     var myForm = $('#myForm'),
         passwordInput = $('#passwordInput'),
         confirmPasswordInput = $('#confirmPasswordInput');
+        mySpan = $('#message');
     myForm.submit(function (e) {
         e.preventDefault();
         if (passwordInput.val() !== confirmPasswordInput.val()) {
             
-            alert('Passwords do not match');
+            mySpan.css('color', 'red');
+            mySpan.html('not matching');
         } else {
+            mySpan.css('color', 'green');
+            mySpan.html('matching');
             var requestConfig = {
                 method: 'POST',
                 url: '/register',
