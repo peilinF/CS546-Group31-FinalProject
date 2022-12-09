@@ -15,25 +15,28 @@ router
   .get(async (req, res) => {
     //code here for GET
     //res.sendFile(path.resolve('static/register.html'));
-    res.render('../views/userRegister');
+    res.render('userRegister',{
+      partial: 'register'
+    });
   })
   .post(async (req, res) => {
     //code here for POST
     
-    const userName = xss(req.body.usernameInput);
-    const passWord = xss(req.body.passwordInput);
-    const confirmPassword = xss(req.body.confirmPasswordInput);
-    const email = xss(req.body.emailInput);
-    const birthday = xss(req.body.birthDateInput);
-    if(!userName || !passWord || !email || !birthday || !confirmPassword){
+    const userName = xss(req.body.username);
+    const passWord = xss(req.body.password);
+    const email = xss(req.body.email);
+    const birthday = xss(req.body.birthDate);
+    
+    if(!userName || !passWord || !email || !birthday){
       error = 'All fields need to have valid values';
-      res.status(400).render('../views/userRegister',{error:error,  title:"Welcome to register!"});
+      res.status(400).render('userRegister',{partial: 'register', error:error,  title:"Welcome to register!"});
       return;
     }
 
     try{
-      const result = await usersData.createUser(userName,email,birthday,passWord,confirmPassword);
-      if(JSON.stringify(result) === JSON.stringify({userInserted: true})){
+      const result = await usersData.createUser(userName,email,birthday,helper.hashPassword(passWord));
+      console.log(userName,passWord,email,birthday);
+      if(result.userInserted ){
         res.redirect('/login');
         return;
       }else{
