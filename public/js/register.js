@@ -18,7 +18,7 @@
             //fill.css('color', 'red');
             myError.html('please fill all the fields');
         }
-        else if (passwordInput.val() !== confirmPasswordInput.val()) {
+        else if (passwordInput.val() !== confirmPasswordInput.val() && passwordInput.val() !== '' && confirmPasswordInput.val() !== '') {
             
             mySpan.css('color', 'red');
             mySpan.html('not matching');
