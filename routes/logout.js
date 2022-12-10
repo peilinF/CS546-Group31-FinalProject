@@ -4,11 +4,11 @@ const path = require('path');
 const xss = require('xss');
 
 router
-  .route('/logout')
+  .route('/')
   .get(async (req, res) => {
     //code here for GET
     req.session.destroy();
-    res.redirect('/');
+    res.sendFile(path.resolve('static/homepage.html'));
   });
   
   module.exports = router;

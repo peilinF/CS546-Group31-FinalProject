@@ -21,7 +21,7 @@ router
   })
   .post(async (req, res) => {
     //code here for POST
-    
+    console.log('register now');
     const userName = xss(req.body.username);
     const passWord = xss(req.body.password);
     const email = xss(req.body.email);
