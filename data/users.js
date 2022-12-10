@@ -114,6 +114,19 @@ const removeUser = async (userId) => {
   return userId;
 };
 
+const getUserByEmail = async (email) => {
+  if (!email) throw 'You must provide an user name to search for';
+  if (typeof email !== 'string') throw 'User name must be a string';
+  if (email.trim().length === 0)
+      throw 'User name cannot be an empty string or just spaces';
+  email = email.trim();
+  const userCollection = await users();
+  const user = await userCollection.findOne({ email: email.toLowerCase() });
+  if (!user) throw 'User not found';
+  user._id = user._id.toString();
+  return user;
+};
+
 const updateUser = async (
   userId,
   userName,
@@ -198,6 +211,10 @@ const checkUser = async (email, password) => {
   }else{
     throw 'password is invalid.'
   }
+};
+
+const forgetPassword = async (userId, email, password) => {
+
 };
 
 const addReview = async (userId, reviewId) => {
@@ -436,9 +453,11 @@ module.exports = {
   getAllUsers,
   getUserById,
   removeUser,
+  getUserByEmail,
   updateUser,
   getUserByName,
   checkUser,
+  forgetPassword,
   addReview,
   removeReview,
   addComment,

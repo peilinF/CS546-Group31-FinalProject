@@ -17,7 +17,7 @@ const helper = require('./helpers');
 const main = async () => {
     const db = await connection.dbConnection();
     await db.dropDatabase();
-    await creatPark();
+    await createPark();
     const user = await createUser();
     const park = await parks.getParkByName('Lake Clark National Park & Preserve');
 
@@ -84,7 +84,7 @@ const parsePark = (park) => {
     return [id, parkName,stateCode ,address, map, park_picture, introduction, linkInformation, contacts, fee];
 }
 
-const creatPark = async() => {
+const createPark = async() => {
     const parkResponse = await parkRequest;
     const parkData = parkResponse.data.data;
     for (let name of parkList.parkNameList) {
