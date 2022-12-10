@@ -40,7 +40,7 @@ router
     }
   })
   .post(async (req, res) => {
-    const info = req.body;
+    const info = xss(req.body);
     if(!info.reviewTitle || !info.content || !info.rating){
       res.status(400).json({ message: 'All fields need to have valid values' });
       return;
