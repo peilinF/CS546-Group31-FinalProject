@@ -8,7 +8,7 @@ router
   .get(async (req, res) => {
     //code here for GET
     req.session.destroy();
-    res.render('../views/logout',{title:"Logout!"});
+    res.redirect('/');
   });
 
   module.exports = router;
