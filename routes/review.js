@@ -40,6 +40,12 @@ router
     }
   })
   .post(async (req, res) => {
+    if(!req.session.user){
+      error = 'You have to login to add review!';
+      res.status(400).render('userLogin',{error:error, title:"login!"});
+      return;
+    }
+
     const info = xss(req.body);
     if(!info.reviewTitle || !info.content || !info.rating){
       res.status(400).json({ message: 'All fields need to have valid values' });
@@ -73,7 +79,7 @@ router
     try{
       const {reviewTitle,content,rating} = info;
       const createReview = await reviewData.createReview(req.params.parkID,req.params.userID,reviewTitle,content,rating);
-      res.status(400).render('../views/singlePark',{error:e,  title:"Park Reviews", park:createReview.parkID});
+      res.status(200).render('../views/singlePark',{error:e,  title:"Park Reviews", park:createReview.parkID});
     }catch(e){
       return res.status(400).json({error: e});
     }
@@ -90,7 +96,7 @@ router
 
     try{
       const Reviews = await reviewData.getReview(req.params.reviewID);
-      res.status(400).render('../views/singlePark',{error:e,  title:"Park Reviews", park:Reviews.reviewID});
+      res.status(200).render('../views/singlePark',{title:"Park Reviews", park:Reviews.reviewID});
     }catch(e){
       res.status(404).json({ error: 'review by user id not found' });
     }

@@ -2,9 +2,17 @@
   var myForm = $('#passForm'),
       passwordInput = $('#passwordInput'),
       confirmPasswordInput = $('#confirmPasswordInput');
+      questionA = $('#questionsA option:selected');
+      questionB = $('#questionsB option:selected');
+      errorMessage = $('#errorMessage');
       mySpan = $('#message');
   myForm.submit(function (e) {
       e.preventDefault();
+      if(questionA.text() === questionB.text()){
+        errorMessage.css('color', 'red');
+        errorMessage.html('Secure questions should not be same!')
+      }
+      
       if (passwordInput.val() !== confirmPasswordInput.val()) {
           
           mySpan.css('color', 'red');

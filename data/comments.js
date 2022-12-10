@@ -54,8 +54,8 @@ const getAllComments = async(reviewID) => {
         throw 'id cannot be an empty string or just spaces';
     reviewID =reviewID.trim();
 
-    const commentResults = await reviewClass.getAllReviews(reviewID);
-    if (commentResults === null) throw 'No review with that movieID';
+    const commentResults = await reviewClass.getReview(reviewID);
+    if (commentResults === null) throw 'No review with that reviewID';
     return commentResults.comment;
 };
 
