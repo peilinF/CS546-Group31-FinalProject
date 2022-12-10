@@ -28,7 +28,7 @@ router
     // if not matched, back to login with error message
     if (checkUser.authenticatedUser) {
       console.log(checkUser.userName);
-      req.session.user = {name : checkUser.userName};
+      req.session.user = {name : checkUser.userName,  email: email};
 
       res.render('homepage',{userName: checkUser.userName});
       return;
@@ -69,16 +69,16 @@ router
 //This route will be protected your own authentication middleware to only allow valid, logged in users to see this page.
 //If the user is logged in, you will make a simple view that displays the username (which you stored in the session when they logged in) 
 //for the currently logged in user as well as the current date/time.
-router
-  .route('/profile')
-  .get(async (req, res) => {
-    //code here for GET
-    if(req.session.user){
-      res.render('../views/profile',{ user: req.session.user, title:"Successfully authenticated!"});
-    }else{
-      error = "Error page saying that the user is not logged in";
-      res.status(401).render('../views/forbiddenAccess',{error:error, title:"Non-Authenticated!"});
-    }
-  })
+// router
+//   .route('/profile')
+//   .get(async (req, res) => {
+//     //code here for GET
+//     if(req.session.user){
+//       res.render('../views/profile',{ user: req.session.user, title:"Successfully authenticated!"});
+//     }else{
+//       error = "Error page saying that the user is not logged in";
+//       res.status(401).render('../views/forbiddenAccess',{error:error, title:"Non-Authenticated!"});
+//     }
+//   })
 
   module.exports = router;
