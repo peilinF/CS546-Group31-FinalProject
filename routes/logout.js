@@ -10,5 +10,5 @@ router
     req.session.destroy();
     res.redirect('/');
   });
-
+  
   module.exports = router;
