@@ -43,7 +43,7 @@ const createReview = async (parkId, userID) => {
 };
 
 const createUser = async () => {
-    const user = await users.createUser('aaaaa', 'xixi@gmail.com','08/08/1998',helper.hashPassword('Feng@fpl1997'));
+    const user = await users.createUser('aaaaa', 'xixi@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing");
     return user;
 };
 
