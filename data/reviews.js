@@ -87,7 +87,6 @@ const getAllReviews = async (parkId) => {
 
   const park = await parksClass.getParkById(parkId);
   return park.reviews;
-
 };
 
 const getAllUserReviews = async (userId) => {

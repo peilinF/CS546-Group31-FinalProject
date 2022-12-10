@@ -9,7 +9,7 @@ const helper = require("../helpers.js");
 const createComment = async (
 reviewId,
 userId,
-conent) => {
+content) => {
     if (!reviewId) throw 'You must provide a review id';
     if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
         throw 'reviewId must be a string or ObjectId';
@@ -21,16 +21,16 @@ conent) => {
         throw 'Id must be a string or ObjectId';
     if (userId.trim().length === 0)
         throw 'id cannot be an empty string or just spaces';
-    if (!conent) throw 'You must provide a content';
-    if (typeof conent !== 'string') throw 'content must be a string';
-    if (conent.trim().length === 0)
+    if (!content) throw 'You must provide a content';
+    if (typeof content !== 'string') throw 'content must be a string';
+    if (content.trim().length === 0)
         throw 'content cannot be an empty string or just spaces';
     const user = await userClass.getUserById(userId);
     const newComment = {
         userId: user._id,
         userName: user.userName,
         commentDate: new Date().toLocaleDateString(),
-        content: conent,};
+        content: content,};
     const commentCollection = await comments();
     const insertInfo = await commentCollection.insertOne(newComment);
     if (insertInfo.insertedCount === 0) throw 'Could not add comment';
@@ -41,6 +41,22 @@ conent) => {
     await userClass.addComment(userId, comment._id.toString());
     
     return comment;
+};
+
+const getAllComments = async(reviewID) => {
+    if (!reviewID) throw 'You must provide an id to search for';
+    if (typeof reviewID !== 'string' && typeof reviewID !== 'object')
+      throw 'Id must be a string or ObjectId';
+    if (typeof reviewID === 'string') {
+      if (!ObjectId.isValid(reviewID)) throw 'Id is not a valid ObjectId';
+    }
+    if (reviewID.trim().length === 0)
+        throw 'id cannot be an empty string or just spaces';
+    reviewID =reviewID.trim();
+
+    const commentResults = await reviewClass.getReview(reviewID);
+    if (commentResults === null) throw 'No review with that reviewID';
+    return commentResults.comment;
 };
 
 const getCommentById = async (id) => {
@@ -86,6 +102,7 @@ const removeComment = async (userId, reviewId, commentId) => {
 
 module.exports = {
     createComment,
+    getAllComments,
     getCommentById,
     removeComment,
 };

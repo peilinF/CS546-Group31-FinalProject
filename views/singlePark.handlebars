@@ -32,9 +32,22 @@
         <p class = 'review'>Rating: {{this.rating}}</p>
         <p class = 'review'>Review: {{this.content}}</p>
         <p class = 'review'>Date: {{this.lastUpdatedTimeStamp}}</p>
+        <a href="/:parkID/:reviewID">Reply</a>
     </div>
     {{/each}}
     
     {{/if}}
 
+    {{#if park.hasComments}}
+    <h2>Comments</h2>
+    {{#each park.reviews.comments}}
+    <div class = 'comments'>
+        <p class = 'comments'>Author: {{this.userName}}</p>
+        <p class = 'comment'>Review: {{this.content}}</p>
+        <p class = 'comment'>Date: {{this.lastUpdatedTimeStamp}}</p>
+    </div>
+    {{/each}}
+    {{/if}}
+
+    {{#if error}}<div class="error">{{error}}</div>{{/if}}
 </div>
