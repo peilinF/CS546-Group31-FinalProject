@@ -3,7 +3,6 @@
         passwordInput = $('#passwordInput'),
         confirmPasswordInput = $('#confirmPasswordInput'),
         mySpan = $('#message'),
-        fill = $('#fill'),
         myError = $('#error'),
         username = $('#usernameInput'),
         email = $('#emailInput'),
@@ -16,7 +15,7 @@
         e.preventDefault();
         if ( passwordInput.val() === '' || confirmPasswordInput.val() === '' || username.val() === '' || email.val() === '' || birthDate.val() === '' || questionA.val() === '' || answer1.val() === '' || questionB.val() === '' || answer2.val() === ''){
             //fill.css('color', 'red');
-            myError.html('please fill all the fields');
+            window.location.href = '/register/error/' + 'please fill all the fields';
         }
         else if(questionA.text() === questionB.text()){
             errorMessage.css('color', 'red');
