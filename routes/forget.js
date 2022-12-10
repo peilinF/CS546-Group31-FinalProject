@@ -39,7 +39,7 @@ router
         res.status(500).json({message: "Internal Server Error"});
       }
     }catch(e){
-      res.status(400).render('userForget',{partial: 'forget', error:error,  title:"Reset your password!"});
+      res.status(400).render('userForget',{error:e,  title:"Reset your password!"});
     }
   })
 
