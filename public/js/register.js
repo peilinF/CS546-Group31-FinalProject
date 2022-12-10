@@ -7,9 +7,9 @@
         username = $('#usernameInput'),
         email = $('#emailInput'),
         birthDate = $('#birthDateInput'),
-        questionA = $('#questionsA'),
+        questionA = $('#questionsA option:selected'),
         answer1 = $('#answerInput1'),
-        questionB = $('#questionsB'),
+        questionB = $('#questionsB option:selected'),
         answer2 = $('#answerInput2');
         errorMessage = $('#errorMessage');
     myForm.submit(function (e) {
@@ -18,7 +18,8 @@
             //fill.css('color', 'red');
             myError.html('please fill all the fields');
         }
-        else if(questionA === questionB){
+        else if(questionA.text() === questionB.text()){
+            errorMessage.css('color', 'red');
             errorMessage.html('Secure questions could not be the same!');
         }
         else if (passwordInput.val() !== confirmPasswordInput.val()) {
