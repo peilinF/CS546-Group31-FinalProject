@@ -168,7 +168,7 @@ const updateUser = async (
     userName: userName,
     email: email.toLowerCase(),
     birthDate: birthDate,
-    hashedPassword: hashedPassword,
+    Password: hashedPassword
   };
 
   const userCollection = await users();
@@ -213,8 +213,36 @@ const checkUser = async (email, password) => {
   }
 };
 
-const forgetPassword = async (userId, email, password) => {
+const forgetPassword = async (email, password) => {
+  if(!email) throw "Please enter your register email!";
+  if(!password) throw "Please enter password!";
+  if(!confirmPassword) throw "Please confirm your password!";
+  if (typeof email !== 'string') throw 'User name must be a string';
+  if (email.trim().length === 0)
+      throw 'User name cannot be an empty string or just spaces';
+  email = email.trim();
+  const user = await getUserByEmail(email);
+  //check password
+  helper.checkPasswordString(password);
+  helper.checkPassword(password);
 
+  const update = {
+    userName: user.userName,
+    email: user.email.toLowerCase(),
+    birthDate: user.birthDate,
+    Password: password
+  };
+
+  const userCollection = await users();
+  const updateData = await userCollection.updateOne(
+    {$set: update}
+  );
+
+  if (updateData.modifiedCount === 0) {
+    throw 'could not update password successfully';
+  }
+
+  return await getUserByEmail(email);
 };
 
 const addReview = async (userId, reviewId) => {
