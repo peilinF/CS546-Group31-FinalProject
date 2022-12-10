@@ -30,29 +30,30 @@ router
     const answer1 = xss(req.body.answer1);
     const question2 = xss(req.body.questionB);
     const answer2 = xss(req.body.answer2);
-    
-    if(!userName || !passWord || !email || !birthday ||!question1 ||!answer1 ||!question2 ||!answer2){
-      error = 'All fields need to have valid values';
-      res.status(400).render('userRegister',{partial: 'register', error:error,  title:"Welcome to register!"});
+
+    const checkExist = await usersData.getUserByName(email);
+    if (checkExist){
+      console.log("User already exists");
+      res.status(400).send("Email already registered");
       return;
     }
-
     try{
-      const result = await usersData.createUser(userName,email,birthday,helper.hashPassword(passWord),question1,answer1,question2,answer2);
-      console.log(userName,passWord,email,birthday);
-      if(result.userInserted ){
-        res.redirect('/login');
-        return;
-      }else{
-        res.status(500).json({message: "Internal Server Error"});
-      }
-    }catch(e){
-      res.status(400).render('userRegister',{error:e, title:"Welcome to register!"});
-    }
+      await usersData.createUser(userName,email,birthday,helper.hashPassword(passWord),question1,answer1,question2,answer2);
+      res.redirect('/login');
+    } catch(e){
+      res.status(403).send(e);
+      return;
+    };
   })
 
 
-
+router
+  .route('/error/:errorMessage')
+  .get(async (req, res) => {
+    //code here for GET
+    const errorMessage =xss (req.params.errorMessage);
+    res.render('userRegister',{ error:errorMessage, partial: 'register'});
+  });
 // router
 //   .route('/register')
 //   .get(async (req, res) => {

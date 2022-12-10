@@ -180,3 +180,6 @@ body {
     margin-top: 1%;
     margin-bottom: 1%;
   }
+  .error {
+    color: red;
+  }
