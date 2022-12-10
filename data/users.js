@@ -8,7 +8,11 @@ const createUser = async (
   userName,
   email,
   birthDate,
-  Password
+  Password,
+  question1,
+  answer1,
+  question2,
+  answer2
 ) => {
   
   let reviews = [];
@@ -37,11 +41,26 @@ const createUser = async (
   // birthDate = birthDate.trim();
   if(!Password) throw 'You must provide password!';
 
+  if(!question1) throw '1-You must select secure questions!';
+  if(!answer1) throw '1-You must answer question!';
+  if(answer1.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
+  answer1 = answer1.trim();
+
+  if(!question2) throw '2-You must select secure questions!';
+  if(!answer2) throw '2-You must answer question!';
+  if(answer2.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
+  answer2 = answer2.trim();
+
+
   const newUser = {
     userName: userName,
     email: email.toLowerCase(),
     birthDate: birthDate,
     Password: Password,
+    question1:question1,
+    answer1:answer1,
+    question2:question2,
+    answer2:answer2,
     reviews: reviews,
     comments: comments,
     followers: followers,
@@ -213,7 +232,7 @@ const checkUser = async (email, password) => {
   }
 };
 
-const forgetPassword = async (email, password) => {
+const forgetPassword = async (email, password, question1, answer1, question2, answer2) => {
   if(!email) throw "Please enter your register email!";
   if(!password) throw "Please enter password!";
   if(!confirmPassword) throw "Please confirm your password!";
@@ -221,20 +240,35 @@ const forgetPassword = async (email, password) => {
   if (email.trim().length === 0)
       throw 'User name cannot be an empty string or just spaces';
   email = email.trim();
+
   const user = await getUserByEmail(email);
   //check password
   helper.checkPasswordString(password);
   helper.checkPassword(password);
+  if(!question1) throw "You must select secure questions!";
+  if(!answer1) throw "Please enter you answer!";
+  if(answer1.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
+  answer1 = answer1.trim();
+
+  if(!question2) throw 'You must select secure questions!';
+  if(!answer2) throw 'Please enter you answer!';
+  if(answer2.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
+  answer2 = answer2.trim();
+
+  if(question1 !== user.question1) throw "Either questions or answers are wrong!";
+  if(answer1 !== user.answer1) throw "Either questions or answers are wrong!";
+
+  if(question2 !== user.question2) throw "Either questions or answers are wrong!";
+  if(answer2 !== user.answer2) throw "Either questions or answers are wrong!";
+  
 
   const update = {
-    userName: user.userName,
-    email: user.email.toLowerCase(),
-    birthDate: user.birthDate,
-    Password: password
+    Password: password,
   };
 
   const userCollection = await users();
   const updateData = await userCollection.updateOne(
+    {email: email},
     {$set: update}
   );
 
@@ -242,7 +276,7 @@ const forgetPassword = async (email, password) => {
     throw 'could not update password successfully';
   }
 
-  return await getUserByEmail(email);
+  return {passwordChanged: true};
 };
 
 const addReview = async (userId, reviewId) => {

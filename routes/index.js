@@ -7,6 +7,7 @@ const loginRoutes = require('./login');
 const logoutRoutes = require('./logout');
 const reviewsRoutes = require('./review');
 // const commentRoutes = require('./comment');
+const forgetRoutes = require('./forget');
 
 const constructorMethod = (app) => {
   app.use('/', homeRoutes);
@@ -18,6 +19,7 @@ const constructorMethod = (app) => {
   app.use('/logout',logoutRoutes);
   // app.use('/review', commentRoutes);
   app.use('/park', reviewsRoutes);
+  app.use('/forget', forgetRoutes);
   app.use('*', (req, res) => {
     res.status(404).json({ error: 'Not found' });
   });

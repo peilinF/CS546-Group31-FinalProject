@@ -1,24 +1,11 @@
-<form id="myForm">
-  <label for="usernameInput">Username</label>
-  <input type="text" name="usernameInput" id="usernameInput">
-
+<form id="passForm">
   <label for="emailInput">Email</label>
   <input type="email" name="emailInput" id="emailInput">
   
-  <label for="passwordInput">Password</label>
-  <input type="password" name="passwordInput" id="passwordInput">
-
-  <label for="confirmPasswordInput">Confirm Password</label>
-  <input type="password" name="confirmPasswordInput" id="confirmPasswordInput">
-  <span id='message'></span>
-
-  <label for="birthDateInput">Birthday</label>
-  <input type="date" name="birthDateInput" min="1899-01-01" max="2023-01-01" id="birthDateInput">
-
   <label for="questionInput">Select secure question</label>
   <select name="questionsA" id="questionsA">
-    <option value="question1">What is your mother first name?</option>
-    <option value="question2">What is your best friend name?</option>
+    <option value="question1">What is your mother's first name?</option>
+    <option value="question2">What is your best friend's name?</option>
     <option value="question3">What is your born city?</option>
     <option value="question4">Is there anything you can't live without?</option>
     <option value="question5">Who is you love most person?</option>
@@ -30,8 +17,8 @@
 
   <label for="questionInput">Select secure question</label>
   <select name="questionsB" id="questionsB">
-    <option value="question1">What is your mother first name?</option>
-    <option value="question2">What is your best friend name?</option>
+    <option value="question1">What is your mother's first name?</option>
+    <option value="question2">What is your best friend's name?</option>
     <option value="question3">What is your born city?</option>
     <option value="question4">Is there anything you can't live without?</option>
     <option value="question5">Who is you love most person?</option>
@@ -40,13 +27,17 @@
 
   <label for="answerInput2">Answer</label>
   <input type="text" name="answerInput2" id="answerInput2">
+  <span id="errorMessage"></span>
 
-  <p>Please remember your secure questions and answers! Once you register, you cannot modify the answers online!<br>
-  If you have any concerns, please contact us: mapStevens@gamil.com</p>
 
-  <div>
-    <button type="submit">Register</button>
-  </div>
+  <label for="passwordInput">Password</label>
+  <input type="password" name="passwordInput" id="passwordInput">
+
+  <label for="confirmPasswordInput">Confirm Password</label>
+  <input type="password" name="confirmPasswordInput" id="confirmPasswordInput">
+  <span id='message'></span>
+
+  <button type="submit">Submit</button>
 </form>
-<a href="/login">Already have an account? Click here to log-in</a>
+<a href="/login">Back to log-in</a>
 {{#if error}}<div class="error">{{error}}</div>{{/if}}

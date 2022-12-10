@@ -26,15 +26,19 @@ router
     const passWord = xss(req.body.password);
     const email = xss(req.body.email);
     const birthday = xss(req.body.birthDate);
+    const question1 = xss(req.body.questionA);
+    const answer1 = xss(req.body.answer1);
+    const question2 = xss(req.body.questionB);
+    const answer2 = xss(req.body.answer2);
     
-    if(!userName || !passWord || !email || !birthday){
+    if(!userName || !passWord || !email || !birthday ||!question1 ||!answer1 ||!question2 ||!answer2){
       error = 'All fields need to have valid values';
       res.status(400).render('userRegister',{partial: 'register', error:error,  title:"Welcome to register!"});
       return;
     }
 
     try{
-      const result = await usersData.createUser(userName,email,birthday,helper.hashPassword(passWord));
+      const result = await usersData.createUser(userName,email,birthday,helper.hashPassword(passWord),question1,answer1,question2,answer2);
       console.log(userName,passWord,email,birthday);
       if(result.userInserted ){
         res.redirect('/login');

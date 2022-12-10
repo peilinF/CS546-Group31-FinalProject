@@ -20,7 +20,11 @@
                     username: $('#usernameInput').val(),
                     email: $('#emailInput').val(),
                     birthDate: $('#birthDateInput').val(),
-                    password: $('#passwordInput').val()
+                    password: $('#passwordInput').val(),
+                    questionA:$('#questionsA option:selected').text(),
+                    answer1: $('#answerInput1').val(),
+                    questionB: $('#questionsB option:selected').text(),
+                    answer2:$('#answerInput2').val()
                 })
             }
             $.ajax(requestConfig).then(function (responseMessage) {
