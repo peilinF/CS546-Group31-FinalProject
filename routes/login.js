@@ -10,7 +10,7 @@ router
 .route("/")
 .get(async (req, res) => {
   //code here for GET
-  res.sendFile(path.resolve('static/login.html'));
+  res.render('userLogin');
 })
 .post(async (req, res) => {
   //code here for POST

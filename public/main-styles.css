@@ -113,6 +113,18 @@ body {
     background-color: white;
     color: #839788;
   }
+
+  .login {
+    position: absolute;
+    top: 10px;
+    right: 85px;
+  }
+
+  .register {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
   
   form {
     display: flex;
