@@ -28,8 +28,7 @@ router
     //console.log('Yea');
     // if not matched, back to login with error message
     if (checkUser.authenticatedUser) {
-      req.session.user = {name : checkUser.userName,  email: email};
-
+      req.session.user = {userName: checkUser.userName,  email: email};
       res.render('homepage',{userName: checkUser.userName});
       return;
     }
@@ -45,9 +44,8 @@ router
   .get(async (req, res) => {
     //code here for GET
     //res.sendFile
-    console.log('homepage');
-    const name = req.session.user.name;
-    res.render('homepage', {userName: name});
+    //console.log('homepage');
+    res.render('homepage', {userName: req.session.user.userName});
   });
 
 

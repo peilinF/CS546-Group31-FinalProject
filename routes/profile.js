@@ -7,11 +7,11 @@ const path = require('path');
 const xss = require('xss');
 
 router
-  .route('/profile')
+  .route('/')
   .get(async (req, res) => {
     //code here for GET
     if(req.session.user){
-      res.render('../views/profile',{ user: req.session.user, title:"Successfully authenticated!"});
+      res.render('profile',{ user: req.session.user, title:"Successfully authenticated!"});
     }else{
       error = "Error page saying that the user is not logged in";
       res.status(401).render('../views/forbiddenAccess',{error:error, title:"Non-Authenticated!"});

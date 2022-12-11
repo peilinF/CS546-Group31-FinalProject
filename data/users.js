@@ -228,7 +228,7 @@ const checkUser = async (email, password) => {
   if(compareToPassword){
     return {authenticatedUser: true, userName: user.userName};
   }else{
-    throw 'password is invalid.'
+    throw 'Either the username or password is invalid.'
   }
 };
 
