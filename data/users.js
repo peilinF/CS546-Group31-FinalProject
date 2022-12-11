@@ -260,22 +260,22 @@ const forgetPassword = async (email, password, question1, answer1, question2, an
 
   if(question2 !== user.question2) throw "Either questions or answers are wrong!";
   if(answer2 !== user.answer2) throw "Either questions or answers are wrong!";
+
+  if(question1 === user.question1 && question2 === user.question2 && answer1 === user.answer1 && answer2 === user.answer2){
+    const update = {
+      Password: password,
+    };
   
-
-  const update = {
-    Password: password,
-  };
-
-  const userCollection = await users();
-  const updateData = await userCollection.updateOne(
-    {email: email},
-    {$set: update}
-  );
-
-  if (updateData.modifiedCount === 0) {
-    throw 'could not update password successfully';
+    const userCollection = await users();
+    const updateData = await userCollection.updateOne(
+      {email: email},
+      {$set: update}
+    );
+  
+    if (updateData.modifiedCount === 0) {
+      throw 'could not update password successfully';
+    }
   }
-
   return {passwordChanged: true};
 };
 
