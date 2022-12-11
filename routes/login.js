@@ -39,15 +39,17 @@ router
   }
 })
 
+
 router
-.route('/homepage')
-.get(async (req, res) => {
-  //code here for GET
-  if(req.session.user){
-    res.render('homepage',{userName: req.session.user.name});
-  }else{
-    res.render('userLogin',{title:"Welcome to login!"});
-  }
-});
+  .route("/homepage")
+  .get(async (req, res) => {
+    //code here for GET
+    //res.sendFile
+    console.log('homepage');
+    const name = req.session.user.name;
+    res.render('homepage', {userName: name});
+  });
+
+
 
   module.exports = router;

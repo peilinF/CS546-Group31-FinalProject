@@ -38,13 +38,12 @@ app.use(
   })
 );
 
-app.use('/', (req, res, next) => {
-  if (req.session.user) {
-    res.locals.user = req.session.user;
-  }
-    next();
-}
-);
+// app.use('/', (req, res, next) => {
+//   if (req.session.user) {
+//     res.redirect('/login/homepage');
+//   }
+//     next();
+// });
 app.use('/login', (req, res, next) => {
   if (req.session.user) {
     res.redirect('/profile');

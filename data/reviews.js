@@ -54,7 +54,7 @@ const createReview = async (
     userName: user.userName,
     content: content,
     rating: rating,
-    lastUpdatedTimeStamp : new Date().toLocaleDateString(),
+    lastUpdatedTime : new Date().toLocaleDateString(),
     comments:[],
     number_of_likes: 0,
   };
