@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rank User</title>
+
+    <link rel="stylesheet" href="/public/main-styles.css" />
+  </head>
+  <body>
+    <header>
+      <section class="navigation">
+        <h1>Go to?</h1>
+        <nav>
+          <ul>
+            <li><a href="./">Back</a></li>
+            <li><a href="./state">State</a></li>
+            <li><a href="./park">Park</a></li>
+            <li><a href="#">User</a></li>
+            <li><a href="./review">Review</a></li>
+            <li><a href="./comment">Comment</a></li>
+          </ul>
+        </nav>
+      </section>
+    </header>
+    <main>
+      <section class="intro rank-intro">
+        <h1>Rank Park</h1>
+        <h2>Select options how to rank the park!</h2>
+        <p>
+          Welcome to Rank Park Page. You can rank park with multiple options.
+        </p>
+      </section>
+      <section class="rank-option-form">
+        <form action="/rank/park/results" method="GET">
+          <label for="option" id="rankParkOptionLabel">Sort by:</label>
+          <select name="option" id="rankParkSelect" selected="overallRating">
+            <option value="overallRating">overall rating</option>
+            <option value="reviewsAmount">reviews amount</option>
+            <option value="wishtovisit">wish to visit amount</option>
+            <option value="visited">visited amount</option>
+          </select>
+          <label for="reverse" id="rankParkReverseLabel">Reverse:</label>
+          <select name="reverse" id="rankParkReverseSelect" selected="false">
+            <option value="false">false</option>
+            <option value="true">true</option>
+          </select>
+          <input type="submit" value="Rank" />
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>This is a footer</p>
+    </footer>
+  </body>
+</html>

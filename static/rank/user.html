@@ -1,42 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Rank User</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="/public/main-styles.css">
-</head>
+    <link rel="stylesheet" href="/public/main-styles.css" />
+  </head>
 
-<body>
+  <body>
+    <header>
+      <section class="navigation">
+        <h1>Go to?</h1>
+        <nav>
+          <ul>
+            <li><a href="./">Back</a></li>
+            <li><a href="./state">State</a></li>
+            <li><a href="./park">Park</a></li>
+            <li><a href="#">User</a></li>
+            <li><a href="./review">Review</a></li>
+            <li><a href="./comment">Comment</a></li>
+          </ul>
+        </nav>
+      </section>
+    </header>
     <main>
-      <h1>Rank User</h1>
-      <article>
+      <section class="intro rank-intro">
+        <h1>Rank User</h1>
         <h2>Select options how to rank the user!</h2>
         <p>
-            Welcome to Rank User Page. You can rank user with multiple options.
+          Welcome to Rank User Page. You can rank user with multiple options.
         </p>
+      </section>
+      <section class="rank-option-form">
         <form action="/rank/user/results" method="GET">
-            <label for="option" id="rankUserOptionLabel">Sort by:</label>
-            <select name="option" id="rankUserSelect" selected="followersAmount">
-                <option value="followersAmount">followers amount</option>
-                <option value="likesRecieved">likes recieved</option>
-                <option value="commentsAmount">comments amount</option>
-            </select>
-            <label for="itemsNum" id="rankUserItemsNumLabel">itemsNum:</label>
-            <input type="number" id="rankUserItemsNumInput">
-            <label for="reverse" id="rankUserReverseLabel">Reverse:</label>
-            <select name="reverse" id="rankUserReverseSelect" selected="false">
-                <option value="false">false</option>
-                <option value="true">true</option>
-            </select>
-            <input type="submit" value="Rank">
+          <label for="option" id="rankUserOptionLabel">Sort by:</label>
+          <select name="option" id="rankUserSelect" selected="followersAmount">
+            <option value="followersAmount">followers amount</option>
+            <option value="likesRecieved">likes recieved</option>
+            <option value="commentsAmount">comments amount</option>
+          </select>
+          <label for="itemsNum" id="rankUserItemsNumLabel">itemsNum:</label>
+          <input type="number" id="rankUserItemsNumInput" />
+          <label for="reverse" id="rankUserReverseLabel">Reverse:</label>
+          <select name="reverse" id="rankUserReverseSelect" selected="false">
+            <option value="false">false</option>
+            <option value="true">true</option>
+          </select>
+          <input type="submit" value="Rank" />
         </form>
-      </article>
+      </section>
     </main>
-</body>
-
+    <footer>
+      <p>This is a footer</p>
+    </footer>
+  </body>
 </html>

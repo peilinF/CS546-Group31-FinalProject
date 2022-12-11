@@ -60,4 +60,27 @@ router.route("/user/results").get(async (req, res) => {
     return;
   }
 });
+
+router.route("/park/results").get(async (req, res) => {
+  //code here for GET
+  let option, reverse;
+  try {
+    option = req.params.option;
+    reverse = req.params.reverse
+  } catch (e) {
+    res.render('error', {path: '/rank/user/result', statuscode: 400, error : e});
+    res.status(400);
+    return;
+  }
+  try {
+    const results = rankData.rankParks(option, reverse)
+    res.render('rankParks', {option: option, reverse: reverse, results: results})
+    res.status(200)
+    return
+  } catch (e) {
+    res.render('error', {path: '/rank/park/result', statucode: 500, error : e});
+    res.status(500);
+    return;
+  }
+});
 module.exports = router;
