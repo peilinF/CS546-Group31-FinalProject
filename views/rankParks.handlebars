@@ -1,0 +1,28 @@
+<h1>Park Rank</h1>
+<section>
+    <p>Sort by {{option}}</p>
+    <p>Reverse? {{reverse}}</p>
+</section>
+<div>
+    <h5>Results:</h5>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Park Name</th>
+            <th>Overall rating</th>
+            <th>reviewsAmount</th>
+            <th>wish to visit amount</th>
+            <th>visited amount</th>
+        </tr>
+        {{#each results}}
+        <tr>
+            <th>{{rank}}</th>
+            <th>{{parkName}}</th>
+            <th>{{overallRating}}</th>
+            <th>{{reviews.length}}</th>
+            <th>{{wishVisitAmount}}</th>
+            <th>{{visitedAmount}}</th>
+        </tr>
+        {{/each}}
+    </table>
+</div>
