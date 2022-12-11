@@ -41,10 +41,9 @@ const rankParks = async (
     option,
     reverse = 'false'
     ) => {
-    let allParks = await parkData.getAllParks()
-
+    let allParks = await parkData.getAllParks();
     if (option === 'overallRating') {
-        allParks.sort(function(a,b){b.overallRating-a.overallRating})
+        allParks.sort(function(a,b){b.overallRating-a.overallRating});
     } else if (option === 'reviewsAmount') {
         allParks.sort(function(a,b){b.reviews.length-a.reviews.length})
     } else if (option === 'wishtovisit') {

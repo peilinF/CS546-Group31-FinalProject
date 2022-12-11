@@ -50,7 +50,7 @@ router.route("/user/results").get(async (req, res) => {
     return;
   }
   try {
-    const results = rankData.rankUsers(option, itemsNum, reverse)
+    const results = await rankData.rankUsers(option, itemsNum, reverse)
     res.render('rankUsers', {option: option, itemsNum: itemsNum, reverse: reverse, results: results})
     res.status(200)
     return
@@ -74,7 +74,7 @@ router.route("/review/results").get(async (req, res) => {
     return;
   }
   try {
-    const results = rankData.rankReviews(option, itemsNum, reverse)
+    const results = await rankData.rankReviews(option, itemsNum, reverse)
     res.render('rankReviews', {option: option, itemsNum: itemsNum, reverse: reverse, results: results})
     res.status(200)
     return
@@ -97,7 +97,8 @@ router.route("/park/results").get(async (req, res) => {
     return;
   }
   try {
-    const results = rankData.rankParks(option, reverse)
+    console.log(option);
+    const results = await rankData.rankParks(option, reverse)
     res.render('rankParks', {option: option, reverse: reverse, results: results})
     res.status(200)
     return
