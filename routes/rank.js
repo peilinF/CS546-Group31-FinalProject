@@ -41,9 +41,9 @@ router.route("/user/results").get(async (req, res) => {
   //code here for GET
   let option, itemsNum, reverse;
   try {
-    option = req.params.option;
-    itemsNum = req.params.itemsNum
-    reverse = req.params.reverse
+    option = req.query.option;
+    itemsNum = req.query.itemsNum
+    reverse = req.query.reverse
   } catch (e) {
     res.render('error', {path: '/rank/user/result', statuscode: 400, error : e});
     res.status(400);
@@ -65,9 +65,9 @@ router.route("/review/results").get(async (req, res) => {
   //code here for GET
   let option, itemsNum, reverse;
   try {
-    option = req.params.option;
-    itemsNum = req.params.itemsNum
-    reverse = req.params.reverse
+    option = req.query.option;
+    itemsNum = req.query.itemsNum
+    reverse = req.query.reverse
   } catch (e) {
     res.render('error', {path: '/rank/review/result', statuscode: 400, error : e});
     res.status(400);
@@ -89,8 +89,8 @@ router.route("/park/results").get(async (req, res) => {
   //code here for GET
   let option, reverse;
   try {
-    option = req.params.option;
-    reverse = req.params.reverse
+    option = req.query.option;
+    reverse = req.query.reverse
   } catch (e) {
     res.render('error', {path: '/rank/park/result', statuscode: 400, error : e});
     res.status(400);
