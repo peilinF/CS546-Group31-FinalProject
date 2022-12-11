@@ -1,53 +1,66 @@
-<div class = park_information>
-    <h1 id = 'park_head'><a href = "{{park.linkInformation}}" id = "park_url" target="_blank">{{park.parkName}}</a></h1>
-    <img src="{{park.park_picture}}" alt="{{park.parkName}}">
-    <p id = 'park_description'> Park introduction: {{park.introduction}}</p>
-    <p id = 'park_address'>Park address: <a href="{{park.map}}" target="_blank"> {{park.address}}</a></p>
-    <ul class = 'contacts'>
-        {{#each park.contacts}}
-        <li>
-            <p class = 'phone'>Phone Number: {{this.phone}}</p>
-            <p class = 'phone'>Type: {{this.type}}</p>
-        </li>
-        {{/each}}
-    </ul>
+<div class="park_information">
+  <h1 id="park_head"><a
+      href="{{park.linkInformation}}"
+      id="park_url"
+      target="_blank"
+    >{{park.parkName}}</a></h1>
+  <img src="{{park.park_picture}}" alt="{{park.parkName}}" />
+  <p id="park_description"> Park introduction: {{park.introduction}}</p>
+  <p id="park_address">Park address:
+    <a href="{{park.map}}" target="_blank"> {{park.address}}</a></p>
+  <ul class="contacts">
+    {{#each park.contacts}}
+      <li>
+        <p class="phone">Phone Number: {{this.phone}}</p>
+        <p class="phone">Type: {{this.type}}</p>
+      </li>
+    {{/each}}
+  </ul>
 
-    <ul class = 'fee'>
-        {{#each park.entranceFees}}
-        <li>
-            <p class = 'fee'>Cost: {{this.cost}}</p>
-            <p class = 'fee'>Description: {{this.description}}</p>
-            <p class = 'fee'>Title: {{this.title}}</p>
-        </li>
-        {{/each}}
-    </ul>
-    <p id = "park_rating">Overall Rating: {{park.overallRating}}</p>
+  <ul class="fee">
+    {{#each park.entranceFees}}
+      <li>
+        <p class="fee">Cost: {{this.cost}}</p>
+        <p class="fee">Description: {{this.description}}</p>
+        <p class="fee">Title: {{this.title}}</p>
+      </li>
+    {{/each}}
+  </ul>
+  <p id="park_rating">Overall Rating: {{park.overallRating}}</p>
 
-    {{#if park.hasReviews}}
-    
+  {{#if park.hasReviews}}
+
     <h2>Reviews</h2>
     {{#each park.reviews}}
-    <div class = 'reviews'>
-        <p class = 'review'>Author: {{this.userName}}</p>
-        <p class = 'review'>Rating: {{this.rating}}</p>
-        <p class = 'review'>Review: {{this.content}}</p>
-        <p class = 'review'>Date: {{this.lastUpdatedTimeStamp}}</p>
-        <a href="/:parkID/:reviewID">Reply</a>
-    </div>
+      <div class="reviews">
+        <section class="review-info">
+          <p class="review">Title: {{this.title}}</p>
+          <p class="review">Author: {{this.userName}}</p>
+          <p class="review">Rating: {{this.rating}}</p>
+          <p class="review">Date: {{this.lastUpdatedTimeStamp}}</p>
+        </section>
+        <section class="review-content">
+          <p class="review">Review: {{this.content}}</p>
+        </section>
+        <section class="review-ui">
+          <a href="/:parkID/:reviewID">Reply</a>
+          <button class="like-btn">Like</button>
+        </section>
+      </div>
     {{/each}}
-    
-    {{/if}}
 
-    {{#if park.hasComments}}
+  {{/if}}
+
+  {{#if park.hasComments}}
     <h2>Comments</h2>
     {{#each park.reviews.comments}}
-    <div class = 'comments'>
-        <p class = 'comments'>Author: {{this.userName}}</p>
-        <p class = 'comment'>Review: {{this.content}}</p>
-        <p class = 'comment'>Date: {{this.lastUpdatedTimeStamp}}</p>
-    </div>
+      <div class="comments">
+        <p class="comments">Author: {{this.userName}}</p>
+        <p class="comment">Review: {{this.content}}</p>
+        <p class="comment">Date: {{this.lastUpdatedTimeStamp}}</p>
+      </div>
     {{/each}}
-    {{/if}}
+  {{/if}}
 
-    {{#if error}}<div class="error">{{error}}</div>{{/if}}
+  {{#if error}}<div class="error">{{error}}</div>{{/if}}
 </div>
