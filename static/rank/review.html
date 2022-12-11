@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rank Review</title>
+
+    <link rel="stylesheet" href="/public/main-styles.css" />
+  </head>
+  <body>
+    <header>
+      <section class="navigation">
+        <h1>Go to?</h1>
+        <nav>
+          <ul>
+            <li><a href="./">Back</a></li>
+            <li><a href="./state">State</a></li>
+            <li><a href="./park">Park</a></li>
+            <li><a href="./user">User</a></li>
+            <li><a href="#">Review</a></li>
+            <li><a href="./comment">Comment</a></li>
+          </ul>
+        </nav>
+      </section>
+    </header>
+    <main>
+      <section class="intro rank-intro">
+        <h1>Rank Review</h1>
+        <h2>Select options how to rank the reviews!</h2>
+        <p>
+          Welcome to Rank Review Page. You can rank review with multiple options.
+        </p>
+      </section>
+      <section class="rank-option-form">
+        <form action="/rank/review/results" method="GET">
+          <label for="option" id="rankReviewOptionLabel">Sort by:</label>
+          <select name="option" id="rankReviewSelect" selected="lastUpdatedTimeStamp">
+            <option value="lastUpdatedTimeStamp">last updated time</option>
+            <option value="number_of_likes">number of likes</option>
+          </select>
+          <label for="itemsNum" id="rankReviewItemsNumLabel">itemsNum:</label>
+          <input type="number" id="rankReviewItemsNumInput" />
+          <label for="reverse" id="rankReviewReverseLabel">Reverse:</label>
+          <select name="reverse" id="rankReviewReverseSelect" selected="false">
+            <option value="false">false</option>
+            <option value="true">true</option>
+          </select>
+          <input type="submit" value="Rank" />
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

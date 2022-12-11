@@ -2,6 +2,7 @@
 // const users = mongoCollections.users;
 const userData = require('./users');
 const parkData = require('./parks');
+const reviewData = require('./reviews')
 // const reviewData = require('./reviews');
 // const {ObjectId} = require('mongodb');
 // const helper = require("../helpers.js");
@@ -67,7 +68,36 @@ const rankParks = async (
     return results
 }
 
+const rankReviews = async (
+    option,
+    itemsNum = 10,
+    reverse = 'false'
+    ) => {
+    let allReviews = await reviewData.getAllReviews()
+
+    if (option === 'lastUpdatedTimeStamp') {
+        allReviews.sort(function(a,b){b.lastUpdatedTimeStamp-a.lastUpdatedTimeStamp})
+    } else if (option === 'number_of_likes') {
+        allReviews.sort(function(a,b){b.number_of_likes-a.number_of_likes})
+    } else {
+        throw `option ${option} have not been developed yet`
+    }
+
+    if (reverse === 'true') {
+        allReviews = allReviews.reverse()
+    }
+
+    const results = allReviews.slice(0, itemsNum)
+
+    for (let i=0,len=results.length; i<len; i++) {
+        results[i].rank = i+1
+    }
+
+    return results
+}
+
 module.exports = {
     rankUsers,
-    rankParks
+    rankParks,
+    rankReviews
 };
