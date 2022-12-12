@@ -63,4 +63,16 @@ const parkNameList =
     "America Samoa",
     "Virgin Islands",
 ];
-exports.parkNameList = parkNameList;
+
+const usersInfos = [
+    ['mike', 'xixi@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+    ['John', 'xixi@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+    ['wendy', 'xixi@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+    ['jack', 'xixi@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+    ['nick', 'xixi@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+] 
+
+module.exports = {
+    parkNameList,
+    usersInfos,
+}
