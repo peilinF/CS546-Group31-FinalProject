@@ -48,6 +48,4 @@ router
     res.render('homepage', {userName: req.session.user.userName});
   });
 
-
-
   module.exports = router;

@@ -10,7 +10,11 @@ const users = mongoCollections.users;
 
 router.route("/").get(async (req, res) => {
   //code here for GET
+ if(req.session.user){
+  res.render('homepage',{userName: req.session.user.userName});
+ }else{
   res.sendFile(path.resolve('static/homepage.html'));
+ }
 });
 router.route("/AK").get(async (req, res) => {
   //code here for GET
