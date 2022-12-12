@@ -12,6 +12,7 @@ const xss = require('xss');
 router.route("/").get(async (req, res) => {
   //code here for GET
   res.sendFile(path.resolve('static/park.html'));
+  return;
 });
 // router.route("/test").get(async (req, res) => {
 //   //code here for GET
@@ -28,7 +29,7 @@ router.route("/").get(async (req, res) => {
 // );
 
 router.route("/search").get(async (req, res) => {
-  const parkName = req.params.searchParkName;
+  const parkName = req.query.searchParkName;
   try {
     let park = await parkData.getParkById(parkName);
     park = await getReview(park);
