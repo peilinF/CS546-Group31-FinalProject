@@ -7,9 +7,9 @@
         username = $('#usernameInput'),
         email = $('#emailInput'),
         birthDate = $('#birthDateInput'),
-        questionA = $('#questionsA option:selected'),
+        questionA = $('#questionsA'),
         answer1 = $('#answerInput1'),
-        questionB = $('#questionsB option:selected'),
+        questionB = $('#questionsB'),
         answer2 = $('#answerInput2');
         errorMessage = $('#errorMessage');
     myForm.submit(function (e) {
