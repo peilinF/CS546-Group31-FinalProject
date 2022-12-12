@@ -13,30 +13,35 @@ const addLike = async (
     reviewId
 ) => {
     const userCollection = await userDB();
-    const likedReview = await userCollection.find({ _id: ObjectId(viewerId), likes: {_id: ObjectId(reviewId)} })
-    if (likedReview) throw '[addLike]User has already liked this review'
-    const viewer = await user.getUserById(viewerId)
-    let viewerLikes = viewer.likes
-    const updatedViewer = { likes: viewerLikes.push(reviewId) }
-    const updatedViewerInfo = await userCollection.updateOne({ _id: ObjectId(viewerId) }, { $set: updatedViewer });
+    const likedReview = await userCollection.findOne({ _id: ObjectId(viewerId)});
+    let hasLike = false;
+    const likedReviewList = likedReview.likes;
+
+    likedReviewList.map((val, i) => { if (val === reviewId) { hasLike = true }});
+    if (hasLike) throw '[addLike]User has already liked this review';
+    const viewer = await user.getUserById(viewerId);
+    const updatedViewer = { likes: reviewId }
+    const updatedViewerInfo = await userCollection.updateOne({ _id: ObjectId(viewerId) }, { $push: updatedViewer });
     if (updatedViewerInfo.modifiedCount === 0) {
       throw '[addLike]could not update likes list successfully';
     }
-    const review = await review.getReview(reviewId)
     const reviewsCollection = await reviewDB();
+    const review = await reviewsCollection.findOne({ _id: ObjectId(reviewId) });
     const updatedReview = { number_of_likes: review.number_of_likes+1}
     const updatedReviewInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $set: updatedReview });
     if (updatedReviewInfo.modifiedCount === 0) {
       throw '[addLike]could not update review successfully';
     }
-    const authorId = review.userId
-    const author = await user.getUserById(authorId)
-    const updatedAuthor = {likesRecievedAmount: author.likesRecievedAmount+1}
+    const authorId = review.userId;
+    const author = await userCollection.findOne({ _id: ObjectId(authorId) });
+    console.log(author);
+    const updatedAuthor = {likesReceivedAmount: author.likesReceivedAmount+1}
+    console.log(updatedAuthor);
     const updatedAuthorInfo = await userCollection.updateOne({ _id: ObjectId(authorId) }, { $set: updatedAuthor });
     if (updatedAuthorInfo.modifiedCount === 0) {
       throw '[addLike]could not update author likes recieved amount successfully';
     }
-    return await getReview(reviewId);
+    return await reviewsCollection.findOne({ _id: ObjectId(reviewId) });
 }
 
 const removeLike = async (

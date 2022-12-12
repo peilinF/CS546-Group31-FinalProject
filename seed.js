@@ -102,8 +102,8 @@ const createMutiUsers = async () => {
 };
 
 const createMutiLikeEvents = async () => {
-  const [userMike, userJohn, userWendy, userJack, userNick] =
-    await createMutiUsers();
+  const [userMike, userJohn, userWendy, userJack, userNick] = await createMutiUsers();
+  console.log("userMike", userMike);
   const park = await parks.getParkByName("Lake Clark National Park & Preserve");
   const reviewMike = await reviews.createReview(
     park._id.toString(),

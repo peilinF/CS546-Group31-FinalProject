@@ -31,7 +31,7 @@ router.route("/").get(async (req, res) => {
 router.route("/search").get(async (req, res) => {
   const parkName = req.query.searchParkName;
   try {
-    let park = await parkData.getParkById(parkName);
+    let park = await parkData.getParkByName(parkName);
     park = await getReview(park);
     res.render('singlePark', {park: park});
     res.status(200)
@@ -43,17 +43,15 @@ router.route("/search").get(async (req, res) => {
 });
 
 const getReview = async (park) => {
-  let reviews = [];
   let hasReviews = false;
-  for (let i = 0; i < park.reviews.length; i++) {
-    let review = await reviewData.getReview(park.reviews[i]);
-    delete review._id;
-    reviews.push(review);
-  }
-  if (reviews.length !== 0) {
+  console.log(park.reviews.length);
+  if (park.reviews.length !== 0) {
+    for (let i = 0; i < park.reviews.length; i++) {
+      let review = await reviewData.getReview(park.reviews[i]);
+      park.reviews[i] = review;
+    }
     hasReviews = true;
   }
-  park.reviews = reviews;
   park.hasReviews = hasReviews;
   return park;
 };

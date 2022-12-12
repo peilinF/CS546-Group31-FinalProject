@@ -58,7 +58,7 @@ const createUser = async (
   if(answer2.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
   answer2 = answer2.trim();
 
-
+  let likesReceivedAmount = 0;
   const newUser = {
     userName: userName,
     email: email.toLowerCase(),
@@ -74,7 +74,7 @@ const createUser = async (
     parksHaveVisited: parksHaveVisited,
     parksWishToGo: parksWishToGo,
     likes: likes,
-    likesReceivedAmount: 0,
+    likesReceivedAmount: likesReceivedAmount,
   };
   const userCollection = await users();
   const insertInfo = await userCollection.insertOne(newUser);
