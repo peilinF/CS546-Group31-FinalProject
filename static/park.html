@@ -20,7 +20,7 @@
         <p>Search the national park, and learn more information!</p>
       </section>
 
-      <form action="/searchpark" method="POST">
+      <form action="park/search" method="GET">
         <label for="name" id="searchParkNameLabel">Park Name:</label>
         <input
           type="text"
@@ -35,7 +35,7 @@
 
       <div class="park-list"></div>
     </main>
-    <script scr="/public/js/park.js"></script>
+    <script type="module" src="../public/js/park.js"></script>
   </body>
   
 </html>

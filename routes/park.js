@@ -27,15 +27,17 @@ router.route("/").get(async (req, res) => {
 //   }
 // );
 
-router.route("/:name").get(async (req, res) => {
-  const name = req.params.name;
+router.route("/search").get(async (req, res) => {
+  const parkName = req.params.searchParkName;
   try {
-    let park = await parkData.getParkById(name);
+    let park = await parkData.getParkById(parkName);
     park = await getReview(park);
     res.render('singlePark', {park: park});
-    res.status(200)    
+    res.status(200)
+    return;
   } catch (e) {
     res.status(500);
+    return;
   }
 });
 
