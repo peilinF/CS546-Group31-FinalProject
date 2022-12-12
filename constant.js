@@ -64,6 +64,7 @@ const parkNameList =
     "Virgin Islands",
 ];
 
+const helper = require("./helpers")
 const usersInfos = [
     ['mike', 'xixi@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
     ['John', 'xixi@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],

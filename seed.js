@@ -1,5 +1,5 @@
 const data = require("./data");
-const likes = data.likes;
+const likes = data.like;
 const parks = data.parks;
 const users = data.users;
 const reviews = data.reviews;
@@ -82,7 +82,7 @@ const createUser = async () => {
 };
 
 const createMutiUsers = async () => {
-  const users = [];
+  const userList = [];
   const usersInfos = constant.usersInfos;
   for (let i = 0, len = usersInfos.length; i < len; i++) {
     let userInfo = usersInfos[i];
@@ -96,9 +96,9 @@ const createMutiUsers = async () => {
       userInfo[6],
       userInfo[7]
     );
-    users.push(user);
+    userList.push(user);
   }
-  return users;
+  return userList;
 };
 
 const createMutiLikeEvents = async () => {

@@ -92,9 +92,9 @@ const getParkByName = async (parkName) => {
     const park = await parksCollection.findOne({ parkName: parkName });
     if (!park) throw 'Park not found';
     park._id = park._id.toString();
-    for(let j = 0; j < park.reviews.length; j++){
-        park.reviews[j]._id = park.reviews[j]._id.toString();
-    }
+    // for(let j = 0; j < park.reviews.length; j++){
+    //     park.reviews[j]._id = park.reviews[j]._id.toString();
+    // }
     return park;
   };
 
