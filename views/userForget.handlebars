@@ -1,9 +1,9 @@
 <form id="passForm">
-  <label for="emailInput">Email</label>
-  <input type="email" name="emailInput" id="emailInput">
+  <label for="emailInput1">Email</label>
+  <input type="email" name="emailInput1" id="emailInput1">
   
-  <label for="questionInput">Select secure question</label>
-  <select name="questionsA" id="questionsA">
+  <label for="questionInput1">Select secure question</label>
+  <select name="questionsA1" id="questionsA1">
     <option value="question1">What is your mother's first name?</option>
     <option value="question2">What is your best friend's name?</option>
     <option value="question3">What is your born city?</option>
@@ -12,11 +12,11 @@
     <option value="question6">What is your spouse born city?</option>
   </select>
 
-  <label for="answerInput1">Answer</label>
-  <input type="text" name="answerInput1" id="answerInput1">
+  <label for="answerInputA">Answer</label>
+  <input type="text" name="answerInputA" id="answerInputA">
 
-  <label for="questionInput">Select secure question</label>
-  <select name="questionsB" id="questionsB">
+  <label for="questionInput2">Select secure question</label>
+  <select name="questionsB1" id="questionsB1">
     <option value="question1">What is your mother's first name?</option>
     <option value="question2">What is your best friend's name?</option>
     <option value="question3">What is your born city?</option>
@@ -25,19 +25,19 @@
     <option value="question6">What is your spouse born city?</option>
   </select>
 
-  <label for="answerInput2">Answer</label>
-  <input type="text" name="answerInput2" id="answerInput2">
+  <label for="answerInputB">Answer</label>
+  <input type="text" name="answerInputB" id="answerInputB">
   <span id="errorMessage1"></span>
 
 
-  <label for="passwordInput">Password</label>
-  <input type="password" name="passwordInput" id="passwordInput">
+  <label for="passwordInput1">Password</label>
+  <input type="password" name="passwordInput1" id="passwordInput1">
 
-  <label for="confirmPasswordInput">Confirm Password</label>
-  <input type="password" name="confirmPasswordInput" id="confirmPasswordInput">
-  <span id='message'></span>
+  <label for="confirmPasswordInput1">Confirm Password</label>
+  <input type="password" name="confirmPasswordInput1" id="confirmPasswordInput1">
+  <span id='message1'></span>
 
   <button type="submit">Submit</button>
 </form>
 <a href="/login">Back to log-in</a>
-{{#if error}}<div class="error">{{error}}</div>{{/if}}
+{{#if error}}<div class="error" id="error1">{{error}}</div>{{/if}}

@@ -17,7 +17,7 @@
         if ( passwordInput.val() === '' || confirmPasswordInput.val() === '' || username.val() === '' || email.val() === '' || birthDate.val() === '' || questionA.val() === '' || answer1.val() === '' || questionB.val() === '' || answer2.val() === ''){
             window.location.href = '/register/error/' + 'please fill all the fields';
         }
-        else if(questionA.text() === questionB.text()){
+        else if(questionA.val() === questionB.val()){
             errorMessage.css('color', 'red');
             errorMessage.html('Secure questions could not be the same!');
         } else if (passwordInput.val() !== confirmPasswordInput.val() && passwordInput.val() !== '' && confirmPasswordInput.val() !== '') {

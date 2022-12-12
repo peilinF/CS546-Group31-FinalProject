@@ -41,6 +41,14 @@ router
     }catch(e){
       res.status(400).render('userForget',{error:e,  title:"Reset your password!"});
     }
-  })
+  });
+
+  router
+  .route('/error/:errorMessage')
+  .get(async (req, res) => {
+    //code here for GET
+    const errorMessage =xss (req.params.errorMessage);
+    res.render('userForget',{ error:errorMessage, partial: 'forget'});
+  });
 
   module.exports = router;
