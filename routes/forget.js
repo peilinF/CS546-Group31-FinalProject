@@ -38,7 +38,7 @@ router
     }
 
     try{
-      const result = await usersData.forgetPassword(email,helper.hashPassword(passWord),question1,answer1,question2,answer2);
+      const result = await usersData.forgetPassword(email,passWord,question1,answer1,question2,answer2);
       if(result.passwordChanged){
         res.redirect('/login');
         return;

@@ -246,13 +246,18 @@ const forgetPassword = async (email, password, question1, answer1, question2, an
   if (typeof email !== 'string') throw 'User name must be a string';
   if (email.trim().length === 0)
       throw 'User name cannot be an empty string or just spaces';
+   //check email
+  helper.validEmailAddr(email);
   email = email.trim();
-
-  const user = await getUserByEmail(email);
-  if(!user) throw "No user with that email!";
   //check password
   helper.checkPasswordString(password);
   helper.checkPassword(password);
+  if(!password) throw 'You must provide password!';
+  password = helper.hashPassword(password);
+
+  const user = await getUserByEmail(email);
+  if(!user) throw "No user with that email!";
+
   if(!question1) throw "You must select secure questions!";
   if(!answer1) throw "Please enter you answer!";
   if(answer1.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
