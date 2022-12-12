@@ -38,7 +38,7 @@ router
       return;
     }
     try{
-      await usersData.createUser(userName,email,birthday,helper.hashPassword(passWord),question1,answer1,question2,answer2);
+      await usersData.createUser(userName,email,birthday,passWord,question1,answer1,question2,answer2);
       res.redirect('/login');
     } catch(e){
       res.status(403).send(e);

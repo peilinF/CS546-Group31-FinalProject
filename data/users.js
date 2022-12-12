@@ -40,6 +40,13 @@ const createUser = async (
   //   throw 'Birth date cannot be an empty string or just spaces';
   // birthDate = birthDate.trim();
   if(!Password) throw 'You must provide password!';
+   //check email
+   helper.validEmailAddr(email);
+   //check password
+   helper.checkPasswordString(Password);
+   helper.checkPassword(Password);
+
+   Password = helper.hashPassword(Password);
 
   if(!question1) throw '1-You must select secure questions!';
   if(!answer1) throw '1-You must answer question!';
