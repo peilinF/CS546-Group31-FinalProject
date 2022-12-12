@@ -3,8 +3,8 @@
       passwordInput = $('#passwordInput1'),
       email = $('#emailInput1');
       confirmPasswordInput = $('#confirmPasswordInput1');
-      questionA = $('#questionsA1 option:selected');
-      questionB = $('#questionsB1 option:selected');
+      questionA = $('#questionsA1');
+      questionB = $('#questionsB1');
       answer1 = $('#answerInputA');
       answer2 = $('#answerInputB');
       errorMessage = $('#errorMessage1');

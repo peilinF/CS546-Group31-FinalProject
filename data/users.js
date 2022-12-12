@@ -242,6 +242,7 @@ const forgetPassword = async (email, password, question1, answer1, question2, an
   email = email.trim();
 
   const user = await getUserByEmail(email);
+  if(!user) throw "No user with that email!";
   //check password
   helper.checkPasswordString(password);
   helper.checkPassword(password);
@@ -265,7 +266,7 @@ const forgetPassword = async (email, password, question1, answer1, question2, an
     const update = {
       Password: password,
     };
-  
+
     const userCollection = await users();
     const updateData = await userCollection.updateOne(
       {email: email},
@@ -276,6 +277,7 @@ const forgetPassword = async (email, password, question1, answer1, question2, an
       throw 'could not update password successfully';
     }
   }
+  console.log("yes");
   return {passwordChanged: true};
 };
 

@@ -26,7 +26,14 @@ router
     
     if(!passWord || !email ||!question1 ||!answer1 ||!question2 ||!answer2){
       error = 'All fields need to have valid values';
-      res.status(400).render('userForget',{partial: 'forget', error:error,  title:"Reset your password!"});
+      res.status(400).render('userForget',{partial: 'forget', error1:error,  title:"Reset your password!"});
+      return;
+    }
+
+    const checkExist = await usersData.getUserByName(email);
+    if (checkExist === 'false'){
+      console.log("User cannot be found");
+      res.status(400).send("User cannot be found");
       return;
     }
 
@@ -39,7 +46,8 @@ router
         res.status(500).json({message: "Internal Server Error"});
       }
     }catch(e){
-      res.status(400).render('userForget',{error:e,  title:"Reset your password!"});
+      res.status(403).send(e);
+      return;
     }
   });
 
@@ -48,7 +56,7 @@ router
   .get(async (req, res) => {
     //code here for GET
     const errorMessage =xss (req.params.errorMessage);
-    res.render('userForget',{ error:errorMessage, partial: 'forget'});
+    res.render('userForget',{ error1:errorMessage, partial: 'forget'});
   });
 
   module.exports = router;
