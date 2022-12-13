@@ -9,7 +9,11 @@
         <li>Total like sent: {{user.likes.length}}</li>
     </ul>
 </article>
-<input type="button" value="Display parks visited and wished list" id="btn-park-list" onclick="btnHideDisplay()"></input>
+<button id="btn-park-list">Display parks visited and wished list</button>
+{{#if myProfile}}
+<button id="btn-edite-profile">Edite your profile</button>
+{{/if}}
+<a href="/">Homepage</a>
 <div id="profile-park-visited-and-wished" class="park-visited-and-wished" style="display:none">
     <div class="park-visited">
         <h5>Parks have visited:</h5>
@@ -32,5 +36,4 @@
         </ol>
     </div>
 </div>
-
-<a href="/">Homepage</a>
+<script src="../public/js/profile.js"></script>

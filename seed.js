@@ -122,6 +122,11 @@ const createMutiLikeEvents = async () => {
   await likes.addLike(userWendy.userId.toString(), reviewMike._id.toString());
   await likes.addLike(userJack.userId.toString(), reviewMike._id.toString());
   await likes.addLike(userNick.userId.toString(), reviewJohn._id.toString());
+
+  const park2 = await parks.getParkByName("Mount Rainier National Park")
+
+  await users.addParksWishToGO(userMike._id, park._id.toString())
+  await users.addParksHaveVisited(userMike._id, park2._id.toString())
 };
 
 const parsePark = (park) => {
