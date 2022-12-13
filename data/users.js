@@ -109,14 +109,14 @@ const getUserById = async (userId) => {
   user._id = user._id.toString();
   return user;
 };
-const getUserByName = async (email) => {
-  if (!email) throw 'You must provide an user name to search for';
-  if (typeof email !== 'string') throw 'User name must be a string';
-  if (email.trim().length === 0)
+const getUserByName = async (name) => {
+  if (!name) throw 'You must provide an user name to search for';
+  if (typeof name !== 'string') throw 'User name must be a string';
+  if (name.trim().length === 0)
       throw 'User name cannot be an empty string or just spaces';
-  email = email.trim();
+  name = name.trim();
   const userCollection = await users();
-  const user = await userCollection.findOne({ email: email.toLowerCase() });
+  const user = await userCollection.findOne({ userName: name });
   if (!user) return false;
   user._id = user._id.toString();
   return user;
@@ -148,7 +148,7 @@ const getUserByEmail = async (email) => {
   email = email.trim();
   const userCollection = await users();
   const user = await userCollection.findOne({ email: email.toLowerCase() });
-  if (!user) throw 'User not found';
+  if (!user) return false;
   user._id = user._id.toString();
   return user;
 };

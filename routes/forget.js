@@ -30,7 +30,7 @@ router
       return;
     }
 
-    const checkExist = await usersData.getUserByName(email);
+    const checkExist = await usersData.getUserByEmail(email);
     if (checkExist === 'false'){
       console.log("User cannot be found");
       res.status(400).send("User cannot be found");

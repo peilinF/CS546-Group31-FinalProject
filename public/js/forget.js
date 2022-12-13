@@ -40,7 +40,7 @@
                   questionB: $('#questionsB1 option:selected').text(),
                   answer2:$('#answerInputB').val()
               }),
-              error1: function (err) {
+              error: function (err) {
                 window.location.href = '/forget/error/' + err.responseText;
             }
           }

@@ -31,7 +31,7 @@ router
     const question2 = xss(req.body.questionB);
     const answer2 = xss(req.body.answer2);
 
-    const checkExist = await usersData.getUserByName(email);
+    const checkExist = await usersData.getUserByEmail(email);
     if (checkExist){
       console.log("User already exists");
       res.status(400).send("Email already registered");
