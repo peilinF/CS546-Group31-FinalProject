@@ -240,20 +240,20 @@ const checkUser = async (email, password) => {
 const forgetPassword = async (email, password, question1, answer1, question2, answer2) => {
   if(!email) throw "Please enter your register email!";
   if(!password) throw "Please enter password!";
-  if(!confirmPassword) throw "Please confirm your password!";
-  if (typeof email !== 'string') throw 'User name must be a string';
   if (email.trim().length === 0)
       throw 'User name cannot be an empty string or just spaces';
+  if (typeof email !== 'string') throw 'User name must be a string';
    //check email
   helper.validEmailAddr(email);
   email = email.trim();
   //check password
+  if(!password) throw 'You must provide password!';
   helper.checkPasswordString(password);
   helper.checkPassword(password);
-  if(!password) throw 'You must provide password!';
+  
 
   const user = await getUserByEmail(email);
-  if(!user) throw "No user with that email!";
+  // if(user === 'false') throw "No user with that email!";
 
   if(!question1) throw "You must select secure questions!";
   if(!answer1) throw "Please enter you answer!";
@@ -272,12 +272,12 @@ const forgetPassword = async (email, password, question1, answer1, question2, an
   if(answer2 !== user.answer2) throw "Either questions or answers are wrong!";
 
   password = helper.hashPassword(password);
-  let update = {
+  const update = {
     Password: password,
   };
 
   const userCollection = await users();
-  await userCollection.updateOne(
+  const updateData = await userCollection.updateOne(
     {email: user.email},
     {$set: update}
   );
