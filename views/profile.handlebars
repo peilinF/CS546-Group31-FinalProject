@@ -33,7 +33,7 @@
     <div class="park-visited">
         <h5>Parks have visited:</h5>
         <ol>
-            {{#each user.ParksHaveVisited}}
+            {{#each user.parksHaveVisited}}
             <li>
                 <a href="/park/{{this}}">{{this}}</a>
             </li>
@@ -43,7 +43,7 @@
     <div class="park-wished">
         <h5>Parks wish to visit:</h5>
         <ol>
-            {{#each user.ParksWishToGo}}
+            {{#each user.parksWishToGo}}
             <li>
                 <a href="/park/{{this}}">{{this}}</a>
             </li>
