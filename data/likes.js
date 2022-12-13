@@ -34,9 +34,7 @@ const addLike = async (
     }
     const authorId = review.userId;
     const author = await userCollection.findOne({ _id: ObjectId(authorId) });
-    console.log(author);
     const updatedAuthor = {likesReceivedAmount: author.likesReceivedAmount+1}
-    console.log(updatedAuthor);
     const updatedAuthorInfo = await userCollection.updateOne({ _id: ObjectId(authorId) }, { $set: updatedAuthor });
     if (updatedAuthorInfo.modifiedCount === 0) {
       throw '[addLike]could not update author likes recieved amount successfully';

@@ -195,3 +195,9 @@ img {
 .error {
   color: red;
 }
+
+.backToMain {
+  position: absolute;
+  top: 10px;
+  right: 85px;
+}

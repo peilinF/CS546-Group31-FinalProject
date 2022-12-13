@@ -34,16 +34,20 @@ app.use(
     secret: "This is a secret.. shhh don't tell anyone",
     saveUninitialized: false,
     resave: false,
+    pageNow: '/',
+    pageBefore: '',
     cookie: {maxAge: 60000}
   })
 );
 
-// app.use('/', (req, res, next) => {
-//   if (req.session.user) {
-//     res.redirect('/login/homepage');
-//   }
-//     next();
-// });
+app.use (function (req, res, next) {
+  if (!req.session.pageNow){
+    req.session.pageNow = '/';
+    req.session.pageBefore = '';
+  }
+  
+  next();
+});
 app.use('/login', (req, res, next) => {
   if (req.session.user) {
     res.redirect('/profile');

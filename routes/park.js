@@ -14,26 +14,21 @@ router.route("/").get(async (req, res) => {
   res.sendFile(path.resolve('static/park.html'));
   return;
 });
-// router.route("/test").get(async (req, res) => {
-//   //code here for GET
-//   try {
-//     const allparks = await test.fetchAllParks()
-//     res.render('parkList', {parks: allparks});
-//     res.status(200)    
-//   } catch (e) {
-//     res.render('error', {path: '/park/test', statucode: 500, error : e});
-//     res.status(500);
-//   }
-//   return
-//   }
-// );
 
 router.route("/search").get(async (req, res) => {
-  const parkName = req.query.searchParkName;
+  const parkName = xss(req.query.searchParkName);
+  console.log(parkName);
+  if (req.session.user) {
+    req.session.login = true;
+  } else {
+    req.session.login = false;  
+  }
+
   try {
     let park = await parkData.getParkByName(parkName);
     park = await getReview(park);
-    res.render('singlePark', {park: park});
+    req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
+    res.render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
     res.status(200)
     return;
   } catch (e) {
@@ -42,9 +37,29 @@ router.route("/search").get(async (req, res) => {
   }
 });
 
+router.route("/:parkName").get(async (req, res) => {
+  const parkName = xss(req.params.parkName);
+  
+  if (req.session.user) {
+    req.session.login = true;
+  } else {
+    req.session.login = false;  
+  }
+
+  try {
+    let park = await parkData.getParkByName(parkName);
+    park = await getReview(park);
+    req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
+    res.render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
+    res.status(200)
+    return;
+  } catch (e) {
+    res.status(500);
+    return;
+  }
+});
 const getReview = async (park) => {
   let hasReviews = false;
-  console.log(park.reviews.length);
   if (park.reviews.length !== 0) {
     for (let i = 0; i < park.reviews.length; i++) {
       let review = await reviewData.getReview(park.reviews[i]);

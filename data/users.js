@@ -229,8 +229,6 @@ const checkUser = async (email, password) => {
   const usersCollection = await users();
   const user = await usersCollection.findOne({email: email.toLowerCase()});
   if(user === null) throw 'email is not sign up'
-  console.log(password);
-  console.log(user.password);
   const compareToPassword = await bcrypt.compare(password,user.Password);
   if(compareToPassword){
     return {authenticatedUser: true, userName: user.userName};

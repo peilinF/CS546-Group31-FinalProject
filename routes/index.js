@@ -18,8 +18,8 @@ const constructorMethod = (app) => {
   app.use('/register',registerRoutes);
   app.use('/login',loginRoutes);
   app.use('/logout',logoutRoutes);
-  app.use('/review', commentRoutes);
-  app.use('/park', reviewsRoutes);
+  app.use('/review', reviewsRoutes);
+  app.use('/comment', commentRoutes);
   app.use('/forget', forgetRoutes);
   app.use('/profile',profileRoutes);
 

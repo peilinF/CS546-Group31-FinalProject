@@ -14,7 +14,6 @@ router
 })
 .post(async (req, res) => {
   //code here for POST
-  console.log('log in now');
   const email = xss(req.body.emailInput);
   const passWord = xss(req.body.passwordInput);
   if(!email || !passWord){
@@ -23,14 +22,21 @@ router
     return;
   }
 
+  req.session.pageBefore = req.session.pageNow ;
   try{
     const checkUser = await usersData.checkUser(email,passWord);
     //console.log('Yea');
     // if not matched, back to login with error message
     if (checkUser.authenticatedUser) {
       req.session.user = {userName: checkUser.userName,  email: email};
-      res.render('homepage',{userName: checkUser.userName});
-      return;
+      if (req.session.pageBefore === '/') {
+        res.render('homepage',{userName: checkUser.userName});
+        return;
+      } else {
+        req.session.pageBefore[1].login = true;
+        res.render(req.session.pageBefore[0],req.session.pageBefore[1]);
+        return;
+      }
     }
   }catch(e){
     //error = "Either the username or password is invalid."
