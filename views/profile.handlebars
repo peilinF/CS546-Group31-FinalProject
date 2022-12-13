@@ -1,5 +1,6 @@
 <h1>{{user.userName}}'s Profile</h1>
-<article>
+<article style="flex: auto;">
+    <section class="user-info">
     <ul>
         <li>Name: {{user.userName}}</li>
         <li>User ID: {{user._id}}</li>
@@ -8,6 +9,20 @@
         <li>Total Reviews Amount: {{user.reviews.length}}</li>
         <li>Total like sent: {{user.likes.length}}</li>
     </ul>
+    </section>
+    <section class="edite-info" style="display: none">
+        <form action="profile/update" method="POST">
+            <input type="hidden" name="userId" value={{user._id}} />
+            <label for="userName">New Username:</label>
+            <input type="text" name="userName" value={{user.userName}} />
+            <label for="email">New Email:</label>
+            <input type="text" name="email" value={{user.email}} />
+            <label for="birthDate">New Birthdate:</label>
+            <input type="date" name="birthDate" value={{user.birthDate}}>
+            <input type="hidden" name="hashedPassword" value={{user.Password}} />
+            <div  style="padding: 1rem;"><button type="submit">Edite</button></div>
+        </form>
+    </section>
 </article>
 <button id="btn-park-list">Display parks visited and wished list</button>
 {{#if myProfile}}

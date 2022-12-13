@@ -30,4 +30,26 @@ router
     }
   });
 
+  
+router.route("/update").post(async (req, res) => {
+  if(!req.session.user){
+    error = 'You have to login to add review!';
+    res.status(400).render('userLogin',{error:error, title:"login!"});
+    return;
+  }
+  const userId = xss(req.body.userId)
+  const userName = xss(req.body.userName)
+  const userEmail = xss(req.body.email)
+  const userBirthdate = xss(req.body.birthDate)
+  const hashedPassword = xss(req.body.hashedPassword)
+  try {
+    updatedUser = await userData.updateUser(userId, userName, userEmail, userBirthdate, hashedPassword)
+    res.status(200).render('profile', {user: updatedUser, myProfile: true})
+    return;
+  } catch (e) {
+    res.status(500 ).render('error', {path: 'user/update', statuscode: 500, error: e})
+    return;
+  }
+})
+
   module.exports = router;
