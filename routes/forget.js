@@ -38,6 +38,16 @@ router
     }
 
     try{
+    if (question1 !== checkExist.question1) throw "Either questions or answers are incorrect!";
+    if(question2 !== checkExist.question2) throw "Either questions or answers are incorrect!";
+    if(answer1 !== checkExist.answer1) throw "Either questions or answers are incorrect!";
+    if(answer2 !== checkExist.answer2) throw "Either questions or answers are incorrect!";
+    }catch(e){
+    res.status(403).send(e);
+    return;
+    }
+
+    try{
       const result = await usersData.forgetPassword(email,passWord,question1,answer1,question2,answer2);
       if(result.passwordChanged){
         res.redirect('/login');

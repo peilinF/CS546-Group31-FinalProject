@@ -21,7 +21,7 @@
         errorMessage.html('Secure questions should not be same!')
       }
 
-      if (passwordInput1.val() !== confirmPasswordInput1.val()) {
+      if (passwordInput.val() !== confirmPasswordInput.val()) {
           
           mySpan.css('color', 'red');
           mySpan.html('not matching');
@@ -40,7 +40,7 @@
                   questionB: $('#questionsB1 option:selected').text(),
                   answer2:$('#answerInputB').val()
               }),
-              error: function (err) {
+              error1: function (err) {
                 window.location.href = '/forget/error/' + err.responseText;
             }
           }
