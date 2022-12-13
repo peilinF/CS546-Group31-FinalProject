@@ -36,7 +36,12 @@ router
       res.status(400).send("User cannot be found");
       return;
     }
-
+    console.log(email);
+    console.log(question1);
+    console.log(question2);
+    console.log(answer1);
+    console.log(answer2);
+    console.log(passWord);
     try{
     if (question1 !== checkExist.question1) throw "Either questions or answers are incorrect!";
     if(question2 !== checkExist.question2) throw "Either questions or answers are incorrect!";
@@ -49,8 +54,9 @@ router
 
     try{
       const result = await usersData.forgetPassword(email,passWord,question1,answer1,question2,answer2);
+      console.log(result);
       if(result.passwordChanged){
-        res.redirect('/login');
+        res.status(200).redirect('/login');
         return;
       }else{
         res.status(500).json({message: "Internal Server Error"});
@@ -66,7 +72,7 @@ router
   .get(async (req, res) => {
     //code here for GET
     const errorMessage =xss (req.params.errorMessage);
-    res.render('userForget',{ error1:errorMessage, partial: 'forget'});
+    res.render('userForget',{ error:errorMessage, partial: 'forget'});
   });
 
   module.exports = router;

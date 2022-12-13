@@ -45,7 +45,7 @@
             }
           }
           $.ajax(requestConfig).then(function (responseMessage) {
-              myError.html('');
+              console.log('success');
               window.location.href = '/login';
           });
 

@@ -251,7 +251,6 @@ const forgetPassword = async (email, password, question1, answer1, question2, an
   helper.checkPasswordString(password);
   helper.checkPassword(password);
   if(!password) throw 'You must provide password!';
-  password = helper.hashPassword(password);
 
   const user = await getUserByEmail(email);
   if(!user) throw "No user with that email!";
@@ -272,21 +271,21 @@ const forgetPassword = async (email, password, question1, answer1, question2, an
   if(question2 !== user.question2) throw "Either questions or answers are wrong!";
   if(answer2 !== user.answer2) throw "Either questions or answers are wrong!";
 
-  if(question1 === user.question1 && question2 === user.question2 && answer1 === user.answer1 && answer2 === user.answer2){
-    const update = {
-      Password: password,
-    };
+  password = helper.hashPassword(password);
+  let update = {
+    Password: password,
+  };
 
-    const userCollection = await users();
-    const updateData = await userCollection.updateOne(
-      {email: email},
-      {$set: update}
-    );
-  
-    if (updateData.modifiedCount === 0) {
-      throw 'could not update password successfully';
-    }
+  const userCollection = await users();
+  await userCollection.updateOne(
+    {email: user.email},
+    {$set: update}
+  );
+
+  if (updateData.modifiedCount === 0) {
+    throw 'could not update password successfully';
   }
+  
   console.log("yes");
   return {passwordChanged: true};
 };
