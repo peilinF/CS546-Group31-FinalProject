@@ -13,6 +13,7 @@ router.route("/").get(async (req, res) => {
 
 router.route("/search/name").get(async (req, res) => {
   const userName = xss(req.query.searchUserName);
+  console.log(userName)
   try {
     const user = await userData.getUserByName(userName);
     res.render('userFound', user);
@@ -29,7 +30,7 @@ router.route("/search/name").get(async (req, res) => {
   }
 });
 
-router.route("search/email").get(async (req, res) => {
+router.route("/search/email").get(async (req, res) => {
   const userEmail = xss(req.query.searchUserEmail)
   try {
     const user = await userData.getUserByEmail(userEmail)
