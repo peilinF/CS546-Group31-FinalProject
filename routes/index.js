@@ -1,6 +1,6 @@
 const homeRoutes = require('./home');
 const parkRoutes = require('./park');
-const peopleRoutes = require('./people');
+const userRoutes = require('./user');
 const rankRoutes = require('./rank')
 const registerRoutes = require('./register');
 const loginRoutes = require('./login');
@@ -13,7 +13,7 @@ const profileRoutes = require('./profile');
 const constructorMethod = (app) => {
   app.use('/', homeRoutes);
   app.use('/park', parkRoutes);
-  app.use('/people', peopleRoutes);
+  app.use('/user', userRoutes);
   app.use('/rank', rankRoutes)
   app.use('/register',registerRoutes);
   app.use('/login',loginRoutes);

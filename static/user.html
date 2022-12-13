@@ -1,36 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>User</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="/public/main-styles.css">
-</head>
+    <link rel="stylesheet" href="/public/main-styles.css" />
+  </head>
 
-<body>
+  <body>
     <main>
-      <h1>User</h1>
-      <article>
+      <section class="page-header">
+        <h1>User</h1>
+      </section>
+      <section class="search">
         <h2>Search</h2>
         <p>Search user that you are interested, and make friends!</p>
-        <footer>
-          <form action="/user/search" method="POST">
-              <label for="name" id="searchUserNameLabel">User Name:</label>
-              <input type="text" id="searchUserNameInputText" name="searchUserName" placeholder="Enter User Name Here">
-              <input type="submit" value="Search">
-          </form>
-        </footer>
-        <article>
-          <form action="/user/test" method="GET">
-            <input type="submit" value="Test">
-          </form>
-        </article>
-      </article>
+      </section>
+      <form action="/user/search/name" method="GET">
+        <label for="name" id="searchUserNameLabel">User Name:</label>
+        <input
+          type="text"
+          id="searchUserNameInputText"
+          name="searchUserName"
+          placeholder="Enter User Name Here"
+        />
+        <input type="submit" value="Search" />
+      </form>
+      <form action="/user/search/email" method="GET">
+        <label for="email" id="searchUserEmailLabel">User Email:</label>
+        <input
+          type="text"
+          id="searchUserEmailInputText"
+          name="searchUserEmail"
+          placeholder="Enter User Email Here"
+        />
+        <input type="submit" value="Search" />
+      </form>
     </main>
-</body>
-
+  </body>
 </html>
