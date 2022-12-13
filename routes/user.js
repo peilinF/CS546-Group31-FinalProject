@@ -13,22 +13,23 @@ router.route("/").get(async (req, res) => {
 
 router.route("/search/name").get(async (req, res) => {
   const userName = xss(req.query.searchUserName);
-  console.log(userName)
   try {
-    const user = await userData.getUserByName(userName);
-    res.render('userFound', user);
+    const user = await userData.getUserByName(userName)
+    if (user === false) throw "User not found"
+    res.render('profile', { user: user })
+    res.status(200)
+    return;
   } catch (e) {
-    if (e === "No user found") {
-      res.render('personNotFound', {hasError:true, searchPersonName: name});
-      res.status(404);
+    if (e === "User not found") {
+      res.render('error', {path: 'user/search/email', statucode: 404, error: e})
+      res.status(404)
       return;
-    } else {
-      res.render('error', {class: "searchuser",error : e});
-      res.status(400);
-      return;
-    }
   }
-});
+  res.render('error', {path: 'user/search/email', statucode: 400, error: e})
+  res.status(400)
+  return;
+}
+})
 
 router.route("/search/email").get(async (req, res) => {
   const userEmail = xss(req.query.searchUserEmail)

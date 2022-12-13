@@ -13,15 +13,17 @@
             <th>Name</th>
             <th>followers amount</th>
             <th>likes recieved</th>
+            <th>reviews amount</th>
             <th>comments amount</th>
         </tr>
         {{#each results}}
         <tr>
             <th>{{rank}}</th>
-            <th>{{userID}}</th>
+            <th>{{_id}}</th>
             <th>{{userName}}</th>
             <th>{{followers.length}}</th>
-            <th>{{likesRecievedAmount}}</th>
+            <th>{{likesReceivedAmount}}</th>
+            <th>{{reviews.length}}</th>
             <th>{{comments.length}}</th>
         </tr>
         {{/each}}

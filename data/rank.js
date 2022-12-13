@@ -15,11 +15,10 @@ const rankUsers = async (
     let allUsers = await userData.getAllUsers()
     let results = [];
 
-    if(option !== 'followersAmount' && option !== 'likesRecieved' && option !== 'commentsAmount'){
+    if(option !== 'followersAmount' && option !== 'likesRecieved' && option !== 'commentsAmount' && option !== 'reviewsAmount'){
         throw `option ${option} have not been developed yet`
     } else {
-        if (option === 'followersAmount' || option === 'commentsAmount'){
-            
+        if (option === 'followersAmount' || option === 'commentsAmount' || option === 'reviewsAmount'){
             results = await bubbleSortByLength(allUsers, option.slice(0, option.indexOf('Amount')));
         } else {
             results = await bubbleSort(allUsers, option.slice(0, option));
