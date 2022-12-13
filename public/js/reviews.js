@@ -22,12 +22,11 @@
             }),
             error: function (err) {
                 // window.location.href = "/review/error/" + err.responseText;
-                alert(err.responseText);
+                alert(err);
             },
         };
         $.ajax(requestConfig).then(function (responseMessage) {
-            console.log('success');
-            window.location.href = '/park/search?searchParkName=' + parkName.text();
+            window.location.href = '/park/review';
         });
     });
 })(window.jQuery);

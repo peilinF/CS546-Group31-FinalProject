@@ -39,17 +39,22 @@ router
     const parkName = xss(req.body.parkName);
     
     if (!reviewTitle || !content || !rating || !parkName) {
-      return res.status(400).json({ error: 'You must provide data for all fields' });
+      res.status(400).json({ error: 'You must provide data for all fields' });
+      return;
     }
     rating = parseInt(rating);
     try{
       const park = await parksData.getParkByName(parkName);
+    
       const user = await usersData.getUserByEmail(req.session.user.email);
       await reviewData.createReview(park._id, user._id, reviewTitle, content, rating);
-      res.status(200).redirect('/park/'+parkName);
+      res.status(200).redirect('/park/review');
+      return;
     }
     catch(e){
-      return res.status(400).json({error: e});
+
+      res.status(400).json({error: e});
+      return;
     }
   });
 

@@ -29,33 +29,21 @@ router.route("/search").get(async (req, res) => {
     park = await getReview(park);
     req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
     res.render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
-    res.status(200)
     return;
   } catch (e) {
     res.status(500);
     return;
   }
 });
-
-router.route("/:parkName").get(async (req, res) => {
-  const parkName = xss(req.params.parkName);
-  
+router.route('/review').get(async (req, res) => {
+  let park = req.session.pageNow[1].park;
+  park = await parkData.getParkByName(park.parkName);
+  park = await getReview(park);
   if (req.session.user) {
     req.session.login = true;
-  } else {
-    req.session.login = false;  
-  }
-
-  try {
-    let park = await parkData.getParkByName(parkName);
-    park = await getReview(park);
-    req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
     res.render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
-    res.status(200)
-    return;
-  } catch (e) {
-    res.status(500);
-    return;
+  } else {
+    req.session.login = false;
   }
 });
 const getReview = async (park) => {
