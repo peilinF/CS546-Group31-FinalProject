@@ -523,7 +523,71 @@ const removeParksHaveVisited = async (userId, parkId) => {
   }
 };
 
+const addLike = async (userId, reviewId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
 
+  if (!reviewId) throw 'You must provide an id to search for';
+  if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (reviewId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  reviewId = reviewId.trim();
+
+  const userCollection = await users();
+  const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { likes: reviewId } });
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not add like successfully';
+  }
+};
+
+const removeLike = async (userId, reviewId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+
+  if (!reviewId) throw 'You must provide an id to search for';
+  if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (reviewId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  reviewId = reviewId.trim();
+
+  const userCollection = await users();
+  const user = await userCollection.findOne({ _id: ObjectId(userId) });
+  let updatedUser = 0;
+  let userLike = user.likes;
+  for (let i = 0; i < userLike.length; i++){
+    if (userLike[i] === reviewId && userLike.length === 1){
+      updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { likes: -1 } });
+      break;
+    } else if (userLike[i] === reviewId){
+      updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { likes: reviewId } });
+      break;
+    }
+  }
+
+  if(updatedUser === 0){
+    throw 'could not remove like successfully';
+  }
+
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not remove like successfully';
+  }
+};
 module.exports = {
   createUser,
   getAllUsers,

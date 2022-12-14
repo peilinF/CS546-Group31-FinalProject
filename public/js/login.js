@@ -21,13 +21,14 @@
                 password: $('#passwordInput').val()
             }),
             error: function (err) {
-                window.location.href = '/login/error/' + err.responseText;
+                window.location.href = '/login/error/' + err.responseText.error;
             }
           }
           
           $.ajax(requestConfig).then(function (responseMessage) {
               myError.html('');
-              window.location.href = '/login';
+              alert(responseMessage.message);
+              window.location.href = responseMessage.url ;
           });
       }
   });

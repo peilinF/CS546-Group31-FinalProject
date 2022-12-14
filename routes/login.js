@@ -10,7 +10,7 @@ router
 .route("/")
 .get(async (req, res) => {
   //code here for GET
-  res.render('userLogin');
+  res.render('userLogin',{partial: 'login', title:"Welcome to login!"});
 })
 .post(async (req, res) => {
   //code here for POST
@@ -18,29 +18,28 @@ router
   const passWord = xss(req.body.PasswordInput);
   if(!email || !passWord){
     error = 'All fields need to have valid values';
-    res.status(400).render('userLogin',{error:error, title:"Welcome to login!"});
-    return;
+    return res.status(400).json({error:error, title:"Welcome to login!"});
   }
 
   req.session.pageBefore = req.session.pageNow ;
   try{
     const checkUser = await usersData.checkUser(email,passWord);
-    //console.log('Yea');
     // if not matched, back to login with error message
     if (checkUser.authenticatedUser) {
       req.session.user = {userName: checkUser.userName,  email: email, userId: checkUser.userId};
       if (req.session.pageBefore === '/') {
-        res.render('homepage',{userName: checkUser.userName});
-        return;
+        //res.json({url: '/login/homepage'});
+        return res.status(200).json({url:'/login/homepage'});
       } else {
         req.session.pageBefore[1].login = true;
-        res.redirect(`/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`);
-        return;
+        //res.redirect(`/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`);
+        //res.json({url: `/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`});
+        return res.status(200).json({url:`/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`});
       }
     }
   }catch(e){
     //error = "Either the username or password is invalid."
-    res.status(400).render('userLogin',{error:e, title:"Welcome to login!"});
+    return res.status(400).json({error:e, title:"Welcome to login!"});
   }
 })
 
@@ -50,16 +49,7 @@ router
   .get(async (req, res) => {
     //code here for GET
     //res.sendFile
-    //console.log('homepage');
     res.render('homepage', {userName: req.session.user.userName});
   });
 
-router
-.route('/error/:errorMessage')
-.get(async (req, res) => {
-  //code here for GET
-  const errorMessage =xss (req.params.errorMessage);
-  res.render('userLogin',{ error:errorMessage, partial: 'login'});
-});
-
-module.exports = router;
+  module.exports = router;
