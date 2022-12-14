@@ -51,7 +51,7 @@ router.route("/update").post(async (req, res) => {
   }
   try {
     updatedUser = await userData.updateUser(userId, userName, userEmail, userBirthDate, hashedPassword)
-    res.status(200).render('profile', {user: updatedUser, myProfile: true})
+    res.redirect('/profile')
     return;
   } catch (e) {
     res.status(500).render('error', {path: 'user/update', statuscode: 500, error: e})

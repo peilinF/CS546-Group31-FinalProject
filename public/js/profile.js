@@ -13,16 +13,16 @@ parkListButton.addEventListener('click', (e) => {
     }
 })
 
-let profileEditeButton = document.getElementById("btn-edite-profile")
-let profileEditeForm = document.querySelector(".edite-info")
-profileEditeButton.addEventListener('click', (e) => {
-    if (e.target.innerText === "Edite your profile") {
-        profileEditeForm.style.display = '';
+let profileEditButton = document.getElementById("btn-edit-profile")
+let profileEditForm = document.querySelector(".edit-info")
+profileEditButton.addEventListener('click', (e) => {
+    if (e.target.innerText === "Edit your profile") {
+        profileEditForm.style.display = '';
         e.target.innerText = "Cancel";
         e.target.style.backgroundColor = "pink";
     } else {
-        profileEditeForm.style.display = 'none';
-        e.target.innerText = "Edite your profile";
+        profileEditForm.style.display = 'none';
+        e.target.innerText = "Edit your profile";
         e.target.style.backgroundColor = "#839788"
     }
 })
