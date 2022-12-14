@@ -31,7 +31,7 @@
             <th>{{parkName}}</th>
             <th class="th-overallrating">{{overallRating}}</th>
             <th class="th-reviewamount">{{reviews.length}}</th>
-            <th class="th-wishedamount">{{wishVisitAmount}}</th>
+            <th class="th-wishedamount">{{wishedAmount}}</th>
             <th class="th-visitedamount">{{visitedAmount}}</th>
         </tr>
         {{/each}}
@@ -49,13 +49,13 @@
         allthReview.forEach((th) => {
             th.style.color = "orange"
         })
-    } else if (rankOption.innerText === "Sort by wishtovisit") {
+    } else if (rankOption.innerText === "Sort by wishedAmount") {
         let allthWished = document.querySelectorAll(".th-wishedamount")
         allthWished.forEach((th) => {
             th.style.color = "orange"
         })
-    } else if (rankOption.innerText === "Sort by visited") {
-        let allthVisted = document.querySelectorAll(".th-visitedamount")
+    } else if (rankOption.innerText === "Sort by visitedAmount") {
+        let allthVisited = document.querySelectorAll(".th-visitedamount")
         allthVisited.forEach((th) => {
             th.style.color = "orange"
         })

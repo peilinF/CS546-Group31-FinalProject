@@ -4,6 +4,7 @@ const data = require('../data');
 const userData = data.users;
 const path = require('path');
 const xss = require('xss');
+const helper = require("../helpers");
 
 router.route("/").get(async (req, res) => {
   //code here for GET
@@ -16,7 +17,7 @@ router.route("/search/name").get(async (req, res) => {
   try {
     helper.validUserName(userName)
   } catch (e) {
-    res.status(400).render('error', {path: 'user/search/email', statucode: 400, error: e})
+    res.status(400).render('error', {path: 'user/search/name', statucode: 400, error: e})
   }
   try {
     const user = await userData.getUserByName(userName)
@@ -25,10 +26,10 @@ router.route("/search/name").get(async (req, res) => {
     return;
   } catch (e) {
     if (e === "User not found") {
-      res.status(404).render('error', {path: 'user/search/email', statucode: 404, error: e})
+      res.status(404).render('error', {path: 'user/search/name', statucode: 404, error: e})
       return;
   }
-  res.status(400).render('error', {path: 'user/search/email', statucode: 400, error: e})
+  res.status(400).render('error', {path: 'user/search/name', statucode: 400, error: e})
   return;
 }
 })

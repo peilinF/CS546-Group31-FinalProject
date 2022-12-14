@@ -55,7 +55,7 @@ const rankParks = async (
     let allParks = await parkData.getAllParks();
     let results = [];
 
-    if(option !== 'overallRating' && option !== 'reviewsAmount' && option !== 'wishtovisit' && option !== 'visited'){ 
+    if(option !== 'overallRating' && option !== 'reviewsAmount' && option !== 'wishedAmount' && option !== 'visitedAmount'){ 
         throw `option ${option} have not been developed yet`
     } else {
         if (option === 'reviewsAmount'){

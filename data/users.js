@@ -1,5 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
+const parks = mongoCollections.parks;
 const {ObjectId} = require('mongodb');
 const helper = require("../helpers.js");
 const bcrypt = require("bcryptjs");
@@ -426,15 +427,18 @@ const addParksWishToGO = async (userId, parkId) => {
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   parkId = parkId.trim();
-
+  const parkCollection = await parks();
+  const park = await parkCollection.findOne({_id: parkId});
+  const updatedPark = await parkCollection.updateOne({_id: parkId}, {$set: {wishedAmount: park.wishedAmount+1}})
+  if (updatedPark.modifiedCount === 0) {
+    throw 'could not update park successfully';
+  }
   const userCollection = await users();
   const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { parksWishToGo: parkId } });
   if (updatedUser.modifiedCount === 0) {
     throw 'could not add park successfully';
   }
 };
-
-
 
 const removeParksWishToGO = async (userId, parkId) => {
   if (!userId) throw 'You must provide an id to search for';
@@ -452,7 +456,12 @@ const removeParksWishToGO = async (userId, parkId) => {
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   parkId = parkId.trim();
-
+  const parkCollection = await parks();
+  const park = await parkCollection.findOne({_id: parkId});
+  const updatedPark = await parkCollection.updateOne({_id: parkId}, {$set: {wishedAmount: park.wishedAmount-1}})
+  if (updatedPark.modifiedCount === 0) {
+    throw 'could not update park successfully';
+  }
   const userCollection = await users();
   const user = await userCollection.findOne({ _id: ObjectId(userId) });
   let updatedUser = 0;
@@ -484,7 +493,12 @@ const addParksHaveVisited = async (userId, parkId) => {
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   parkId = parkId.trim();
-
+  const parkCollection = await parks();
+  const park = await parkCollection.findOne({_id: parkId});
+  const updatedPark = await parkCollection.updateOne({_id: parkId}, {$set: {visitedAmount: park.visitedAmount+1}})
+  if (updatedPark.modifiedCount === 0) {
+    throw 'could not update park successfully';
+  }
   const userCollection = await users();
   const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { parksHaveVisited: parkId } });
   if (updatedUser.modifiedCount === 0) {
@@ -508,7 +522,12 @@ const removeParksHaveVisited = async (userId, parkId) => {
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   parkId = parkId.trim();
-
+  const parkCollection = await parks();
+  const park = await parkCollection.findOne({_id: parkId});
+  const updatedPark = await parkCollection.updateOne({_id: parkId}, {$set: {visitedAmount: park.visitedAmount-1}})
+  if (updatedPark.modifiedCount === 0) {
+    throw 'could not update park successfully';
+  }
   const userCollection = await users();
   const user = await userCollection.findOne({ _id: ObjectId(userId) });
   let updatedUser = 0;

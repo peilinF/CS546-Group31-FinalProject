@@ -32,6 +32,8 @@ const createPark = async (
       entranceFees: fee,
       reviews: reviews,
       overallRating: overallRating,
+      wishedAmount: 0,
+      visitedAmount: 0,
     };
   
     const parksCollection = await parks();
