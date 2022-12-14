@@ -31,6 +31,12 @@ router
     const question2 = xss(req.body.questionB);
     const answer2 = xss(req.body.answer2);
 
+    if(!userName || !passWord || !email || !birthday ||!question1 ||!answer1 ||!question2 ||!answer2){
+      error = 'All fields need to have valid values';
+      res.status(400).render('userRegister',{ error:errorMessage, partial: 'register'});
+      return;
+    }
+
     const checkExist = await usersData.getUserByEmail(email);
     if (checkExist){
       console.log("User already exists");
