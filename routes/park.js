@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const path = require('path');
-const parkList = require('../constant').parkNameList;
 
 // const test = require('../test')
 
@@ -20,12 +19,6 @@ router.route("/").get(async (req, res) => {
 
 router.route("/search").get(async (req, res) => {
   let parkName = xss(req.query.searchParkName);
-  for (let i = 0; i < parkList.length; i++) {
-    if (parkList[i].includes(parkName)) {
-      parkName = parkList[i];
-    }
-  }
-  console.log(parkName);
   if (req.session.user) {
     req.session.login = true;
   } else {

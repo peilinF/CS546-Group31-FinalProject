@@ -1,11 +1,13 @@
 
 const mongoCollections = require('../config/mongoCollections');
 const comments = mongoCollections.comments;
-const userClass = require('./users');
-const reviewClass = require('./reviews');
+const users = mongoCollections.users;
+const reviews = mongoCollections.reviews;
+
 const {ObjectId} = require('mongodb');
 const helper = require("../helpers.js");
-
+const userClass = require('./users');
+const reviewsClass = require('./reviews');
 const createComment = async (
 reviewId,
 userId,
@@ -37,9 +39,8 @@ content) => {
     const newId = insertInfo.insertedId.toString();
     
     const comment = await commentCollection.findOne({_id: ObjectId(newId)});
-    await reviewClass.addComment(reviewId, comment._id.toString());
-    await userClass.addComment(userId, comment._id.toString());
-    
+    await reviewsClass.addComment(reviewId, newId);
+    await userClass.addComment(userId, newId);
     return comment;
 };
 
@@ -104,5 +105,5 @@ module.exports = {
     createComment,
     getAllComments,
     getCommentById,
-    removeComment,
+    removeComment
 };

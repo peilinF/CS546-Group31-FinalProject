@@ -33,7 +33,6 @@ router
         res.render('homepage',{userName: checkUser.userName});
         return;
       } else {
-        console.log(req.session.pageBefore[1].park.parkName + 'login with park');
         req.session.pageBefore[1].login = true;
         res.redirect(`/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`);
         return;

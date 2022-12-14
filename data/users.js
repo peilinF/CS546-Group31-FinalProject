@@ -286,7 +286,6 @@ const forgetPassword = async (email, password, question1, answer1, question2, an
     throw 'could not update password successfully';
   }
   
-  console.log("yes");
   return {passwordChanged: true};
 };
 
@@ -369,8 +368,12 @@ const addComment = async (userId, commentId) => {
       throw 'id cannot be an empty string or just spaces';
   commentId = commentId.trim();
 
-  const userCollection = await users();
-  const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { comments: commentId } });
+  try{
+    const userCollection = await users();
+    const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { comments: commentId } });
+  } catch(e){
+    throw e;
+  }
 };
 
 const removeComment = async (userId, commentId) => {

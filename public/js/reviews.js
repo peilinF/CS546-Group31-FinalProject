@@ -61,24 +61,25 @@
             return;
         } else if (!isClicked && thisReply.find('.replyContent').length == 0 ) {
             isClicked = true;
-            thisReply.append("<div class='replyContent'><form name='postReply' id='postReply'><textarea class='replyContent' rows='4' cols='50' placeholder='Reply'></textarea> <input type='submit' value='Submit' /></form></div>");
+            thisReply.append("<div class='replyContent'><form name='postReply' id='postReply'><textarea class='replyContent' id='replyContent' rows='4' cols='50' placeholder='Reply'></textarea> <input type='submit' value='Submit' /></form></div>");
+            var replyClass = $("#postReply");
+            replyClass.submit(replySubmit);
         } else {
             alert("Close the other reply box first");
         }
     });
-    var replyClass = $("#postReply");
-    replyClass.submit(function (e) {
+    function replySubmit(e) {
         e.preventDefault();
-        var replyContent = $(this).find('.replyContent').val();
+        var replyContent = $(this).parent().find('.replyContent').val();
         var reviewId = $(this).parent().parent().find('.review-id').text();
         var requestConfig = {
             method: 'POST',
-            url: '/reply/add',
+            url: '/comment/add',
             contentType: "application/json",
             data: JSON.stringify({
+                parkName: parkName.text(),
                 reviewId: reviewId,
                 replyContent: replyContent,
-                parkName: parkName.text(),
             }),
             error: function (err) {
                 alert(err.responseText);
@@ -87,7 +88,7 @@
         $.ajax(requestConfig).then(function (responseMessage) {
             window.location.href = `/park/${responseMessage.parkId}`;
         });
-    });
+    };
     
 
 })(window.jQuery);

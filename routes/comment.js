@@ -36,8 +36,10 @@ router
       return res.status(400).json({error: error});
     }
 
+    let parkName = xss(req.body.parkName);
     const reviewId = xss(req.body.reviewId);
     let content = xss(req.body.replyContent);
+    parkName = parkName.trim();
     if (!reviewId || !content ) {
       return res.status(400).json({ error: 'You must provide data for all fields' });
     }
@@ -47,13 +49,16 @@ router
     }catch(e){
       return res.status(400).json({error: e});
     }
+  
+    const userId = req.session.user.userId;
+    try{
+      await commentData.createComment(reviewId.toString(), userId.toString(), content);
+      const park = await parkData.getParkByName(parkName);
+      return res.status(200).json({parkId: park._id});
+    }catch(e){
+      return res.status(400).json({error: e});
+    }
 
-   try{
-    const createComment = await commentData.createComment(reviewID,req.session.user.userId,content);
-    return res.status(200).json({comment: createComment});
-   }catch(e){
-    res.status(400).render('singlePark',{error:e, title:"Comments!"});
-   }
   });
 
 router

@@ -143,9 +143,19 @@ const removeReview = async (reviewId) => {
 };
 
 const addComment = async (reviewId, commentId) => {
+  if (!reviewId) throw 'You must provide an review id to search for';
+  if (typeof reviewId === 'string') {
+    if (!ObjectId.isValid(reviewId)) throw 'Id is not a valid ObjectId';
+  }
+  if (reviewId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+
+  reviewId = reviewId.trim();
+
 
   const reviewsCollection = await reviews();
   const updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $push: { comments: commentId } });
+
   if (updatedInfo.modifiedCount === 0) {
     throw 'could not add comment successfully';
   }
