@@ -32,7 +32,7 @@ router.route("/search").get(async (req, res) => {
         throw 'id cannot be an empty string or just spaces';
     parkName = parkName.trim();
   } catch (e) {
-    res.status(400).render('error', 'error', {path: 'park/search', statucode: 400, error: e});
+    res.status(400).render('error',  {path: 'park/search', statuscode: 400, error: e});
   }
   try {
     let park = await parkData.getParkByName(parkName);
@@ -41,7 +41,7 @@ router.route("/search").get(async (req, res) => {
     res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
     return;
   } catch (e) {
-    res.status(500).render('error', 'error', {path: 'park/search', statucode: 500, error: e});
+    res.status(500).render('error', {path: 'park/search', statuscode: 500, error: e});
     return;
   }
 });
