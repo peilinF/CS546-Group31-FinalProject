@@ -16,7 +16,6 @@ router
     }catch(e){
       return res.status(400).json({error: e});
     }
-
     try{
       const resultReviews = await reviewData.getAllReviews(req.params.parkID);
       res.status(400).render('../views/singlePark',{error:e,  title:"Park Reviews", park:resultReviews.parkID});
@@ -28,7 +27,6 @@ router
   .route('/add')
   .post(async (req, res) => {
     console.log("add review");
-
     if(!req.session.user){
       error = 'You have to login to add review!';
       return res.status(400).json({error: error}); 
@@ -38,23 +36,32 @@ router
     const content = xss(req.body.content);
     let rating = xss(req.body.rating);
     const parkName = xss(req.body.parkName);
-    
     if (!reviewTitle || !content || !rating || !parkName) {
       return res.status(400).json({ error: 'You must provide data for all fields' });
+    }
+    try {
+      if (!parkName) throw 'You must provide an id to search for';
+      if (typeof parkName !== 'string') throw 'Id must be a string';
+      if (parkName.trim().length === 0)
+          throw 'id cannot be an empty string or just spaces';
+      parkName = parkName.trim();
+      if (!email) throw 'You must provide an user name to search for';
+      if (typeof email !== 'string') throw 'User name must be a string';
+      if (email.trim().length === 0)
+          throw 'User name cannot be an empty string or just spaces';
+      email = email.trim();
+    } catch (e) {
+      return res.status(400).json({error: e});
     }
     try{
       rating = parseInt(rating);
       const park = await parksData.getParkByName(parkName);
-    
       const user = await usersData.getUserByEmail(req.session.user.email);
       await reviewData.createReview(park._id, user._id, reviewTitle, content, rating);
-     
       return res.status(200).json({parkId: park._id});
     }
     catch(e){
-
       return res.status(400).json({error: e});
-    
     }
   });
 
