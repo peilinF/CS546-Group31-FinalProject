@@ -18,7 +18,7 @@ router
   const passWord = xss(req.body.PasswordInput);
   if(!email || !passWord){
     error = 'All fields need to have valid values';
-    res.status(400).render('userLogin',{error:error, title:"Welcome to login!"});
+    res.status(400).render('userLogin',{partial: 'login',error2:error, title:"Welcome to login!"});
     return;
   }
 
