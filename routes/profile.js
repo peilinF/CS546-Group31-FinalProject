@@ -40,10 +40,10 @@ router.route("/update").post(async (req, res) => {
   const userId = xss(req.body.userId)
   const userName = xss(req.body.userName)
   const userEmail = xss(req.body.email)
-  const userBirthdate = xss(req.body.birthDate)
+  const userBirthDate = xss(req.body.birthDate)
   const hashedPassword = xss(req.body.hashedPassword)
   try {
-    updatedUser = await userData.updateUser(userId, userName, userEmail, userBirthdate, hashedPassword)
+    updatedUser = await userData.updateUser(userId, userName, userEmail, userBirthDate, hashedPassword)
     res.status(200).render('profile', {user: updatedUser, myProfile: true})
     return;
   } catch (e) {

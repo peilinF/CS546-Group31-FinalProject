@@ -74,6 +74,7 @@ parkListButton.addEventListener("click", (e) => {
 
       let parkNameElement = document.createElement("h5");
       parkNameElement.innerText = parkName;
+      parkNameElement.style.color = "#242424";
 
       parkContainer.appendChild(parkNameElement);
 

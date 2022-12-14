@@ -17,16 +17,16 @@
             <input type="text" name="userName" value={{user.userName}} />
             <label for="email">New Email:</label>
             <input type="text" name="email" value={{user.email}} />
-            <label for="birthDate">New Birthdate:</label>
+            <label for="birthDate">New birthDate:</label>
             <input type="date" name="birthDate" value={{user.birthDate}}>
             <input type="hidden" name="hashedPassword" value={{user.Password}} />
-            <div  style="padding: 1rem;"><button type="submit">Edite</button></div>
+            <div  style="padding: 1rem;"><button type="submit">Edit</button></div>
         </form>
     </section>
 </article>
 <button id="btn-park-list">Display parks visited and wished list</button>
 {{#if myProfile}}
-<button id="btn-edite-profile">Edite your profile</button>
+<button id="btn-edite-profile">Edit your profile</button>
 {{/if}}
 <a href="/">Homepage</a>
 <div id="profile-park-visited-and-wished" class="park-visited-and-wished" style="display:none">

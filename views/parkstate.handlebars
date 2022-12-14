@@ -3,7 +3,7 @@
         <div class="square" id={{_id}}>{{parkName}}
             <form action="http://localhost:3000/updatepark" method="post">
                 <select name="user_park" id={{@index}}>
-                    <option value={{_id}}+"@havebeen">HAVE BEEN</option>
+                    <option value={{_id}}+"@havebeen">Visited</option>
                     <option value={{_id}}+"@never">NEVER</option>
                     <option value={{_id}}+"@wish">WISH TO GO</option>
                  </select>
