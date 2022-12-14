@@ -72,8 +72,11 @@ parkListButton.addEventListener("click", (e) => {
       let parkContainer = document.createElement("div");
       parkContainer.classList.add("park-item");
 
+      let parkHref = document.createElement("a");
+      parkHref.href = `/park/search?searchParkName=${parkName}`;
+      parkHref.innerText = `${parkName}`;
       let parkNameElement = document.createElement("h5");
-      parkNameElement.innerText = parkName;
+      parkNameElement.appendChild(parkHref);
 
       parkContainer.appendChild(parkNameElement);
 

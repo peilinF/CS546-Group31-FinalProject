@@ -231,7 +231,7 @@ const checkUser = async (email, password) => {
   if(user === null) throw 'email is not sign up'
   const compareToPassword = await bcrypt.compare(password,user.Password);
   if(compareToPassword){
-    return {authenticatedUser: true, userName: user.userName};
+    return {authenticatedUser: true, userName: user.userName, userId: user._id};
   }else{
     throw 'Either the username or password is invalid.'
   }

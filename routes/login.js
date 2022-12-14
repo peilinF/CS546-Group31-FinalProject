@@ -28,13 +28,14 @@ router
     //console.log('Yea');
     // if not matched, back to login with error message
     if (checkUser.authenticatedUser) {
-      req.session.user = {userName: checkUser.userName,  email: email};
+      req.session.user = {userName: checkUser.userName,  email: email, userId: checkUser.userId};
       if (req.session.pageBefore === '/') {
         res.render('homepage',{userName: checkUser.userName});
         return;
       } else {
+        console.log(req.session.pageBefore[1].park.parkName + 'login with park');
         req.session.pageBefore[1].login = true;
-        res.render(req.session.pageBefore[0],req.session.pageBefore[1]);
+        res.redirect(`/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`);
         return;
       }
     }
