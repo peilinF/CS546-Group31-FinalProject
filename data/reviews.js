@@ -71,6 +71,14 @@ const createReview = async (
   return review;
 };
 
+const getEveryReviews = async () => {
+  const reviewsCollection = await reviews()
+  const reviewList = await reviewsCollection.find({}).toArray()
+  for (let i = 0; i < reviewList.length; i++) {
+    reviewList[i]._id = reviewList[i]._id.toString();
+  }
+  return reviewList;
+}
 
 const getAllReviews = async (parkId) => {
   
@@ -192,4 +200,5 @@ module.exports = {
   addComment,
   removeComment,
   updateReview,
+  getEveryReviews
 };

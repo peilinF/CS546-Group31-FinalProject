@@ -44,7 +44,8 @@ router.route("/update").post(async (req, res) => {
   const hashedPassword = xss(req.body.hashedPassword)
 
   const user = await userData.getUserByEmail(userEmail)
-  if (userName == user.userName && userEmail == user.email && userBirthdate == user.birthDate) {
+  if (userName == user.userName && userEmail == user.email && userBirthDate == user.birthDate) {
+    console.log()
     res.redirect('/profile')
     return;
   }
