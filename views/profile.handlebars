@@ -10,13 +10,12 @@
         <li>Total like sent: {{user.likes.length}}</li>
     </ul>
     </section>
-    <section class="edite-info" style="display: none">
+    <section class="edit-info" style="display: none">
         <form action="profile/update" method="POST">
             <input type="hidden" name="userId" value={{user._id}} />
             <label for="userName">New Username:</label>
             <input type="text" name="userName" value={{user.userName}} />
-            <label for="email">New Email:</label>
-            <input type="text" name="email" value={{user.email}} />
+            <input type="hidden" name="email" value={{user.email}} />
             <label for="birthDate">New birthDate:</label>
             <input type="date" name="birthDate" value={{user.birthDate}}>
             <input type="hidden" name="hashedPassword" value={{user.Password}} />
@@ -26,7 +25,7 @@
 </article>
 <button id="btn-park-list">Display parks visited and wished list</button>
 {{#if myProfile}}
-<button id="btn-edite-profile">Edit your profile</button>
+<button id="btn-edit-profile">Edit your profile</button>
 {{/if}}
 <a href="/">Homepage</a>
 <div id="profile-park-visited-and-wished" class="park-visited-and-wished" style="display:none">

@@ -43,11 +43,23 @@ router.route("/update").post(async (req, res) => {
   const userBirthDate = xss(req.body.birthDate)
   const hashedPassword = xss(req.body.hashedPassword)
   try {
+    helper.checkparamsUpdateUser(userId, userName, userEmail, userBirthDate, hashedPassword)
+  } catch (e) {
+    res.status(400).render('error', {path: 'user/update', statuscode: 400, error: e})
+    return;
+  }
+  const user = await userData.getUserByEmail(userEmail)
+  if (userName == user.userName && userEmail == user.email && userBirthDate == user.birthDate) {
+    console.log()
+    res.redirect('/profile')
+    return;
+  }
+  try {
     updatedUser = await userData.updateUser(userId, userName, userEmail, userBirthDate, hashedPassword)
-    res.status(200).render('profile', {user: updatedUser, myProfile: true})
+    res.redirect('/profile')
     return;
   } catch (e) {
-    res.status(500 ).render('error', {path: 'user/update', statuscode: 500, error: e})
+    res.status(500).render('error', {path: 'user/update', statuscode: 500, error: e})
     return;
   }
 })

@@ -81,13 +81,12 @@ const rankReviews = async (
     itemsNum = 10,
     reverse = 'true'
     ) => {
-    let allReviews = await reviewData.getAllReviews();
+    let allReviews = await reviewData.getEveryReviews();
     let results = [];
 
     if(option !== 'lastUpdatedTime' && option !== 'number_of_likes'){
         throw `option ${option} have not been developed yet`
     } else {
-
         results = await bubbleSort(allReviews, option);
     }
 
@@ -102,6 +101,9 @@ const rankReviews = async (
     // if (reverse === 'false') {
     //     allReviews = allReviews.reverse()
     // }
+    if (reverse === 'false') {
+        results = results.reverse()
+    }
 
     results = results.slice(0, itemsNum)
 

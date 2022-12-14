@@ -1,14 +1,16 @@
 <form method="POST" action="/login" id="login-form">
-  <label for="emailInput">Email</label>
-  <input type="text" name="emailInput" id="emailInput">
-  <label for="passwordInput">Password</label>
-  <input type="password" name="passwordInput" id="passwordInput">
+  <label for="EmailInput">Email</label>
+  <input type="text" name="EmailInput" id="EmailInput">
+  <label for="PasswordInput">Password</label>
+  <input type="password" name="PasswordInput" id="PasswordInput">
+  <span id='loginErr'></span>
   <div>
     <button type="submit">Login</button>
   </div>
 </form>
 <a href="/register">Click here to register!</a>
 <a href="/forget">Forget Password?</a>
+<a href="/">Homepage</a>
 <div>
-  {{#if error}}<div class="error">{{error}}</div>{{/if}}
+ {{#if error}}<div class="error" id="error2">{{error}}</div>{{/if}}
 </div>

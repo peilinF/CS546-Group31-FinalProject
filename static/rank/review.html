@@ -15,11 +15,9 @@
         <nav>
           <ul>
             <li><a href="./">Back</a></li>
-            <li><a href="./state">State</a></li>
             <li><a href="./park">Park</a></li>
             <li><a href="./user">User</a></li>
             <li><a href="#">Review</a></li>
-            <li><a href="./comment">Comment</a></li>
           </ul>
         </nav>
       </section>
@@ -35,8 +33,8 @@
       <section class="rank-option-form">
         <form action="/rank/review/results" method="GET">
           <label for="option" id="rankReviewOptionLabel">Sort by:</label>
-          <select name="option" id="rankReviewSelect" selected="lastUpdatedTimeStamp">
-            <option value="lastUpdatedTimeStamp">last updated time</option>
+          <select name="option" id="rankReviewSelect" selected="lastUpdatedTime">
+            <option value="lastUpdatedTime">last updated time</option>
             <option value="number_of_likes">number of likes</option>
           </select>
           <label for="itemsNum" id="rankReviewItemsNumLabel">itemsNum:</label>

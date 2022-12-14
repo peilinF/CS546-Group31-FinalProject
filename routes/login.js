@@ -14,8 +14,8 @@ router
 })
 .post(async (req, res) => {
   //code here for POST
-  const email = xss(req.body.emailInput);
-  const passWord = xss(req.body.passwordInput);
+  const email = xss(req.body.EmailInput);
+  const passWord = xss(req.body.PasswordInput);
   if(!email || !passWord){
     error = 'All fields need to have valid values';
     res.status(400).render('userLogin',{error:error, title:"Welcome to login!"});
@@ -54,4 +54,12 @@ router
     res.render('homepage', {userName: req.session.user.userName});
   });
 
-  module.exports = router;
+router
+.route('/error/:errorMessage')
+.get(async (req, res) => {
+  //code here for GET
+  const errorMessage =xss (req.params.errorMessage);
+  res.render('userLogin',{ error:errorMessage, partial: 'login'});
+});
+
+module.exports = router;
