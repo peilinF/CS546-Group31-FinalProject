@@ -11,7 +11,7 @@
 </header>
 <h1>Park Rank</h1>
 <section>
-    <p>Sort by {{option}}</p>
+    <p class="p-rank-option">Sort by {{option}}</p>
     <p>Reverse? {{reverse}}</p>
 </section>
 <div>
@@ -20,20 +20,44 @@
         <tr>
             <th>Rank</th>
             <th>Park Name</th>
-            <th>Overall rating</th>
-            <th>reviewsAmount</th>
-            <th>wish to visit amount</th>
-            <th>visited amount</th>
+            <th class="th-overallrating">Overall rating</th>
+            <th class="th-reviewamount">reviewsAmount</th>
+            <th class="th-wishedamount">wish to visit amount</th>
+            <th class="th-visitedamount">visited amount</th>
         </tr>
         {{#each results}}
         <tr>
             <th>{{rank}}</th>
             <th>{{parkName}}</th>
-            <th>{{overallRating}}</th>
-            <th>{{reviews.length}}</th>
-            <th>{{wishVisitAmount}}</th>
-            <th>{{visitedAmount}}</th>
+            <th class="th-overallrating">{{overallRating}}</th>
+            <th class="th-reviewamount">{{reviews.length}}</th>
+            <th class="th-wishedamount">{{wishVisitAmount}}</th>
+            <th class="th-visitedamount">{{visitedAmount}}</th>
         </tr>
         {{/each}}
     </table>
 </div>
+<script>
+    let rankOption = document.querySelector(".p-rank-option")
+    if (rankOption.innerText === "Sort by overallRating") {
+        let allthOverallrating = document.querySelectorAll(".th-overallrating")
+        allthOverallrating.forEach((th) => {
+            th.style.color = "orange"
+        })
+    } else if (rankOption.innerText === "Sort by reviewsAmount") {
+        let allthReview = document.querySelectorAll(".th-reviewamount")
+        allthReview.forEach((th) => {
+            th.style.color = "orange"
+        })
+    } else if (rankOption.innerText === "Sort by wishtovisit") {
+        let allthWished = document.querySelectorAll(".th-wishedamount")
+        allthWished.forEach((th) => {
+            th.style.color = "orange"
+        })
+    } else if (rankOption.innerText === "Sort by visited") {
+        let allthVisted = document.querySelectorAll(".th-visitedamount")
+        allthVisited.forEach((th) => {
+            th.style.color = "orange"
+        })
+    }
+</script>
