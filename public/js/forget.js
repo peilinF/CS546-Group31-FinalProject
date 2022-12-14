@@ -13,7 +13,9 @@
   myForm.submit(function (e) {
       e.preventDefault();
       if ( passwordInput.val() === '' || confirmPasswordInput.val() === '' || email.val() === '' || questionA.val() === '' || answer1.val() === '' || questionB.val() === '' || answer2.val() === ''){
-        window.location.href = '/forget/error/' + 'please fill all the fields';
+        mySpan.css('color', 'red');
+        mySpan.html('Please fill all the fields!');
+        return;
       }
 
       if(questionA.val() === questionB.val()){
