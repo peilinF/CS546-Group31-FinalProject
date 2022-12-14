@@ -204,3 +204,10 @@ img {
   top: 10px;
   right: 85px;
 }
+
+li {
+  color:#5681ad;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;
+  margin-bottom: 5px;
+}

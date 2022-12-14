@@ -125,8 +125,8 @@ const createMutiLikeEvents = async () => {
 
   const park2 = await parks.getParkByName("Mount Rainier National Park")
 
-  await users.addParksWishToGO(userMike._id, park._id.toString())
-  await users.addParksHaveVisited(userMike._id, park2._id.toString())
+  await users.addParksWishToGO(userMike.userId.toString(), park._id.toString())
+  await users.addParksHaveVisited(userMike.userId.toString(), park2._id.toString())
 };
 
 const parsePark = (park) => {

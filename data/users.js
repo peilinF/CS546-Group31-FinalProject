@@ -180,7 +180,7 @@ const updateUser = async (
   if (email.trim().length === 0)
     throw 'Email cannot be an empty string or just spaces';
   email = email.trim();
-  if (!helper.validateEmail(email)) throw 'Email is not valid';
+  if (!helper.validEmailAddr(email)) throw 'Email is not valid';
 
   if (!birthDate) throw 'You must provide a birth date';
   // if (typeof birthDate !== 'string') throw 'Birth date must be a string';
