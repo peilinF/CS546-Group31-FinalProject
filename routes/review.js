@@ -28,10 +28,11 @@ router
   .route('/add')
   .post(async (req, res) => {
     console.log("add review");
+
     if(!req.session.user){
       error = 'You have to login to add review!';
-      res.status(400).render('userLogin',{error:error, title:"login!"});
-      return;
+      return res.status(400).json({error: error}); 
+      
     }
     const reviewTitle = xss(req.body.reviewTitle);
     const content = xss(req.body.content);
@@ -39,22 +40,21 @@ router
     const parkName = xss(req.body.parkName);
     
     if (!reviewTitle || !content || !rating || !parkName) {
-      res.status(400).json({ error: 'You must provide data for all fields' });
-      return;
+      return res.status(400).json({ error: 'You must provide data for all fields' });
     }
-    rating = parseInt(rating);
     try{
+      rating = parseInt(rating);
       const park = await parksData.getParkByName(parkName);
     
       const user = await usersData.getUserByEmail(req.session.user.email);
       await reviewData.createReview(park._id, user._id, reviewTitle, content, rating);
-      res.status(200).redirect('/park/review');
-      return;
+     
+      return res.status(200).json({parkId: park._id});
     }
     catch(e){
 
-      res.status(400).json({error: e});
-      return;
+      return res.status(400).json({error: e});
+    
     }
   });
 

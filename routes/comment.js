@@ -27,43 +27,30 @@ router
     }catch(e){
       res.status(404).json({ error: 'review by park id not found' });
     }
-  })
+  });
+router
+  .route('/add')
   .post(async (req, res) => {
     if(!req.session.user){
       error = 'You have to login to reply!';
-      res.status(400).render('userLogin',{error:error, title:"login!"});
+      return res.status(400).json({error: error});
     }
 
-    const info = xss(req.body);
-    if(!info.content){
-      res.status(400).json({ message: 'All fields need to have valid values' });
-      return;
+    const reviewId = xss(req.body.reviewId);
+    let content = xss(req.body.replyContent);
+    if (!reviewId || !content ) {
+      return res.status(400).json({ error: 'You must provide data for all fields' });
     }
-
     try{
-      req.params.parkID = helper.validParkId(req.params.parkID);
-    }catch(e){
-      return res.status(400).json({error: e});
-    }
-
-    try{
-      req.params.reviewID = helper.checkReviewID(req.params.reviewID);
-    }catch(e){
-      return res.status(400).json({error: e});
-    }
-
-    try{
-      if(typeof info.content !== 'string') throw 'content must be a string';
-      info.content = info.content.trim();
+      if(typeof content !== 'string') throw 'content must be a string';
+      content = content.trim();
     }catch(e){
       return res.status(400).json({error: e});
     }
 
    try{
-    const {content} = info;
-    const park = await parkData.getParkById(req.params.parkID);
-    const createComment = await commentData.createComment(req.params.reviewID,req.session.user._id,content);
-    res.status(200).render('singlePark',{park:park, partial: createComment, title:"Comments!"});
+    const createComment = await commentData.createComment(reviewID,req.session.user.userId,content);
+    return res.status(200).json({comment: createComment});
    }catch(e){
     res.status(400).render('singlePark',{error:e, title:"Comments!"});
    }
