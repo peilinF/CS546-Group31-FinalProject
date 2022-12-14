@@ -31,15 +31,23 @@ router.route("/search").get(async (req, res) => {
   } else {
     req.session.login = false;  
   }
-
+  try {
+    if (!parkName) throw 'You must provide an id to search for';
+    if (typeof parkName !== 'string') throw 'Id must be a string';
+    if (parkName.trim().length === 0)
+        throw 'id cannot be an empty string or just spaces';
+    parkName = parkName.trim();
+  } catch (e) {
+    res.status(400).render('error', 'error', {path: 'park/search', statucode: 400, error: e});
+  }
   try {
     let park = await parkData.getParkByName(parkName);
     park = await getReview(park);
     req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
-    res.render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
+    res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
     return;
   } catch (e) {
-    res.status(500);
+    res.status(500).render('error', 'error', {path: 'park/search', statucode: 500, error: e});
     return;
   }
 });
