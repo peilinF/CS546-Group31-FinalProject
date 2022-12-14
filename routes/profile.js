@@ -56,6 +56,7 @@ router.route("/update").post(async (req, res) => {
   }
   try {
     updatedUser = await userData.updateUser(userId, userName, userEmail, userBirthDate, hashedPassword)
+    req.session.user.userName = userName
     res.redirect('/profile')
     return;
   } catch (e) {
