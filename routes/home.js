@@ -11,7 +11,7 @@ const users = mongoCollections.users;
 
 router.route("/").get(async (req, res) => {
   //code here for GET
-  req.session.pageNow = '/';
+ req.session.pageNow = '/';
  if(req.session.user){
   res.render('homepage',{userName: req.session.user.userName});
  }else{
