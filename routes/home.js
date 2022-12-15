@@ -350,7 +350,6 @@ router.route("/updatepark").post(async (req, res) => {
   }
   let list = req.body.data;
   let user = await userData.getUserById(req.session.user.userId);
-  console.log(user);
   let parkvisited = user.parksHaveVisited;
   let wish = user.parksWishToGo;
   let flag =[0,0];
