@@ -315,8 +315,17 @@ visited.onclick=function(){
 					$(st).addClass('st6');
 				}
 			}
-			
 			appendVisitText();
+			console.info(data);
+			if(data.length==0){
+				let park = document.createElement('div');
+				let text = document.createElement('span');
+				$(text).html('No record in your list!');
+				$(park).append(text);
+				$(park).addClass('park');
+				$('#list').append(park);
+				return 0;
+			}
 			for(let key in data){
 				let park = document.createElement('div');
 				let text = document.createElement('span');
@@ -373,6 +382,15 @@ wishlist.onclick=function(){
 				}
 			}
 			appendWishText();
+			if(data.length==0){
+				let park = document.createElement('div');
+				let text = document.createElement('span');
+				$(text).html('No record in your list!');
+				$(park).append(text);
+				$(park).addClass('park');
+				$('#list').append(park);
+				return 0;
+			}
 			for(let key in data){
 				let park = document.createElement('div');
 				let text = document.createElement('span');
