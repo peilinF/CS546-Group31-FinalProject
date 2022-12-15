@@ -32,26 +32,14 @@ h1 {
   font-size: 36px;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
-  position: fixed;
-  left: 0;
-  top: 0;
-  margin: 10px;
-  z-index: 999;
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgb(49, 57, 51);
-  background-color: rgb(217, 242, 248);
-  padding: 10px;
-  display: block;
-  word-wrap: break-word;
 }
+
 h2 {
   color: #28567b;
   margin-bottom: 10px;
   font-size: 32px;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
-  z-index: 998;
 }
 h3 {
   color: #28567b;
@@ -60,6 +48,25 @@ h3 {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
   display: block;
+}
+
+.homepage-title {
+  color: #5b6763;
+  margin-bottom: 10px;
+  font-size: 36px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(49, 57, 51);
+  background-color: rgb(217, 242, 248);
+  padding: 10px;
+  display: block;
+  word-wrap: break-word;
 }
 
 p,
@@ -236,3 +243,14 @@ li {
 .hidden {
   display: none;
 }
+
+
+.wished-visited-data {
+  position: relative;
+  left: 20px;
+  bottom: 0;
+}
+
+
+
+
