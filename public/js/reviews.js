@@ -1,3 +1,5 @@
+
+
 (function ($) {
     var login = $("#login"),
         title = $("#title"),
@@ -8,6 +10,7 @@
         review = $("#review");
         reply = $(".reply");
         like = $(".like");
+        unlike = $(".unlike");
         replyClass = $(".review-ui"),
         id = $(".review-id");
     if (id.is(':visible')) {
@@ -103,24 +106,21 @@
                 reviewId: reviewId,
             }),
             error: function (err) {
-                if (err.responseText.includes("liked this review")) {
-                    removeLike(e);
-                }
             },
         };
 
         $.ajax(requestConfig).then(function (responseMessage) {
             parent.append('<div class="likes">Liked!</div>');
+            like.text("Unlike");
         });
     });
-
-    function removeLike(e){
+    unlike.click(function (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
         var reviewId =parent.find('.review-id').text();
         var requestConfig = {
             method: 'POST',
-            url: '/review/like',
+            url: '/review/unlike',
             contentType: "application/json",
             data: JSON.stringify({
                 parkName: parkName.text(),
@@ -135,6 +135,6 @@
             parent.find('.likes').text("UnLiked!");
             parent.find('.likes').css('color', 'red');
         });
-    }
+    });
 
 })(window.jQuery);

@@ -84,11 +84,12 @@ router
         error = 'You have to login to add review!';
         return res.status(400).json({error: error});
       }
+      console.log(req.body.reviewId);
       const reviewId = xss(req.body.reviewId);
       const userId = req.session.user.userId;
       const parkName = xss(req.body.parkName);
       console.log('Unlike' + ' review ' +reviewId);
-      if (!reviewId || !userId) {
+      if (!reviewId) {
         return res.status(400).json({ error: 'You must provide reviewId' });
       }
       try{

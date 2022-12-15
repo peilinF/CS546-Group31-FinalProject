@@ -43,12 +43,17 @@
         <section class="review-content">
           <p class="review">Review: {{this.content}}</p>
         </section>
+        {{#if this.liked}}
+        <div class="review-ui">
+          <button type="button" class="reply" >reply</button>
+          <button type="button" class="unlike" >unlike</button>
+        </div>
+          <div class="likes" > Liked!</div>
+        {{else}}
         <div class="review-ui">
           <button type="button" class="reply" >reply</button>
           <button type="button" class="like" >Like</button>
         </div>
-        {{#if this.liked}}
-          <div class="likes" > Liked!</div>
         {{/if}}
       {{#if this.hasComments}}
         {{#each this.comments}}
