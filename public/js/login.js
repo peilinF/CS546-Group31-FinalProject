@@ -20,6 +20,7 @@
         return;
       }
       else {
+        mySpan.html('')
         var requestConfig = {
             method: 'POST',
             url: '/login',

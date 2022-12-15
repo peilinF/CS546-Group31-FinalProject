@@ -46,7 +46,8 @@
                     answer2:$('#answerInput2').val()
                 }),
                 error: function (err) {
-                    window.location.href = '/register/error/' + err.responseText;
+                    errorMessage.css('color', 'red');
+                    errorMessage.html(err.responseText);
                 }
             }
             

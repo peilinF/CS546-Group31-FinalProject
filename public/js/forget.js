@@ -13,18 +13,19 @@
   myForm.submit(function (e) {
       e.preventDefault();
       if ( passwordInput.val() === '' || confirmPasswordInput.val() === '' || email.val() === '' || questionA.val() === '' || answer1.val() === '' || questionB.val() === '' || answer2.val() === ''){
-        mySpan.css('color', 'red');
-        mySpan.html('Please fill all the fields!');
-        return;
+          errorMessage.css('color', 'red');
+          errorMessage.html('Please fill all the fields!');
+          return;
       }
 
       if(questionA.val() === questionB.val()){
         errorMessage.css('color', 'red');
-        errorMessage.html('Secure questions should not be same!')
+        errorMessage.html('Secure questions should not be same!');
+        return;
       }
 
       if (passwordInput.val() !== confirmPasswordInput.val()) {
-          
+          errorMessage.html('');
           mySpan.css('color', 'red');
           mySpan.html('not matching');
       } else {
@@ -43,7 +44,8 @@
                   answer2:$('#answerInputB').val()
               }),
               error: function (err) {
-                window.location.href = '/forget/error/' + err.responseText;
+                errorMessage.css('color', 'red');
+                errorMessage.html(err.responseText);
             }
           }
           $.ajax(requestConfig).then(function (responseMessage) {

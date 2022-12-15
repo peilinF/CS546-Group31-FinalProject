@@ -229,7 +229,7 @@ const checkUser = async (email, password) => {
   //Query the db for the username supplied, if it is not found, throw an error
   const usersCollection = await users();
   const user = await usersCollection.findOne({email: email.toLowerCase()});
-  if(user === null) throw 'email is not sign up'
+  if(user === null) throw 'Email is not sign up'
   const compareToPassword = await bcrypt.compare(password,user.Password);
   if(compareToPassword){
     return {authenticatedUser: true, userName: user.userName, userId: user._id};
