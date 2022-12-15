@@ -46,32 +46,39 @@ const removeLike = async (
     reviewId
 ) => {
     const userCollection = await userDB();
-    const likedReview = await userCollection.find({ _id: ObjectId(viewerId), likes: {_id: ObjectId(reviewId)} })
+    const likedReview = await userCollection.find({ _id: ObjectId(viewerId), likes: {$in: [reviewId.toString()]} })
     if (!likedReview) throw '[removeLike]User has not liked this review yet'
     const viewer = await user.getUserById(viewerId)
     let viewerLikes = viewer.likes
     // delete this review in viewer's likes list
+ 
     viewerLikes.map((val, i) => { if (val === reviewId) { viewerLikes.splice(i, 1) }})
     const updatedViewer = { likes: viewerLikes }
+ 
     const updatedViewerInfo = await userCollection.updateOne({ _id: ObjectId(viewerId) }, { $set: updatedViewer });
     if (updatedViewerInfo.modifiedCount === 0) {
       throw '[removeLike]could not update likes list successfully';
     }
-    const review = await review.getReview(reviewId)
+   
     const reviewsCollection = await reviewDB();
+    const review = await reviewsCollection.findOne({ _id: ObjectId(reviewId) });
+    
     const updatedReview = { number_of_likes: review.number_of_likes-1}
+   
     const updatedReviewInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $set: updatedReview });
     if (updatedReviewInfo.modifiedCount === 0) {
       throw '[removeLike]could not update review successfully';
     }
     const authorId = review.userId
-    const author = await user.getUserById(authorId)
+    
+    const author = await userCollection.findOne({ _id: ObjectId(authorId)});
     const updatedAuthor = {likesReceivedAmount: author.likesReceivedAmount-1}
     const updatedAuthorInfo = await userCollection.updateOne({ _id: ObjectId(authorId) }, { $set: updatedAuthor });
     if (updatedAuthorInfo.modifiedCount === 0) {
       throw '[removeLike]could not update author likes received amount successfully';
     }
-    return await getReview(reviewId);
+    
+    return  await reviewsCollection.findOne({ _id: ObjectId(reviewId) });
 }
 
 module.exports = {

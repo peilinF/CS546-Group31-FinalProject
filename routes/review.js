@@ -36,18 +36,23 @@ router
     const reviewTitle = xss(req.body.reviewTitle);
     const content = xss(req.body.content);
     let rating = xss(req.body.rating);
-    const parkName = xss(req.body.parkName);
+    let parkName = xss(req.body.parkName);
     
     if (!reviewTitle || !content || !rating || !parkName) {
       return res.status(400).json({ error: 'You must provide data for all fields' });
     }
+    parkName = parkName.trim();
+    if (parkName === '') {
+      return res.status(400).json({ error: "Do not change my Park name!" });
+    }
+    parkName = helper.changeParkName(parkName);
     try{
       rating = parseInt(rating);
       const park = await parksData.getParkByName(parkName);
       const user = await usersData.getUserByEmail(req.session.user.email);
       await reviewData.createReview(park._id, user._id, reviewTitle, content, rating);
      
-      return res.status(200).json({parkId: park._id});
+      return res.status(200).json({parkName: parkName});
     }
     catch(e){
 
@@ -65,10 +70,15 @@ router
       }
       const reviewId = xss(req.body.reviewId);
       const userId = req.session.user.userId;
-      const parkName = xss(req.body.parkName);
+      let parkName = xss(req.body.parkName);
       if (!reviewId || !userId) {
-        return res.status(400).json({ error: 'You must provide reviewId' });
+        return res.status(400).json({ error: 'You must provide reviewId or UserId' });
       }
+      parkName = parkName.trim();
+      if (parkName === '') {
+      return res.status(400).json({ error: "Do not change my Park name!" });
+      }
+      
       try{
         await likesClass.addLike(userId, reviewId);
         return res.status(200).json({parkName: parkName});
@@ -84,13 +94,20 @@ router
         error = 'You have to login to add review!';
         return res.status(400).json({error: error});
       }
-      console.log(req.body.reviewId);
       const reviewId = xss(req.body.reviewId);
+
       const userId = req.session.user.userId;
-      const parkName = xss(req.body.parkName);
-      console.log('Unlike' + ' review ' +reviewId);
+      let parkName = xss(req.body.parkName);
+      parkName = parkName.trim();
+      if (parkName === '') {
+        return res.status(400).json({ error: "Do not change my Park name!" });
+      }
       if (!reviewId) {
         return res.status(400).json({ error: 'You must provide reviewId' });
+      }
+
+      if (!userId) {
+        return res.status(400).json({ error: 'You must provide userId' });
       }
       try{
         await likesClass.removeLike(userId, reviewId);

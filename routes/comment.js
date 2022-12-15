@@ -43,6 +43,9 @@ router
     if (!reviewId || !content ) {
       return res.status(400).json({ error: 'You must provide data for all fields' });
     }
+    if (parkName === '') {
+      return res.status(400).json({ error: 'Do not fuck change my Park name!' });
+    }
     try{
       if(typeof content !== 'string') throw 'content must be a string';
       content = content.trim();
@@ -53,8 +56,8 @@ router
     const userId = req.session.user.userId;
     try{
       await commentData.createComment(reviewId.toString(), userId.toString(), content);
-      const park = await parkData.getParkByName(parkName);
-      return res.status(200).json({parkId: park._id});
+      let park = await parkData.getParkByName(parkName);
+      return res.status(200).json({parkName: park.parkName});
     }catch(e){
       return res.status(400).json({error: e});
     }
@@ -114,5 +117,42 @@ router
     res.status(500).json({error: e});
   }
 });
+
+
+const getReview = async (park, user) => {
+  let likesArray = [];
+  if (user){
+    likesArray = user.likes;
+  }
+  let hasReviews = false;
+  if (park.reviews.length !== 0) {
+    for (let i = 0; i < park.reviews.length; i++) {
+      let review = await reviewData.getReview(park.reviews[i]);
+      review = await getComment(review);
+      if (likesArray.includes(review._id.toString())) {
+        review.liked = true;
+        park.reviews[i] = review;
+      } else {
+        review.liked = false;
+        park.reviews[i] = review;
+      }
+    }
+    hasReviews = true;
+  }
+  park.hasReviews = hasReviews;
+  return park;
+};
+const getComment = async (review) => {
+  let hasComments = false;
+  if (review.comments.length !== 0) {
+    for (let i = 0; i < review.comments.length; i++) {
+      let comment = await commentData.getCommentById(review.comments[i]);
+      review.comments[i] = comment;
+    } 
+    hasComments = true;
+  }
+  review.hasComments = hasComments;
+  return review;
+};
 
 module.exports = router;

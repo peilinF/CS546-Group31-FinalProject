@@ -50,26 +50,26 @@ router.route("/search").get(async (req, res) => {
   // }
 });
 
-router.route("/:id").get(async (req, res) => {
-  //code here for GET
-  const parkId = xss(req.params.id);
-  if (req.session.user) {
-    req.session.login = true;
-  } else {
-    req.session.login = false;  
-  }
+// router.route("/:id").get(async (req, res) => {
+//   //code here for GET
+//   const parkId = xss(req.params.id);
+//   if (req.session.user) {
+//     req.session.login = true;
+//   } else {
+//     req.session.login = false;  
+//   }
 
-  try {
-    let park = await parkData.getParkById(parkId);
-    park = await getReview(park);
-    req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
-    res.render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
-    return;
-  } catch (e) {
-    res.status(500);
-    return;
-  }
-});
+//   try {
+//     let park = await parkData.getParkById(parkId);
+//     park = await getReview(park);
+//     req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
+//     res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
+//     return;
+//   } catch (e) {
+//     res.status(500);
+//     return;
+//   }
+// });
 const getReview = async (park, user) => {
   let likesArray = [];
   if (user){

@@ -20,6 +20,7 @@
         window.location.href = "/login";
     });
     postReview.submit(function (e) {
+        var parent = $(this).parent().parent();
         e.preventDefault();
         if (!title.val() || !content.val() || !rating.val() || !parkName.text()) {
             review.append("<div class='error' role='alert'>Please fill all the fields</div>");
@@ -50,7 +51,7 @@
                 },
             };
             $.ajax(requestConfig).then(function (responseMessage) {
-                window.location.href = `/park/${responseMessage.parkId}`;
+                window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
             });
         }
     });
@@ -73,6 +74,7 @@
     });
     function replySubmit(e) {
         e.preventDefault();
+        var parent = $(this).parent().parent();
         var replyContent = $(this).parent().find('.replyContent').val();
         var reviewId = $(this).parent().parent().find('.review-id').text();
         var requestConfig = {
@@ -89,11 +91,12 @@
             },
         };
         $.ajax(requestConfig).then(function (responseMessage) {
-            window.location.href = `/park/${responseMessage.parkId}`;
+            window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
         });
     };
     
-    like.click(function (e) {
+    like.click(likePost);
+    function likePost (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
         var reviewId =parent.find('.review-id').text();
@@ -106,15 +109,19 @@
                 reviewId: reviewId,
             }),
             error: function (err) {
+                alert(err.responseText);
             },
         };
 
         $.ajax(requestConfig).then(function (responseMessage) {
-            parent.append('<div class="likes">Liked!</div>');
-            like.text("Unlike");
+            parent.find('.like').remove();
+            parent.find('.unlikeD').remove();
+            parent.find('.reply').after(' <button  type="button" class="unlike">Unlike</button> <div class="likes">Liked!</div>');
+            parent.find('.unlike').click(unlikePost);
         });
-    });
-    unlike.click(function (e) {
+    };
+    unlike.click(unlikePost);
+    function unlikePost (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
         var reviewId =parent.find('.review-id').text();
@@ -132,9 +139,12 @@
         };
 
         $.ajax(requestConfig).then(function (responseMessage) {
-            parent.find('.likes').text("UnLiked!");
-            parent.find('.likes').css('color', 'red');
+            parent.find(".likes").remove();
+            parent.find('.unlike').remove();
+            parent.find('.reply').after(' <button  type="button" class="like">Like</button> <div class="unlikeD">unlike!</div>');
+            parent.find('.like').click(likePost);
         });
-    });
+        return;
+    };
 
 })(window.jQuery);
