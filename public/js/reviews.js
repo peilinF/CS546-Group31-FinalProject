@@ -90,5 +90,51 @@
         });
     };
     
+    like.click(function (e) {
+        e.preventDefault();
+        var parent = $(this).parent().parent();
+        var reviewId =parent.find('.review-id').text();
+        var requestConfig = {
+            method: 'POST',
+            url: '/review/like',
+            contentType: "application/json",
+            data: JSON.stringify({
+                parkName: parkName.text(),
+                reviewId: reviewId,
+            }),
+            error: function (err) {
+                if (err.responseText.includes("liked this review")) {
+                    removeLike(e);
+                }
+            },
+        };
+
+        $.ajax(requestConfig).then(function (responseMessage) {
+            parent.append('<div class="likes">Liked!</div>');
+        });
+    });
+
+    function removeLike(e){
+        e.preventDefault();
+        var parent = $(this).parent().parent();
+        var reviewId =parent.find('.review-id').text();
+        var requestConfig = {
+            method: 'POST',
+            url: '/review/like',
+            contentType: "application/json",
+            data: JSON.stringify({
+                parkName: parkName.text(),
+                reviewId: reviewId,
+            }),
+            error: function (err) {
+                alert(err.responseText);
+            },
+        };
+
+        $.ajax(requestConfig).then(function (responseMessage) {
+            parent.find('.likes').text("UnLiked!");
+            parent.find('.likes').css('color', 'red');
+        });
+    }
 
 })(window.jQuery);

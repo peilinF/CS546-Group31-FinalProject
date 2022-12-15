@@ -17,17 +17,17 @@
             url: '/login',
             contentType: 'application/json',
             data: JSON.stringify({
-                email: $('#emailInput').val(),
-                password: $('#passwordInput').val()
+                email: $('#EmailInput').val(),
+                password: $('#PasswordInput').val()
             }),
             error: function (err) {
-                window.location.href = '/login/error/' + err.responseText.error;
+                alert(err.responseText);
             }
           }
           
           $.ajax(requestConfig).then(function (responseMessage) {
               myError.html('');
-              alert(responseMessage.message);
+              //alert(responseMessage.message);
               window.location.href = responseMessage.url ;
           });
       }

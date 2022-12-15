@@ -169,6 +169,10 @@ const parsePark = (park) => {
     };
     fee.push(feeInfo);
   }
+  // if (parkName.includes("&")) {
+  //   parkName = parkName.replace("&", "and");
+  //   console.log(parkName);
+  // }
   return [
     id,
     parkName,

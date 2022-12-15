@@ -1,6 +1,7 @@
 //You can add and export any helper functions you want here. If you aren't using any, then you can just leave this file as is.
 const bcrypt = require('bcryptjs');
 const { ObjectId } = require('mongodb');
+const parkNameList = require('./constant').parkNameList;
 
 function validDate(date) {
   if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(date)) throw 'Date must be in the format MM/DD/YYYY';
@@ -153,6 +154,14 @@ function checkparamsUpdateUser(userId, userName, email, birthDate, hashedPasswor
   if (!birthDate) throw 'You must provide a birth date';
 }
 
+function changeParkName(parkName) {
+  for (let i = 0; i < parkNameList.length; i++) {
+    if (parkNameList[i].includes(parkName)) {
+      return parkNameList[i];
+    }
+  }
+}
+
 module.exports = {
   validDate,
   validTime,
@@ -165,5 +174,6 @@ module.exports = {
   checkPasswordString,
   checkParkName,
   checkReviewID,
-  checkparamsUpdateUser
+  checkparamsUpdateUser,
+  changeParkName
 }

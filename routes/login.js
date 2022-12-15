@@ -14,8 +14,8 @@ router
 })
 .post(async (req, res) => {
   //code here for POST
-  const email = xss(req.body.EmailInput);
-  const passWord = xss(req.body.PasswordInput);
+  const email = xss(req.body.email);
+  const passWord = xss(req.body.password);
   if(!email || !passWord){
     error = 'All fields need to have valid values';
     return res.status(400).json({error:error, title:"Welcome to login!"});
@@ -29,7 +29,7 @@ router
       req.session.user = {userName: checkUser.userName,  email: email, userId: checkUser.userId};
       if (req.session.pageBefore === '/') {
         //res.json({url: '/login/homepage'});
-        return res.status(200).json({url:'/login/homepage'});
+        return res.status(200).json({url:'/'});
       } else {
         req.session.pageBefore[1].login = true;
         //res.redirect(`/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`);

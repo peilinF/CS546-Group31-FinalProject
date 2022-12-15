@@ -7,7 +7,7 @@ const parksData = data.parks;
 const usersData = data.users;
 const path = require('path');
 const xss = require('xss');
-
+const likesClass = require('../data/likes');
 router
   .route('/:parkID')
   .get(async (req, res) => {
@@ -44,7 +44,6 @@ router
     try{
       rating = parseInt(rating);
       const park = await parksData.getParkByName(parkName);
-      //console.log(req.session.user.email);
       const user = await usersData.getUserByEmail(req.session.user.email);
       await reviewData.createReview(park._id, user._id, reviewTitle, content, rating);
      
@@ -56,6 +55,50 @@ router
     
     }
   });
+
+  router
+    .route('/like')
+    .post(async (req, res) => {
+      if(!req.session.user){
+        error = 'You have to login to add review!';
+        return res.status(400).json({error: error});
+      }
+      const reviewId = xss(req.body.reviewId);
+      const userId = req.session.user.userId;
+      const parkName = xss(req.body.parkName);
+      if (!reviewId || !userId) {
+        return res.status(400).json({ error: 'You must provide reviewId' });
+      }
+      try{
+        await likesClass.addLike(userId, reviewId);
+        return res.status(200).json({parkName: parkName});
+      } catch(e){
+        return res.status(400).json(e);
+      }
+    });
+
+  router
+    .route('/unlike')
+    .post(async (req, res) => {
+      if(!req.session.user){
+        error = 'You have to login to add review!';
+        return res.status(400).json({error: error});
+      }
+      const reviewId = xss(req.body.reviewId);
+      const userId = req.session.user.userId;
+      const parkName = xss(req.body.parkName);
+      console.log('Unlike' + ' review ' +reviewId);
+      if (!reviewId || !userId) {
+        return res.status(400).json({ error: 'You must provide reviewId' });
+      }
+      try{
+        await likesClass.removeLike(userId, reviewId);
+        return res.status(200).json({parkName: parkName});
+      }
+      catch(e){
+        return res.status(400).json(e);
+      }
+    });
 
 // router
 //   .route('/:parkID/:userID')

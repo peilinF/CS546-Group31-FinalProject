@@ -19,7 +19,6 @@ const addLike = async (
 
     likedReviewList.map((val, i) => { if (val === reviewId) { hasLike = true }});
     if (hasLike) throw '[addLike]User has already liked this review';
-    const viewer = await user.getUserById(viewerId);
     const updatedViewer = { likes: reviewId }
     const updatedViewerInfo = await userCollection.updateOne({ _id: ObjectId(viewerId) }, { $push: updatedViewer });
     if (updatedViewerInfo.modifiedCount === 0) {
@@ -37,7 +36,7 @@ const addLike = async (
     const updatedAuthor = {likesReceivedAmount: author.likesReceivedAmount+1}
     const updatedAuthorInfo = await userCollection.updateOne({ _id: ObjectId(authorId) }, { $set: updatedAuthor });
     if (updatedAuthorInfo.modifiedCount === 0) {
-      throw '[addLike]could not update author likes recieved amount successfully';
+      throw '[addLike]could not update author likes received amount successfully';
     }
     return await reviewsCollection.findOne({ _id: ObjectId(reviewId) });
 }
@@ -67,10 +66,10 @@ const removeLike = async (
     }
     const authorId = review.userId
     const author = await user.getUserById(authorId)
-    const updatedAuthor = {likesRecievedAmount: author.likesRecievedAmount-1}
+    const updatedAuthor = {likesReceivedAmount: author.likesReceivedAmount-1}
     const updatedAuthorInfo = await userCollection.updateOne({ _id: ObjectId(authorId) }, { $set: updatedAuthor });
     if (updatedAuthorInfo.modifiedCount === 0) {
-      throw '[removeLike]could not update author likes recieved amount successfully';
+      throw '[removeLike]could not update author likes received amount successfully';
     }
     return await getReview(reviewId);
 }
