@@ -410,15 +410,22 @@ wishlist.onclick=function(){
 
 let getRecordButton = document.getElementById("btn-record-data")
 getRecordButton.addEventListener('click',() => {
+	document.querySelector('.wished-data').classList.toggle('hidden');
+  document.querySelector('.visited-data').classList.toggle('hidden');
+  if (getRecordButton.innerHTML === 'Records') {
+    getRecordButton.innerHTML = 'Hidden';
+  } else {
+    getRecordButton.innerHTML = 'Records';
+  }
 	$.ajax({
 		type:"get",
 		url:"http://localhost:3000/record",
 		dataType: 'json',
 		success: (record) => {
 			let wishedRecord = document.querySelector(".wished-data")
-			wishedRecord.innerText = `Wish to go Park: ${record.wishedAmount}/63`
+			wishedRecord.innerText = `Added to wishlist: ${record.wishedAmount}/63`
 			let visitedRecord = document.querySelector(".visited-data")
-			visitedRecord.innerText = `Visited Park: ${record.visitedAmount}/63`
+			visitedRecord.innerText = `Visited: ${record.visitedAmount}/63`
 		},
 		error: (e) => {
 			alert(e.responseText);
