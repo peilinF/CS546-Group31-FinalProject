@@ -16,8 +16,11 @@ $('#sub').click(function(){
         dataType:"JSON",
         data:{data},
         success:function (data) {
-          console.log(data)
           // selss = data.data
+        },
+        error:function(){
+          alert('Something went wrong, please refresh the page!');
         }
       })
+      window.location.href = "/";
 });
