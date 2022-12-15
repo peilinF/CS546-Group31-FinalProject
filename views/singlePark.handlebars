@@ -29,7 +29,7 @@
   <p id="park_rating">Overall Rating: {{park.overallRating}}</p>
 
   {{#if park.hasReviews}}
-  <div class="reviews">
+  <div class="review">
     <h2>Reviews</h2>
     {{#each park.reviews}}
       <div class="reviews" name = "{{this._id}}">
@@ -45,13 +45,13 @@
         </section>
         {{#if this.liked}}
         <div class="replyUi">
-          <button type="button" class="reply" >reply</button>
+          <button type="button" class="reply" >Reply</button>
           <button type="button" class="unlike" >Unlike</button>
         </div>
           <div class="likes" > Liked!</div>
         {{else}}
         <div class="replyUi">
-          <button type="button" class="reply" >reply</button>
+          <button type="button" class="reply" >Reply</button>
           <button type="button" class="like" >Like</button>
         </div>
         {{/if}}

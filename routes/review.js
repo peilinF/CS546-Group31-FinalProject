@@ -33,6 +33,8 @@ router
       }
       await reviewData.removeReview(reviewId);
       return res.status(200).json({parkName: parkName});
+    } catch(e){
+      return res.status(400).json({error: e});
     }
 
   });
