@@ -61,10 +61,10 @@ const getReview = async (park, user) => {
     for (let i = 0; i < park.reviews.length; i++) {
       let review = await reviewData.getReview(park.reviews[i]);
       review = await getComment(review);
-      if (review.userId === user._id.toString()) {
-        review.isOwner = true;
-      } else {
+      if (!user) {
         review.isOwner = false;
+      } else if (review.userId === user._id.toString()) {
+        review.isOwner = true;
       }
       if (likesArray.includes(review._id.toString())) {
         review.liked = true;
