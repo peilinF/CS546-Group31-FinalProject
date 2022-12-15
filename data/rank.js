@@ -19,9 +19,9 @@ const rankUsers = async (
         throw `option ${option} have not been developed yet`
     } else {
         if (option === 'followersAmount' || option === 'commentsAmount' || option === 'reviewsAmount'){
-            results = await bubbleSortByLength(allUsers, option.slice(0, option.indexOf('Amount')));
+            results = bubbleSortByLength(allUsers, option.slice(0, option.indexOf('Amount')));
         } else {
-            results = await bubbleSort(allUsers, option.slice(0, option));
+            results = bubbleSort(allUsers, option.slice(0, option));
         }
     }
 
@@ -59,9 +59,9 @@ const rankParks = async (
         throw `option ${option} have not been developed yet`
     } else {
         if (option === 'reviewsAmount'){
-            results = await bubbleSortByLength(allParks, 'reviews');
+            results = bubbleSortByLength(allParks, 'reviews');
         } else {
-            results = await bubbleSort(allParks, option);
+            results = bubbleSort(allParks, option);
         }
     }
 
@@ -87,7 +87,7 @@ const rankReviews = async (
     if(option !== 'lastUpdatedTime' && option !== 'number_of_likes'){
         throw `option ${option} have not been developed yet`
     } else {
-        results = await bubbleSort(allReviews, option);
+        results = bubbleSort(allReviews, option);
     }
 
     // if (option === 'lastUpdatedTime') {
@@ -114,7 +114,7 @@ const rankReviews = async (
     return results
 }
 
-const bubbleSort = async (lis, option) => {
+const bubbleSort = (lis, option) => {
 
     let len = lis.length;
     for (let i = len-1; i>=0; i--){
@@ -129,7 +129,7 @@ const bubbleSort = async (lis, option) => {
     return lis;
 };
 
-const bubbleSortByLength = async (lis, option) => {
+const bubbleSortByLength = (lis, option) => {
     
         let len = lis.length;
         for (let i = len-1; i>=0; i--){
