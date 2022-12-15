@@ -1,5 +1,5 @@
 body {
-  background: #eee0cb;
+  background: #fff2e8;
 }
 
 body {
@@ -30,24 +30,36 @@ h1 {
   color: #839788;
   margin-bottom: 10px;
   font-size: 36px;
-  font-family: "Bookman Old Style";
-  font-weight: normal;
-  font-style: italic;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 10px;
+  z-index: 999;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(49, 57, 51);
+  background-color: rgb(217, 242, 248);
+  padding: 10px;
+  display: block;
+  word-wrap: break-word;
 }
 h2 {
   color: #28567b;
   margin-bottom: 10px;
   font-size: 32px;
-  font-family: "EB Garamond";
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
-  font-style: italic;
+  z-index: 998;
 }
 h3 {
   color: #28567b;
   margin-bottom: 10px;
   font-size: 28px;
-  font-family: "EB Garamond";
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
+  display: block;
 }
 
 p,
@@ -55,9 +67,10 @@ label {
   color: #28567b;
   font-size: 20px;
   line-height: 1.5;
-  font-family: "EB Garamond";
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: lighter;
   margin-bottom: 20px;
+  z-index: 997;
 }
 
 a:link {
@@ -88,7 +101,7 @@ a.new {
   color: #839788;
   margin-bottom: 10px;
   font-size: 20px;
-  font-family: "Bookman Old Style";
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
 }
 
@@ -207,7 +220,7 @@ img {
 
 li {
   color:#5681ad;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 18px;
   margin-bottom: 5px;
 }

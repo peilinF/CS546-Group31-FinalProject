@@ -68,6 +68,7 @@ function appendVisitText(){
 	$(list).addClass('center');
 	$('#btn').append(list);
 	$('#list').html('You have visited:');
+	$('#list').first().css('color','#0f7ce2')
 }
 
 function appendWishText(){
@@ -80,6 +81,7 @@ function appendWishText(){
 	$(list).addClass('center');
 	$('#btn').append(list);
 	$('#list').html('You wish to go:');
+	$('#list').first().css('color','#f3488f')
 }
 
 // let AK = document.getElementById("Alaska");

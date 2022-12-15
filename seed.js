@@ -197,26 +197,26 @@ const parsePark = (park) => {
 const createPark = async () => {
   const parkResponse = await parkRequest;
   const parkData = parkResponse.data.data;
-  for (let name of constant.parkNameList) {
-    for (let i = 0; i < parkData.length; i++) {
-      let park = parkData[i];
-      if (park.fullName.includes(name)) {
-        const information = parsePark(park);
-        await parks.createPark(
-          information[0],
-          information[1],
-          information[2],
-          information[3],
-          information[4],
-          information[5],
-          information[6],
-          information[7],
-          information[8],
-          information[9]
-        );
-      }
+  
+  for (let i = 0; i < parkData.length; i++) {
+    let park = parkData[i];
+    if (constant.parkNameList.includes(park.fullName)) {
+      const information = parsePark(park);
+      await parks.createPark(
+        information[0],
+        information[1],
+        information[2],
+        information[3],
+        information[4],
+        information[5],
+        information[6],
+        information[7],
+        information[8],
+        information[9]
+      );
     }
   }
+  
 };
 
 main().catch(console.log);

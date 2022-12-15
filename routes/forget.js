@@ -12,7 +12,8 @@ router
     //code here for GET
     //res.sendFile(path.resolve('static/register.html'));
     res.render('userForget',{
-      partial: 'forget'
+      partial: 'forget',
+      title:"Reset password!"
     });
   })
   .post(async (req, res) => {

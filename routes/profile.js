@@ -15,7 +15,7 @@ router
       const userEmail = xss(req.session.user.email)
       try {
         const user = await userData.getUserByEmail(userEmail)
-        res.status(200).render('profile', { user: user, myProfile: true, title: "Successfully authenticated!" });
+        res.status(200).render('profile',{ user: user, myProfile: true});
       } catch (e) {
         if (e === "User not found") {
           res.status(404).render('error', { path: '/profile', statucode: 404, error: e })
