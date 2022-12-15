@@ -4,6 +4,14 @@
       myError = $('#error2'),
       mySpan = $('#loginErr'),
       email = $('#EmailInput')
+      var newErrorMessage = $('<p>', {
+        class: 'error-message',
+        text: '',
+        css: {
+          color: 'red',
+        },
+      });
+  myForm.append(newErrorMessage);
   myForm.submit(function (e) {
       e.preventDefault();
       if ( passwordInput.val() === '' || email.val() === ''){
@@ -21,7 +29,10 @@
                 password: $('#PasswordInput').val()
             }),
             error: function (err) {
-                alert(err.responseText);
+              newErrorMessage.text(err.responseText);
+              setTimeout(function () {
+                newErrorMessage.text('');
+              }, 3000); 
             }
           }
           

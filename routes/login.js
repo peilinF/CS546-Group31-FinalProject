@@ -39,7 +39,7 @@ router
     }
   }catch(e){
     //error = "Either the username or password is invalid."
-    return res.status(400).json({error:e, title:"Welcome to login!"});
+    return res.status(400).send(e);
   }
 })
 
