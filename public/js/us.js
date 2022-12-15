@@ -277,6 +277,143 @@ VI.onclick = function () {
 	formSubmit('http://localhost:3000/VI');
 }
 
+//with no park
+let ID = document.getElementById("Idaho");
+ID.onclick = function() {
+	formSubmit('http://localhost:3000/ID');
+}
+
+let NE = document.getElementById("Nebraska");
+NE.onclick = function() {
+	formSubmit('http://localhost:3000/NE');
+}
+
+let KS = document.getElementById("Kansas");
+KS.onclick = function() {
+	formSubmit('http://localhost:3000/KS');
+}
+
+let OK = document.getElementById("Oklahoma");
+OK.onclick = function() {
+	formSubmit('http://localhost:3000/OK');
+}
+
+let IA = document.getElementById("Iowa");
+IA.onclick = function() {
+	formSubmit('http://localhost:3000/IA');
+}
+
+let LA = document.getElementById("Louisiana");
+LA.onclick = function() {
+	formSubmit('http://localhost:3000/LA');
+}
+
+let WI = document.getElementById("Wisconsin");
+WI.onclick = function() {
+	formSubmit('http://localhost:3000/WI');
+}
+
+let IL = document.getElementById("Illinois");
+IL.onclick = function() {
+	formSubmit('http://localhost:3000/IL');
+}
+
+let MS = document.getElementById("Mississippi");
+MS.onclick = function() {
+	formSubmit('http://localhost:3000/MS');
+}
+
+let AL = document.getElementById("Alabama");
+AL.onclick = function() {
+	formSubmit('http://localhost:3000/AL');
+}
+
+let GA = document.getElementById("Georgia");
+GA.onclick = function() {
+	formSubmit('http://localhost:3000/GA');
+}
+
+let NC = document.getElementById("North_Carolina");
+NC.onclick = function() {
+	formSubmit('http://localhost:3000/NC');
+}
+
+let PA = document.getElementById("Pennsylvania");
+PA.onclick = function() {
+	formSubmit('http://localhost:3000/PA');
+}
+
+let MD = document.getElementById("Maryland");
+MD.onclick = function() {
+	formSubmit('http://localhost:3000/MD');
+}
+
+let NJ = document.getElementById("New_Jersy");
+NJ.onclick = function() {
+	formSubmit('http://localhost:3000/NJ');
+}
+
+let DE = document.getElementById("Delaware");
+DE.onclick = function() {
+	formSubmit('http://localhost:3000/DE');
+}
+
+let DC = document.getElementById("DC");
+DC.onclick = function() {
+	formSubmit('http://localhost:3000/DC');
+}
+
+let VT = document.getElementById("Vermont");
+VT.onclick = function() {
+	formSubmit('http://localhost:3000/VT');
+}
+
+let NH = document.getElementById("New_Hampshire");
+NH.onclick = function() {
+	formSubmit('http://localhost:3000/NH');
+}
+
+let MA = document.getElementById("Massachusettes");
+MA.onclick = function() {
+	formSubmit('http://localhost:3000/MA');
+}
+
+let CT = document.getElementById("Connecticut");
+CT.onclick = function() {
+	formSubmit('http://localhost:3000/CT');
+}
+
+let RI = document.getElementById("Rhode_Island");
+RI.onclick = function() {
+	formSubmit('http://localhost:3000/RI');
+}
+
+let PR = document.getElementById("Puerto_Rico");
+PR.onclick = function() {
+	formSubmit('http://localhost:3000/PR');
+}
+
+let GU = document.getElementById("Guam");
+GU.onclick = function() {
+	formSubmit('http://localhost:3000/GU');
+}
+
+let MP = document.getElementById("Northern_Mariana_Islands");
+MP.onclick = function() {
+	formSubmit('http://localhost:3000/MP');
+}
+
+let AS = document.getElementById("American_Samoa");
+AS.onclick = function() {
+	formSubmit('http://localhost:3000/AS');
+}
+
+let HI = document.getElementById("Hawaii");
+HI.onclick = function() {
+	formSubmit('http://localhost:3000/HI');
+}
+
+
 let visited = document.getElementById("btn_visited");
 visited.onclick = function () {
 	$.ajax({
@@ -341,6 +478,11 @@ visited.onclick = function () {
 			alert(e.responseText);
 		}
 	});
+	if (visited.innerText === "Visited(Clean)") {
+		window.location.href = "/";
+	} else {
+		visited.innerText = "Visited(Clean)"
+	}
 }
 
 let wishlist = document.getElementById("btn_wishlist");
@@ -406,36 +548,42 @@ wishlist.onclick = function () {
 			alert(e.responseText);
 		}
 	});
-}
-
-let getRecordButton = document.getElementById("btn-record-data")
-getRecordButton.addEventListener('click', (event) => {
-	let button = event.target
-	let wishedRecord = document.querySelector(".wished-data")
-	let visitedRecord = document.querySelector(".visited-data")
-	if (wishedRecord.innerText === '') {
-		$.ajax({
-			type: "get",
-			url: "http://localhost:3000/record",
-			dataType: 'json',
-			success: (record) => {
-				wishedRecord.innerText = `Added to wishlist: ${record.wishedAmount}/63`
-				visitedRecord.innerText = `Visited: ${record.visitedAmount}/63`
-			},
-			error: (e) => {
-				alert(e.responseText);
-			}
-		});
-	}
-	if (button.innerText === "Hidden") {
-		wishedRecord.style.display = "none"
-		visitedRecord.style.display = "none"
-		button.innerText = "Records"
-		button.style.background = "#839788"
+	if (wishlist.innerText === "Wishlist(Clean)") {
+		window.location.href = "/";
 	} else {
-		wishedRecord.style.display = ""
-		visitedRecord.style.display = ""
-		button.innerText = "Hidden"
-		button.style.background = "pink"
+		wishlist.innerText = "Wishlist(Clean)"
 	}
-})
+}
+if(document.getElementById("btn-record-data")!=null){
+	let getRecordButton = document.getElementById("btn-record-data");
+	getRecordButton.addEventListener('click', (event) => {
+		let button = event.target
+		let wishedRecord = document.querySelector(".wished-data")
+		let visitedRecord = document.querySelector(".visited-data")
+		if (wishedRecord.innerText === '') {
+			$.ajax({
+				type: "get",
+				url: "http://localhost:3000/record",
+				dataType: 'json',
+				success: (record) => {
+					wishedRecord.innerText = `Added to wishlist: ${record.wishedAmount}/63`
+					visitedRecord.innerText = `Visited: ${record.visitedAmount}/63`
+				},
+				error: (e) => {
+					alert(e.responseText);
+				}
+			});
+		}
+		if (button.innerText === "Hidden") {
+			wishedRecord.style.display = "none"
+			visitedRecord.style.display = "none"
+			button.innerText = "Records"
+			button.style.background = "#839788"
+		} else {
+			wishedRecord.style.display = ""
+			visitedRecord.style.display = ""
+			button.innerText = "Hidden"
+			button.style.background = "pink"
+		}
+	})
+}
