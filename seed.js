@@ -83,7 +83,14 @@ const createUser = async () => {
 
 const createMutiUsers = async () => {
   const userList = [];
-  const usersInfos = constant.usersInfos;
+  const usersInfos = [
+    ['mike', 'xixi0@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+    ['John', 'xixi1@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+    ['wendy', 'xixi2@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+    ['jack', 'xixi3@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+    ['nick', 'xixi4@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
+] 
+
   for (let i = 0, len = usersInfos.length; i < len; i++) {
     let userInfo = usersInfos[i];
     let user = await users.createUser(

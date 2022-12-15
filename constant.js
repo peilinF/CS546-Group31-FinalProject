@@ -1,3 +1,4 @@
+const helper = require("./helpers");
 const parkNameList = 
 [
     "Denali National Park & Preserve",
@@ -62,15 +63,6 @@ const parkNameList =
     "Hawaiʻi Volcanoes National Park",
     "Virgin Isl&s National Park"
 ];
-
-// const helper = require("./helpers")
-// const usersInfos = [
-//     ['mike', 'xixi0@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-//     ['John', 'xixi1@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-//     ['wendy', 'xixi2@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-//     ['jack', 'xixi3@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-//     ['nick', 'xixi4@gmail.com','2022-12-01',helper.hashPassword('Feng@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-// ] 
 
 module.exports = {
     parkNameList
