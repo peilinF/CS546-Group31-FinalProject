@@ -59,7 +59,7 @@ router.route("/parkvisited").get(async (req, res) => {
   // let park_state = await parkData.getParkByState('AK');
   // res.render('../views/parkstate',{park: park_state,title:"Alaska"});
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).send("You haven't logged in");
     return;
   }
@@ -81,7 +81,7 @@ router.route("/parkwish").get(async (req, res) => {
   // let park_state = await parkData.getParkByState('AK');
   // res.render('../views/parkstate',{park: park_state,title:"Alaska"});
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).send("You haven't logged in");
     return;
   }
@@ -99,7 +99,7 @@ router.route("/parkwish").get(async (req, res) => {
 });
 
 router.route("/record").get(async (req, res) => {
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).send("You haven't logged in");
     return;
   }
@@ -120,7 +120,7 @@ router.route("/record").get(async (req, res) => {
 router.route("/AK").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -136,7 +136,7 @@ router.route("/AK").get(async (req, res) => {
 router.route("/OR").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -152,7 +152,7 @@ router.route("/OR").get(async (req, res) => {
 router.route("/WA").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -168,7 +168,7 @@ router.route("/WA").get(async (req, res) => {
 router.route("/CA").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -184,7 +184,7 @@ router.route("/CA").get(async (req, res) => {
 router.route("/UT").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -200,7 +200,7 @@ router.route("/UT").get(async (req, res) => {
 router.route("/TX").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -216,7 +216,7 @@ router.route("/TX").get(async (req, res) => {
 router.route("/NM").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -232,7 +232,7 @@ router.route("/NM").get(async (req, res) => {
 router.route("/AZ").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -248,7 +248,7 @@ router.route("/AZ").get(async (req, res) => {
 router.route("/NV").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -264,7 +264,7 @@ router.route("/NV").get(async (req, res) => {
 router.route("/CO").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -280,7 +280,7 @@ router.route("/CO").get(async (req, res) => {
 router.route("/WY").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -295,7 +295,7 @@ router.route("/WY").get(async (req, res) => {
 router.route("/MT").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -311,7 +311,7 @@ router.route("/MT").get(async (req, res) => {
 router.route("/ME").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -327,7 +327,7 @@ router.route("/ME").get(async (req, res) => {
 router.route("/SD").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -343,7 +343,7 @@ router.route("/SD").get(async (req, res) => {
 router.route("/OH").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -359,7 +359,7 @@ router.route("/OH").get(async (req, res) => {
 router.route("/SC").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -375,7 +375,7 @@ router.route("/SC").get(async (req, res) => {
 router.route("/MO").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -391,7 +391,7 @@ router.route("/MO").get(async (req, res) => {
 router.route("/AR").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -407,7 +407,7 @@ router.route("/AR").get(async (req, res) => {
 router.route("/IN").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -423,7 +423,7 @@ router.route("/IN").get(async (req, res) => {
 router.route("/MI").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -439,7 +439,7 @@ router.route("/MI").get(async (req, res) => {
 router.route("/ND").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -455,7 +455,7 @@ router.route("/ND").get(async (req, res) => {
 router.route("/MN").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -471,7 +471,7 @@ router.route("/MN").get(async (req, res) => {
 router.route("/FL").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -487,7 +487,7 @@ router.route("/FL").get(async (req, res) => {
 router.route("/TN").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -503,7 +503,7 @@ router.route("/TN").get(async (req, res) => {
 router.route("/KY").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -519,7 +519,7 @@ router.route("/KY").get(async (req, res) => {
 router.route("/WV").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -536,7 +536,7 @@ router.route("/WV").get(async (req, res) => {
 router.route("/ID").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -556,7 +556,7 @@ router.route("/ID").get(async (req, res) => {
 router.route("/NE").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -576,7 +576,7 @@ router.route("/NE").get(async (req, res) => {
 router.route("/KS").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -596,7 +596,7 @@ router.route("/KS").get(async (req, res) => {
 router.route("/OK").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -616,7 +616,7 @@ router.route("/OK").get(async (req, res) => {
 router.route("/IA").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -636,7 +636,7 @@ router.route("/IA").get(async (req, res) => {
 router.route("/LA").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -656,7 +656,7 @@ router.route("/LA").get(async (req, res) => {
 router.route("/WI").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -676,7 +676,7 @@ router.route("/WI").get(async (req, res) => {
 router.route("/IL").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -695,7 +695,7 @@ router.route("/IL").get(async (req, res) => {
 router.route("/MS").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -715,7 +715,7 @@ router.route("/MS").get(async (req, res) => {
 router.route("/AL").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -735,7 +735,7 @@ router.route("/AL").get(async (req, res) => {
 router.route("/GA").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -755,7 +755,7 @@ router.route("/GA").get(async (req, res) => {
 router.route("/PA").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -775,7 +775,7 @@ router.route("/PA").get(async (req, res) => {
 router.route("/NC").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -795,7 +795,7 @@ router.route("/NC").get(async (req, res) => {
 router.route("/MD").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -815,7 +815,7 @@ router.route("/MD").get(async (req, res) => {
 router.route("/VA").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -835,7 +835,7 @@ router.route("/VA").get(async (req, res) => {
 router.route("/NY").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -855,7 +855,7 @@ router.route("/NY").get(async (req, res) => {
 router.route("/NJ").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -875,7 +875,7 @@ router.route("/NJ").get(async (req, res) => {
 router.route("/DE").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -895,7 +895,7 @@ router.route("/DE").get(async (req, res) => {
 router.route("/DC").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -915,7 +915,7 @@ router.route("/DC").get(async (req, res) => {
 router.route("/VT").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -935,7 +935,7 @@ router.route("/VT").get(async (req, res) => {
 router.route("/NH").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -955,7 +955,7 @@ router.route("/NH").get(async (req, res) => {
 router.route("/MA").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -975,7 +975,7 @@ router.route("/MA").get(async (req, res) => {
 router.route("/CT").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -995,7 +995,7 @@ router.route("/CT").get(async (req, res) => {
 router.route("/RI").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -1015,7 +1015,7 @@ router.route("/RI").get(async (req, res) => {
 router.route("/VI").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -1035,7 +1035,7 @@ router.route("/VI").get(async (req, res) => {
 router.route("/PR").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -1055,7 +1055,7 @@ router.route("/PR").get(async (req, res) => {
 router.route("/GU").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -1075,7 +1075,7 @@ router.route("/GU").get(async (req, res) => {
 router.route("/MP").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -1095,7 +1095,7 @@ router.route("/MP").get(async (req, res) => {
 router.route("/AS").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -1115,7 +1115,7 @@ router.route("/AS").get(async (req, res) => {
 router.route("/HI").get(async (req, res) => {
   //code here for GET
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -1134,7 +1134,7 @@ router.route("/HI").get(async (req, res) => {
 
 router.route("/updatepark").post(async (req, res) => {
   try{
-  if(typeof(xss(req.session.user)) == "undefined"){
+  if((xss(req.session.user)).length == 0){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
