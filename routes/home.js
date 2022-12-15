@@ -8,6 +8,7 @@ const ParkData = require('../data/parks');
 const { title } = require('process');
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
+const xss = require('xss');
 
 const getorigin = async(park_state,req) =>{
   let user = await userData.getUserById(req.session.user.userId);
@@ -57,43 +58,53 @@ router.route("/parkvisited").get(async (req, res) => {
   //code here for GET
   // let park_state = await parkData.getParkByState('AK');
   // res.render('../views/parkstate',{park: park_state,title:"Alaska"});
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).send("You haven't logged in");
     return;
   }
-  let user = await userData.getUserById(req.session.user.userId);
+  let user = await userData.getUserById(xss(req.session.user.userId));
   let park = user.parksHaveVisited;
   let visitlist=[]
   for(i=0;i<park.length;i++){
     visitlist.push(await ParkData.getParkById(park[i]));
   }
   res.send(visitlist);
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/parkwish").get(async (req, res) => {
   //code here for GET
   // let park_state = await parkData.getParkByState('AK');
   // res.render('../views/parkstate',{park: park_state,title:"Alaska"});
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).send("You haven't logged in");
     return;
   }
-  let user = await userData.getUserById(req.session.user.userId);
+  let user = await userData.getUserById(xss(req.session.user.userId));
   let park = user.parksWishToGo;
   let wishlist=[]
   for(i=0;i<park.length;i++){
     wishlist.push(await ParkData.getParkById(park[i]));
   }
   res.send(wishlist);
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/record").get(async (req, res) => {
-  if(typeof(req.session.user) == "undefined"){
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).send("You haven't logged in");
     return;
   }
   try {
-    const user = await userData.getUserById(req.session.user.userId);
+    const user = await userData.getUserById(xss(req.session.user.userId));
     const record = {
       wishedAmount: user.parksWishToGo.length,
       visitedAmount: user.parksHaveVisited.length
@@ -108,294 +119,424 @@ router.route("/record").get(async (req, res) => {
 
 router.route("/AK").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('AK');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Alaska"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/OR").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('OR');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Oregon"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/WA").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('WA');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Washington"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/CA").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('CA');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"California"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/UT").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('UT');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Utah"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/TX").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('TX');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Texas"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/NM").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('NM');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"New Mexico"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/AZ").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('AZ');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Arizona"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/NV").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('NV');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Nevada"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/CO").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('CO');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Colorado"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/WY").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('WY');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Wyoming"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
-
 router.route("/MT").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('MT');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Montana"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/ME").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('ME');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Maine"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/SD").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('SD');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"South Dakota"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/OH").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('OH');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Ohio"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/SC").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('SC');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"South Carolina"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/MO").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('MO');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Missouri"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/AR").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('AR');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Arkansas"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/IN").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('IN');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Indiana"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/MI").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('MI');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Michigan"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/ND").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('ND');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"North Dakota"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/MN").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('MN');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Minnesota"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/FL").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('FL');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Florida"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/TN").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('TN');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Tennessee"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/KY").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('KY');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Kentucky"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/WV").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
   let park_state = await parkData.getParkByState('WV');
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"West Virginia"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 //with no parks
 router.route("/ID").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -406,11 +547,16 @@ router.route("/ID").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"US Virgin Islands"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/NE").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -421,11 +567,16 @@ router.route("/NE").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Nebraska"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/KS").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -436,11 +587,16 @@ router.route("/KS").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Kansas"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/OK").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -451,11 +607,16 @@ router.route("/OK").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Oklahoma"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/IA").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -466,11 +627,16 @@ router.route("/IA").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Iowa"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/LA").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -481,11 +647,16 @@ router.route("/LA").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Louisiana"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/WI").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -496,11 +667,16 @@ router.route("/WI").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Wisconsin"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/IL").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -511,11 +687,15 @@ router.route("/IL").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Illinois"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
-
 router.route("/MS").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -526,11 +706,16 @@ router.route("/MS").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Mississippi"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/AL").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -541,11 +726,16 @@ router.route("/AL").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Alabama"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/GA").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -556,11 +746,16 @@ router.route("/GA").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Georgia"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/PA").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -571,11 +766,16 @@ router.route("/PA").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Pennsylvania"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/NC").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -586,11 +786,16 @@ router.route("/NC").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"North Carolina"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/MD").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -601,11 +806,16 @@ router.route("/MD").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Maryland"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/VA").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -616,11 +826,16 @@ router.route("/VA").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Virginia"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/NY").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -631,11 +846,16 @@ router.route("/NY").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"New York"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/NJ").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -646,11 +866,16 @@ router.route("/NJ").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"New Jersy"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/DE").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -661,11 +886,16 @@ router.route("/DE").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Delaware"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/DC").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -676,11 +906,16 @@ router.route("/DC").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"DC"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/VT").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -691,11 +926,16 @@ router.route("/VT").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Vermont"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/NH").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -706,11 +946,16 @@ router.route("/NH").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"New Hampshire"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/MA").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -721,11 +966,16 @@ router.route("/MA").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Massachusettes"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/CT").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -736,11 +986,16 @@ router.route("/CT").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Connecticut"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/RI").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -751,11 +1006,16 @@ router.route("/RI").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Rhode Island"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/VI").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -766,11 +1026,16 @@ router.route("/VI").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"US Virgin Islands"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/PR").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -781,11 +1046,16 @@ router.route("/PR").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Puerto Rico"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/GU").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -796,11 +1066,16 @@ router.route("/GU").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Guam"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/MP").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -811,11 +1086,16 @@ router.route("/MP").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Northern Mariana Islands"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/AS").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -826,11 +1106,16 @@ router.route("/AS").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"American Samoa"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/HI").get(async (req, res) => {
   //code here for GET
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
@@ -841,15 +1126,20 @@ router.route("/HI").get(async (req, res) => {
     return;
   }
   res.render('../views/parkstate',{park: park_state,title:"Hawaii"});
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
+  }
 });
 
 router.route("/updatepark").post(async (req, res) => {
-  if(typeof(req.session.user) == "undefined"){
+  try{
+  if(typeof(xss(req.session.user)) == "undefined"){
     res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
     return;
   }
-  let list = req.body.data;
-  let user = await userData.getUserById(req.session.user.userId);
+  let list = (xss(req.body.data)).split(',');
+  let user = await userData.getUserById(xss(req.session.user.userId));
   let parkvisited = user.parksHaveVisited;
   let wish = user.parksWishToGo;
   let flag =[0,0];
@@ -903,6 +1193,10 @@ router.route("/updatepark").post(async (req, res) => {
       }
     }
     flag =[0,0];
+  }
+}catch(e){
+  res.status(500).send("failed to fetch data");
+  return;
   }
 });
 module.exports = router;
