@@ -12,11 +12,6 @@ router.route("/").get(async (req, res) => {
   res.sendFile(path.resolve('static/rank/index.html'));
 });
 
-router.route("/state").get(async (req, res) => {
-  //code here for GET
-  res.sendFile(path.resolve('static/rank/state.html'));
-});
-
 router.route("/park").get(async (req, res) => {
   //code here for GET
   res.sendFile(path.resolve('static/rank/park.html'));
@@ -30,11 +25,6 @@ router.route("/user").get(async (req, res) => {
 router.route("/review").get(async (req, res) => {
   //code here for GET
   res.sendFile(path.resolve('static/rank/review.html'));
-});
-
-router.route("/comment").get(async (req, res) => {
-  //code here for GET
-  res.sendFile(path.resolve('static/rank/comment.html'));
 });
 
 router.route("/user/results").get(async (req, res) => {

@@ -7,6 +7,7 @@
         <li>Email: {{user.email}}</li>
         <li>Birth Date: {{user.birthDate}}</li>
         <li>Total Reviews Amount: {{user.reviews.length}}</li>
+        <li>Total like received: {{user.likesReceivedAmount}}</li>
         <li>Total like sent: {{user.likes.length}}</li>
     </ul>
     </section>
@@ -23,12 +24,15 @@
         </form>
     </section>
 </article>
-<button id="btn-park-list">Display parks visited and wished list</button>
+{{!-- <button id="btn-park-list">Display parks visited and wished list</button> --}}
+<button id="btn-parkName-list">Visited/Wished Park List</button>
+<span id="profile-user-name" style="display: none;">{{user.userName}}</span>
 {{#if myProfile}}
 <button id="btn-edit-profile">Edit your profile</button>
 {{/if}}
 <a href="/">Homepage</a>
-<div id="profile-park-visited-and-wished" class="park-visited-and-wished" style="display:none">
+<div class="profile-parklist"></div>
+{{!-- <div id="profile-park-visited-and-wished" class="park-visited-and-wished" style="display:none">
     <div class="park-visited">
         <h5>Parks have visited:</h5>
         <ol>
@@ -49,7 +53,7 @@
             {{/each}}
         </ol>
     </div>
-</div>
+</div> --}}
 {{#if myProfile}}
 <script src="../public/js/profile.js"></script>
 {{else}}

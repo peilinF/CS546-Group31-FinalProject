@@ -16,7 +16,8 @@ router
     //code here for GET
     //res.sendFile(path.resolve('static/register.html'));
     res.render('userRegister',{
-      partial: 'register'
+      partial: 'register',
+      title:"Sign me up!"
     });
   })
   .post(async (req, res) => {
@@ -33,7 +34,7 @@ router
 
     if(!userName || !passWord || !email || !birthday ||!question1 ||!answer1 ||!question2 ||!answer2){
       error = 'All fields need to have valid values';
-      res.status(400).render('userRegister',{ error:errorMessage, partial: 'register'});
+      res.status(400).render('userRegister',{ error:errorMessage, partial: 'register',title:"Sign me up!"});
       return;
     }
 

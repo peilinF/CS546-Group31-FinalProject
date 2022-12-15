@@ -23,7 +23,7 @@
             <th>Rank</th>
             <th>User ID</th>
             <th>Name</th>
-            <th class="th-follower">followers amount</th>
+            {{!-- <th class="th-follower">followers amount</th> --}}
             <th class="th-like">likes recieved</th>
             <th class="th-review">reviews amount</th>
             <th class="th-comment">comments amount</th>
@@ -33,7 +33,7 @@
             <th>{{rank}}</th>
             <th>{{_id}}</th>
             <th>{{userName}}</th>
-            <th class="th-follower">{{followers.length}}</th>
+            {{!-- <th class="th-follower">{{followers.length}}</th> --}}
             <th class="th-like">{{likesReceivedAmount}}</th>
             <th class="th-review">{{reviews.length}}</th>
             <th class="th-comment">{{comments.length}}</th>
@@ -43,12 +43,7 @@
 </div>
 <script>
     let rankOption = document.querySelector(".p-rank-option")
-    if (rankOption.innerText === "Sort by followersAmount") {
-        let allthFollower = document.querySelectorAll(".th-follower")
-        allthFollower.forEach((th) => {
-            th.style.color = "orange"
-        })
-    } else if (rankOption.innerText === "Sort by likesReceivedAmount") {
+    if (rankOption.innerText === "Sort by likesReceivedAmount") {
         let allthLike = document.querySelectorAll(".th-like")
         allthLike.forEach((th) => {
             th.style.color = "orange"

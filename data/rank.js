@@ -38,7 +38,7 @@ const rankUsers = async (
     if (reverse === 'false') {
         results = results.reverse()
     }
-
+    
     results = results.slice(0, itemsNum)
 
     for (let i=0,len=results.length; i<len; i++) {
