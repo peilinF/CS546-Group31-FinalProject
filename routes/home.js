@@ -388,7 +388,7 @@ router.route("/updatepark").post(async (req, res) => {
         await userData.removeParksWishToGO(user._id,record[0]);
         await userData.removeParksHaveVisited(user._id,record[0]);
       }else if(flag[1]==0&&flag[0]==0){
-        await userData.removeParksHaveVisited(user._id,record[0]);
+        console.log('No record on the list');
       }
     }
     if(record[1]=='wish'){
