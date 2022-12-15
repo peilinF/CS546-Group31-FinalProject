@@ -9,20 +9,32 @@ const path = require('path');
 const xss = require('xss');
 const likesClass = require('../data/likes');
 router
-  .route('/:parkID')
-  .get(async (req, res) => {
+  .route('/delete')
+  .delete(async (req, res) => {
+    if(!req.session.user){
+      error = 'You have to login to delete review!';
+      return res.status(400).json({error: error});
+    }
+    const reviewId = xss(req.body.reviewId);
+    const userId = req.session.user.userId;
+    let parkName = xss(req.body.parkName);
+    if (!reviewId || !userId) {
+      return res.status(400).json({ error: 'You must provide data for all fields' });
+    }
+    parkName = parkName.trim();
+    if (parkName === '') {
+      return res.status(400).json({ error: "Do not change my Park name!" });
+    }
+    parkName = helper.changeParkName(parkName);
     try{
-      req.params.parkID = helper.validParkId(req.params.parkID);
-    }catch(e){
-      return res.status(400).json({error: e});
+      const review = await reviewData.getReviewById(reviewId);
+      if(review.userId.toString() !== userId.toString()){
+        return res.status(400).json({error: 'You can only delete your own review!'});
+      }
+      await reviewData.removeReview(reviewId);
+      return res.status(200).json({parkName: parkName});
     }
 
-    try{
-      const resultReviews = await reviewData.getAllReviews(req.params.parkID);
-      res.status(400).render('../views/singlePark',{error:e,  title:"Park Reviews", park:resultReviews.parkID});
-    }catch(e){
-      res.status(404).json({ error: 'review by park id not found' });
-    }
   });
 router
   .route('/add')

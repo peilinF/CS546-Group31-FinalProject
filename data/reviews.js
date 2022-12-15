@@ -141,6 +141,10 @@ const removeReview = async (reviewId) => {
   reviewId = reviewId.trim();
   const review = await getReview(reviewId);
   const parkId = review.parkId;
+  const commentList = review.comments;
+  for (let i = 0; i < commentList.length; i++) {
+    await commentsClass.removeComment(commentList[i]);
+  }
   await parksClass.removeReview(parkId, reviewId);
   await usersClass.removeReview(review.userId, reviewId);
   const reviewCollection = await reviews();

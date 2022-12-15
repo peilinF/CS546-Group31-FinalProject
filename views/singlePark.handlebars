@@ -29,7 +29,7 @@
   <p id="park_rating">Overall Rating: {{park.overallRating}}</p>
 
   {{#if park.hasReviews}}
-
+  <div class="reviews">
     <h2>Reviews</h2>
     {{#each park.reviews}}
       <div class="reviews" name = "{{this._id}}">
@@ -55,18 +55,26 @@
           <button type="button" class="like" >Like</button>
         </div>
         {{/if}}
-      {{#if this.hasComments}}
-        {{#each this.comments}}
-          <div class="comments" name = "{{this._id}}">
-            <section class="comment-info">
-              <p class="comment-username">Reply from: {{this.userName}}</p>
-            </section>
-            <section class="comment-content">
-              <p class="comment">content: {{this.content}}</p>
-            </section>
+
+        {{#if this.isOwner}}
+          <div class="deleteUi">
+            <button type="button" class="delete" >Delete</button>
+            <button type="button" class="edit" >Edit</button>
           </div>
-        {{/each}}
-      {{/if}}
+        {{/if}}
+
+        {{#if this.hasComments}}
+          {{#each this.comments}}
+            <div class="comments" name = "{{this._id}}">
+              <section class="comment-info">
+                <p class="comment-username">Reply from: {{this.userName}}</p>
+              </section>
+              <section class="comment-content">
+                <p class="comment">content: {{this.content}}</p>
+              </section>
+            </div>
+          {{/each}}
+        {{/if}}
 
       
       </div>

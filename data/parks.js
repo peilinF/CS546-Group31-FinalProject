@@ -146,7 +146,7 @@ const removeReview = async (parkId, reviewId) => {
     let thisPark = await getParkById(parkId);
     let parkReviews = thisPark.reviews;
     let update = 0
-    if (reviews.length === 1){
+    if (reviews.length === 1 && reviews[0] === reviewId){
         update = await parksCollection.updateOne({ _id: parkId }, {$pop: { reviews: -1 }});
     }else{
         update = await parksCollection.updateOne({ _id: parkId}, { $pull: { reviews: reviewId } });

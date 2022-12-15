@@ -339,7 +339,7 @@ const removeReview = async (userId, reviewId) => {
   const user = await userCollection.findOne({ _id: ObjectId(userId) });
   let updatedUser = 0;
   let userReview = user.reviews;
-  if ( userReview.length === 1){
+  if ( userReview.length === 1 && userReview[0] === reviewId){
     updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { reviews: -1 } });
   } else {
     updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { reviews: reviewId } });
@@ -401,7 +401,7 @@ const removeComment = async (userId, commentId) => {
   const user = await userCollection.findOne({ _id: ObjectId(userId) });
   let updatedUser = 0;
   let userComment = user.comments;
-  if ( userComment.length === 1){
+  if ( userComment.length === 1 && userComment[0] === commentId){
     updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { comments: -1 } });
   } else {
     updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { comments: commentId } });

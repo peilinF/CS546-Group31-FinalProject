@@ -72,7 +72,7 @@ const getCommentById = async (id) => {
     return comment;
 }
 
-const removeComment = async (userId, reviewId, commentId) => {
+const removeComment = async (commentId) => {
 
     if (!userId) throw 'You must provide an user id';
     if (typeof userId !== 'string' && typeof userId !== 'object')
@@ -93,12 +93,15 @@ const removeComment = async (userId, reviewId, commentId) => {
         throw 'id cannot be an empty string or just spaces';
 
     const commentCollection = await comments();
+    const comment = await comments().findOne({_id: ObjectId(commentId)});
+    if (comment === null) throw 'No comment with that id';
+    const userId = comment.userId;
+    await userClass.removeComment(userId, commentId);
+
     const deletionInfo = await commentCollection.deleteOne({_id: ObjectId(commentId)});
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete comment with id of ${commentId}`;
     }
-    await reviewClass.removeComment(reviewId, commentId);
-    await userClass.removeComment(userId, commentId);
 };
 
 module.exports = {
