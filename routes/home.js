@@ -372,7 +372,7 @@ router.route("/updatepark").post(async (req, res) => {
         await userData.removeParksWishToGO(user._id,record[0]);
         await userData.addParksHaveVisited(user._id,record[0]);
       }else if(flag[1]==0&&flag[0]==1){
-        await userData.addParksHaveVisited(user._id,record[0]);
+        console.log('It is already in the list');
       }else if(flag[1]==1&&flag[0]==1){
         await userData.removeParksWishToGO(user._id,record[0]);
       }else if(flag[1]==0&&flag[0]==0){
@@ -396,7 +396,7 @@ router.route("/updatepark").post(async (req, res) => {
         await userData.removeParksHaveVisited(user._id,record[0]);
         await userData.addParksWishToGO(user._id,record[0]);
       }else if(flag[1]==0&&flag[0]==1){
-        await userData.addParksWishToGO(user._id,record[0]);
+        console.log('It is already in the list');
       }else if(flag[1]==1&&flag[0]==1){
         await userData.removeParksHaveVisited(user._id,record[0]);
       }else if(flag[1]==0&&flag[0]==0){
