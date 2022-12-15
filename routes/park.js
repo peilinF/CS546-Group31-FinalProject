@@ -60,7 +60,7 @@ const getReview = async (park, user) => {
   if (park.reviews.length !== 0) {
     for (let i = 0; i < park.reviews.length; i++) {
       let review = await reviewData.getReview(park.reviews[i]);
-      review = await getComment(review);
+      review = await getComment(review,user);
       if (!user) {
         review.isOwner = false;
       } else if (review.userId === user._id.toString()) {
@@ -78,11 +78,17 @@ const getReview = async (park, user) => {
   park.hasReviews = hasReviews;
   return park;
 };
-const getComment = async (review) => {
+const getComment = async (review,user) => {
   let hasComments = false;
   if (review.comments.length !== 0) {
     for (let i = 0; i < review.comments.length; i++) {
       let comment = await commentData.getCommentById(review.comments[i]);
+      if (!user) {
+        comment.isReplyOwner = false;
+      } else if (comment.userId === user._id.toString()) {
+        comment.isReplyOwner = true;
+        console.log(comment.isReplyOwner);
+      }
       review.comments[i] = comment;
     } 
     hasComments = true;

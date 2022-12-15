@@ -259,6 +259,26 @@ li {
   cursor: pointer;
 }
 
+.deleteReply{
+  position: relative;
+  bottom: 88px;
+  left: 83%;
+}
+
+.deleteReply button{
+  font-family: "EB Garamond";
+  font-size: 13px;
+  background-color: black;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 10px;
+  text-align: center;
+  display: inline-block;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
 .hidden {
   display: none;
 }

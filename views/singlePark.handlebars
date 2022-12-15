@@ -72,6 +72,11 @@
               <section class="comment-content">
                 <p class="comment">content: {{this.content}}</p>
               </section>
+              {{#if this.isReplyOwner}}
+                <div class="deleteReply">
+                  <button type="button" class="deleteReplyButton" >Delete this Reply</button>
+                </div>
+              {{/if}}
             </div>
           {{/each}}
         {{/if}}
