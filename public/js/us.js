@@ -478,11 +478,6 @@ visited.onclick = function () {
 			alert(e.responseText);
 		}
 	});
-	if (visited.innerText === "Visited(Clean)") {
-		window.location.href = "/";
-	} else {
-		visited.innerText = "Visited(Clean)"
-	}
 }
 
 let wishlist = document.getElementById("btn_wishlist");
@@ -548,11 +543,6 @@ wishlist.onclick = function () {
 			alert(e.responseText);
 		}
 	});
-	if (wishlist.innerText === "Wishlist(Clean)") {
-		window.location.href = "/";
-	} else {
-		wishlist.innerText = "Wishlist(Clean)"
-	}
 }
 if(document.getElementById("btn-record-data")!=null){
 	let getRecordButton = document.getElementById("btn-record-data");
