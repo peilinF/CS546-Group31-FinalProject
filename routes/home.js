@@ -350,6 +350,7 @@ router.route("/updatepark").post(async (req, res) => {
   }
   let list = req.body.data;
   let user = await userData.getUserById(req.session.user.userId);
+  console.log(user);
   let parkvisited = user.parksHaveVisited;
   let wish = user.parksWishToGo;
   let flag =[0,0];
@@ -370,12 +371,13 @@ router.route("/updatepark").post(async (req, res) => {
       if(flag[0]==0&&flag[1]==1){
         await userData.removeParksWishToGO(user._id,record[0]);
         await userData.addParksHaveVisited(user._id,record[0]);
-      }else if(flag[1]==0&&flag[0]==0){
+      }else if(flag[1]==0&&flag[0]==1){
         await userData.addParksHaveVisited(user._id,record[0]);
       }else if(flag[1]==1&&flag[0]==1){
         await userData.removeParksWishToGO(user._id,record[0]);
+      }else if(flag[1]==0&&flag[0]==0){
+        await userData.addParksHaveVisited(user._id,record[0]);
       }
-      await userData.addParksHaveVisited(user._id,record[0]);
     }
     if(record[1]=='never'){
       if(flag[0]==1&&flag[1]==0){
@@ -385,19 +387,21 @@ router.route("/updatepark").post(async (req, res) => {
       }else if(flag[1]==1&&flag[0]==1){
         await userData.removeParksWishToGO(user._id,record[0]);
         await userData.removeParksHaveVisited(user._id,record[0]);
+      }else if(flag[1]==0&&flag[0]==0){
+        await userData.removeParksHaveVisited(user._id,record[0]);
       }
-      await userData.removeParksHaveVisited(user._id,record[0]);
     }
     if(record[1]=='wish'){
       if(flag[0]==1&&flag[1]==0){
         await userData.removeParksHaveVisited(user._id,record[0]);
         await userData.addParksWishToGO(user._id,record[0]);
-      }else if(flag[1]==0&&flag[0]==0){
+      }else if(flag[1]==0&&flag[0]==1){
         await userData.addParksWishToGO(user._id,record[0]);
       }else if(flag[1]==1&&flag[0]==1){
         await userData.removeParksHaveVisited(user._id,record[0]);
+      }else if(flag[1]==0&&flag[0]==0){
+        await userData.addParksWishToGO(user._id,record[0]);
       }
-      await userData.addParksWishToGO(user._id,record[0]);
     }
     flag =[0,0];
   }
