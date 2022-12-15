@@ -99,6 +99,7 @@ router.route("/record").get(async (req, res) => {
       visitedAmount: user.parksHaveVisited.length
     }
     res.status(200).send(record)
+    return;
   } catch (e) {
     res.status(500).send("failed to fetch data");
     return;
