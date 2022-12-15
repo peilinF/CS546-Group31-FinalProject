@@ -405,3 +405,21 @@ wishlist.onclick=function(){
 		}
 	});
 }
+
+let getRecordButton = document.getElementById("btn-record-data")
+getRecordButton.addEventListener('click',() => {
+	$.ajax({
+		type:"get",
+		url:"http://localhost:3000/record",
+		dataType: 'json',
+		success: (record) => {
+			let wishedRecord = document.querySelector(".wished-data")
+			wishedRecord.innerText = `Wish to go Park: ${record.wishedAmount}/63`
+			let visitedRecord = document.querySelector(".visited-data")
+			visitedRecord.innerText = `Visited Park: ${record.visitedAmount}/63`
+		},
+		error: (e) => {
+			alert(e.responseText);
+		}
+	});
+})

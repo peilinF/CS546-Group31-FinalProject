@@ -27,8 +27,8 @@ router.route("/parkvisited").get(async (req, res) => {
     res.status(404).send("You haven't logged in");
     return;
   }
-  let park1 = await userData.getUserById(req.session.user.userId);
-  let park = park1.parksHaveVisited;
+  let user = await userData.getUserById(req.session.user.userId);
+  let park = user.parksHaveVisited;
   let visitlist=[]
   for(i=0;i<park.length;i++){
     visitlist.push(await ParkData.getParkById(park[i]));
@@ -44,14 +44,32 @@ router.route("/parkwish").get(async (req, res) => {
     res.status(404).send("You haven't logged in");
     return;
   }
-  let park1 = await userData.getUserById(req.session.user.userId);
-  let park = park1.parksWishToGo;
+  let user = await userData.getUserById(req.session.user.userId);
+  let park = user.parksWishToGo;
   let wishlist=[]
   for(i=0;i<park.length;i++){
     wishlist.push(await ParkData.getParkById(park[i]));
   }
   res.send(wishlist);
 });
+
+router.route("/record").get(async (req, res) => {
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).send("You haven't logged in");
+    return;
+  }
+  try {
+    const user = await userData.getUserById(req.session.user.userId);
+    const record = {
+      wishedAmount: user.parksWishToGo.length,
+      visitedAmount: user.parksHaveVisited.length
+    }
+    res.status(200).send(record)
+  } catch (e) {
+    res.status(500).send("failed to fetch data");
+    return;
+  }
+})
 
 router.route("/AK").get(async (req, res) => {
   //code here for GET
