@@ -326,28 +326,6 @@ router.route("/MI").get(async (req, res) => {
   res.render('../views/parkstate',{park: park_state,title:"Michigan"});
 });
 
-router.route("/NY").get(async (req, res) => {
-  //code here for GET
-  if(typeof(req.session.user) == "undefined"){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
-    return;
-  }
-  let park_state = await parkData.getParkByState('NY');
-  park_state = await getorigin(park_state,req);
-  res.render('../views/parkstate',{park: park_state,title:"New York"});
-});
-
-router.route("/VA").get(async (req, res) => {
-  //code here for GET
-  if(typeof(req.session.user) == "undefined"){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
-    return;
-  }
-  let park_state = await parkData.getParkByState('VA');
-  park_state = await getorigin(park_state,req);
-  res.render('../views/parkstate',{park: park_state,title:"Virginia"});
-});
-
 router.route("/ND").get(async (req, res) => {
   //code here for GET
   if(typeof(req.session.user) == "undefined"){
@@ -414,6 +392,367 @@ router.route("/WV").get(async (req, res) => {
   res.render('../views/parkstate',{park: park_state,title:"West Virginia"});
 });
 
+//with no parks
+router.route("/ID").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('VI');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"US Virgin Islands"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"US Virgin Islands"});
+});
+
+router.route("/NE").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('NE');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Nebraska"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Nebraska"});
+});
+
+router.route("/KS").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('KS');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Kansas"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Kansas"});
+});
+
+router.route("/OK").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('OK');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Oklahoma"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Oklahoma"});
+});
+
+router.route("/IA").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('IA');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Iowa"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Iowa"});
+});
+
+router.route("/LA").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('LA');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Louisiana"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Louisiana"});
+});
+
+router.route("/WI").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('WI');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Wisconsin"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Wisconsin"});
+});
+
+router.route("/IL").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('IL');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Illinois"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Illinois"});
+});
+
+router.route("/MS").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('MS');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Mississippi"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Mississippi"});
+});
+
+router.route("/AL").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('AL');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Alabama"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Alabama"});
+});
+
+router.route("/GA").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('GA');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Georgia"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Georgia"});
+});
+
+router.route("/PA").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('PA');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Pennsylvania"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Pennsylvania"});
+});
+
+router.route("/NC").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('NC');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"North Carolina"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"North Carolina"});
+});
+
+router.route("/MD").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('MD');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Maryland"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Maryland"});
+});
+
+router.route("/VA").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('VA');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Virginia"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Virginia"});
+});
+
+router.route("/NY").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('NY');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"New York"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"New York"});
+});
+
+router.route("/NJ").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('NJ');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"New Jersy"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"New Jersy"});
+});
+
+router.route("/DE").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('DE');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Delaware"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Delaware"});
+});
+
+router.route("/DC").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('DC');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"DC"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"DC"});
+});
+
+router.route("/VT").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('VT');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Vermont"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Vermont"});
+});
+
+router.route("/NH").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('NH');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"New Hampshire"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"New Hampshire"});
+});
+
+router.route("/MA").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('MA');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Massachusettes"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Massachusettes"});
+});
+
+router.route("/CT").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('CT');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Connecticut"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Connecticut"});
+});
+
+router.route("/RI").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('RI');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Rhode Island"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Rhode Island"});
+});
+
 router.route("/VI").get(async (req, res) => {
   //code here for GET
   if(typeof(req.session.user) == "undefined"){
@@ -422,7 +761,86 @@ router.route("/VI").get(async (req, res) => {
   }
   let park_state = await parkData.getParkByState('VI');
   park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"US Virgin Islands"});
+    return;
+  }
   res.render('../views/parkstate',{park: park_state,title:"US Virgin Islands"});
+});
+
+router.route("/PR").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('PR');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Puerto Rico"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Puerto Rico"});
+});
+
+router.route("/GU").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('GU');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Guam"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Guam"});
+});
+
+router.route("/MP").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('MP');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Northern Mariana Islands"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Northern Mariana Islands"});
+});
+
+router.route("/AS").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('AS');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"American Samoa"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"American Samoa"});
+});
+
+router.route("/HI").get(async (req, res) => {
+  //code here for GET
+  if(typeof(req.session.user) == "undefined"){
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    return;
+  }
+  let park_state = await parkData.getParkByState('HI');
+  park_state = await getorigin(park_state,req);
+  if(park_state==0){
+    res.render('../views/noparkstate',{title:"Hawaii"});
+    return;
+  }
+  res.render('../views/parkstate',{park: park_state,title:"Hawaii"});
 });
 
 router.route("/updatepark").post(async (req, res) => {
