@@ -32,7 +32,8 @@ content) => {
         userId: user._id,
         userName: user.userName,
         commentDate: new Date().toLocaleDateString(),
-        content: content,};
+        content: content,
+        reviewId: reviewId,};
     const commentCollection = await comments();
     const insertInfo = await commentCollection.insertOne(newComment);
     if (insertInfo.insertedCount === 0) throw 'Could not add comment';
@@ -96,8 +97,9 @@ const removeComment = async (commentId) => {
     const comment = await comments().findOne({_id: ObjectId(commentId)});
     if (comment === null) throw 'No comment with that id';
     const userId = comment.userId;
+    const reviewId = comment.reviewId;
     await userClass.removeComment(userId, commentId);
-
+    await reviewsClass.removeComment(reviewId, commentId);
     const deletionInfo = await commentCollection.deleteOne({_id: ObjectId(commentId)});
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete comment with id of ${commentId}`;

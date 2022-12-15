@@ -87,7 +87,6 @@ const getComment = async (review,user) => {
         comment.isReplyOwner = false;
       } else if (comment.userId === user._id.toString()) {
         comment.isReplyOwner = true;
-        console.log(comment.isReplyOwner);
       }
       review.comments[i] = comment;
     } 

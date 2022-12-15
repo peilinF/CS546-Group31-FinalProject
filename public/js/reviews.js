@@ -13,6 +13,8 @@
         unlike = $(".unlike");
         replyClass = $(".review-ui"),
         id = $(".review-id");
+        deleteReview = $(".deleteReview");
+        deleteReply = $(".deleteReply");
     if (id.is(':visible')) {
         id.hide();
     }
@@ -146,5 +148,27 @@
         });
         return;
     };
+
+    deleteReview.click(function (e) {
+        e.preventDefault();
+        var parent = $(this).parent().parent();
+        var reviewId =parent.find('.review-id').text();
+        var requestConfig = {
+            method: 'DELETE',
+            url: '/review/delete',
+            contentType: "application/json",
+            data: JSON.stringify({
+                parkName: parkName.text(),
+                reviewId: reviewId,
+            }),
+            error: function (err) {
+                alert(err.responseText);
+            },
+        };
+
+        $.ajax(requestConfig).then(function (responseMessage) {
+            window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
+        });
+    });
 
 })(window.jQuery);
