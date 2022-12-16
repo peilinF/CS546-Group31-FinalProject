@@ -4,7 +4,6 @@ body {
 
 body {
   display: flex;
-  justify-content: center;
 }
 
 main {
@@ -13,33 +12,57 @@ main {
 }
 
 header {
-  border-bottom: 5px solid #baa898;
-  display: flex;
-  align-items: center;
+  position:fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 48px;
+  background-color: #fff2e8;
+  color: #fff;
+  font-size: 18px;
+  /*line-height: 60px;*/
+  text-align: center;
+  z-index: 999;
+}
+.logo {
+  text-align: left;
+  padding-left: 16px;
+  margin-top: -6px; 
+}
+
+.session {
+  position:fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 48px;
+  background-color: #fff2e8;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  z-index: 999;
+}
+
+.homepageArt {
   justify-content: center;
+  padding-top: 40px;
 }
-
-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  border-top: 5px solid #baa898;
-}
-
 h1 {
-  color: #839788;
-  margin-bottom: 10px;
-  font-size: 36px;
+  color: #2a2a2a;
+  font-size: 24px;
   font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
+  font-weight: 400;
 }
 
+.subtitle {
+  text-align: center;
+}
 h2 {
   color: #28567b;
-  margin-bottom: 10px;
-  font-size: 32px;
+  font-size: 28px;
+  left: 0;
   font-family: Helvetica, Arial, sans-serif;
-  font-weight: normal;
+  font-weight: 500;
 }
 h3 {
   color: #28567b;
@@ -50,23 +73,29 @@ h3 {
   display: block;
 }
 
-.homepage-title {
-  color: #5b6763;
-  margin-bottom: 10px;
-  font-size: 36px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  position: fixed;
-  left: 0;
-  top: 0;
-  margin: 10px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgb(49, 57, 51);
-  background-color: rgb(217, 242, 248);
-  padding: 10px;
-  display: block;
-  word-wrap: break-word;
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-top: 5px solid #baa898;
+}
+
+.rankPage {
+  background-color: #dff5e4;
+  margin-top: 20px;
+  color: #FFFFFF; 
+  font-size: 16px;   
+  padding: 10px 10px 30px 10px; 
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+}
+.userPage {
+  background-color: #deede6;
+  margin-top: 20px;
+  color: #FFFFFF; 
+  padding: 10px 20px;  
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
 }
 
 p,
@@ -76,7 +105,7 @@ label {
   line-height: 1.5;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: lighter;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
   z-index: 997;
 }
 
@@ -177,11 +206,13 @@ form .input-field:first-child {
 }
 
 form input[type="submit"] {
+  width: 100px;
   background: linear-gradient(to left, #4776e6, #8e54e9);
   color: white;
   border-radius: 4px;
-  margin-top: 2rem;
-  padding: 0.4rem;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  padding: 8px;
 }
 
 img {
@@ -291,6 +322,7 @@ li {
 }
 
 .cute-button {
+  width: 80px;
   background-color: #F8DE7E;
   font-family: 'Comic Sans MS', 'cursive';
   color: #FFFFFF; 
@@ -302,11 +334,12 @@ li {
 
 .cute-section {
   background-color: #f7ffed;
-  border: 1px solid #000000;
   color: #FFFFFF; 
   font-size: 16px;  
-  border-radius: 10px; 
   padding: 10px 20px;  
+  margin-top: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
 }
 
 
@@ -334,3 +367,16 @@ li {
   padding: 10 px;
   align-items: center;
 }
+
+img {
+  transition: transform 1s;
+}
+img:hover {
+  transform: scale(1.5, 2);
+}
+
+#btn {
+  margin-top: 50px;
+  }
+
+  

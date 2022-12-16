@@ -1,16 +1,54 @@
-<h1 class="homepage-title">National Park<br>Domination Map</h1>
-<article>
-    <h2>Nature is Calling!</h2>
-    <p>
-        Welcome to National Park Domination Map. You can mark the park you have visited or wish to visit.
+<style>
+        img {
+          width: 23%;
+          height: auto;
+          margin: 1%;
+          display: inline-block;
+          vertical-align: middle;
+          animation: moveInRight 1s ease-out;
+          transition: all 0.3s ease-in-out;
+        }
+
+        @keyframes moveInRight {
+          0% {
+            transform: translateX(-100px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+ </style>
+
+ <div class="session">
+    <div class="logo"><h1>National Park Domination Map</h1></div>
+    <a href="/profile">Welcome {{userName}}</a>
+    <a href="/logout">Logout</a>
+ </div>
+
+<article class="homepageArt">
+    <div class="subtitle"><h2>Nature is calling</h2></div>
+    <p style="text-align: center;">
+        Welcome to National Park Domination Map. You can mark the parks that you have visited or wish to visit.
     </p>
+
+    <div style="display: flex; flex-wrap: wrap;">
+        <img src="https://www.nps.gov/common/uploads/structured_data/5F04461D-A4FD-8285-D2F63B264237D90C.jpg" alt="First image">
+        <img src="https://www.nps.gov/common/uploads/structured_data/AED0DAB8-0FB7-5710-46732DF80111AC64.jpg" alt="Second image">
+        <img src="https://www.nps.gov/common/uploads/structured_data/3C7B1DB4-1DD8-B71B-0B9DFEFDD398DB71.jpg" alt="Third image">
+        <img src="https://www.nps.gov/common/uploads/structured_data/7CA16410-A412-1F05-2D92EB04EEB27980.jpg" alt="Fourth image">
+        <img src="https://www.nps.gov/common/uploads/structured_data/3C7FE691-1DD8-B71B-0B21F94DBD31A965.jpg" alt="Fifth image">
+        <img src="https://www.nps.gov/common/uploads/structured_data/8A869F85-FB2E-5EAF-11367EB2DB75963D.jpg" alt="Sixth image">
+        <img src="https://www.nps.gov/common/uploads/structured_data/3C84C3C0-1DD8-B71B-0BFF90B64283C3D8.jpg" alt="Seventh image">
+        <img src="https://www.nps.gov/common/uploads/structured_data/C19B20BB-C8CC-5BAB-22E3CA6AF9B2B67C.jpg" alt="Eighth image">
+    </div>
+    
     <div id="btn">
         <button id="btn_visited">Visited</button>
         <button id="btn_wishlist">Wishlist</button>
     </div>
-    <a href="/profile">Welcome {{userName}}</a>
-    <a href="/logout">Logout</a>
-          <article>
+
           <div id="map">
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	viewBox="0 0 1146.1 912.5" style="enable-background:new 0 0 1146.1 912.5;" xml:space="preserve">
@@ -250,30 +288,22 @@
         </g>
         </svg>
     </div>
-    <div class="wished-visited-data">
+    <div class="wished-visited-data" style="margin-bottom: 16px;">
         <button id="btn-record-data">Records</button>
         <h5 class="wished-data"></h5>
         <h5 class="visited-data"></h5>
     </div>
-          <footer>
-            <nav>
-                <input type="button" value="user" onclick="location.href='/user'">
-                <input type="button" value="rank" onclick="location.href='/rank'">
-            </nav>
-          </footer>
-        </article>
-</article>
- <section class="park-search-list cute-section">
+      <section class="park-search-list cute-section">
 
             <section class="search">
                 <h2>Find Your Virtual Park</h2>
-                <p>Wild places inspire us. We want the same for you.
+                <p style="font-size: 16px;">Wild places inspire us. We want the same for you.
                     Whether you are staying in a houseboat on Lake Powell, a resort in Olympic National Park, or camping in Denali National Park, the choice is up to you. 
                     Go ahead, look around. Find what inspires you.</p>
             </section>
         
             <form action="/park/search" method="GET">
-                <label for="name" id="searchParkNameLabel">FIND A PARK:</label>
+                <label for="name" id="searchParkNameLabel">Find a park</label>
                 <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here" />
                 <input type="submit" value="Search" class="cute-button" />
             </form>
@@ -282,6 +312,41 @@
         
             <div class="park-list"></div>
         </section>
+
+        <section class="rankPage">
+            <p style="font-size:16px;">Check out our parks, users, and reviews ranking here.</p>
+            <div class="buttonTray">
+                <input type="button" value="Park ranking" class="parkButton" onclick="location.href='../rank/park'">
+                <input type="button" value="User ranking" class="userButton" onclick="location.href='../rank/user'">
+                <input type="button" value="Review ranking" class="reviewButton" onclick="location.href='../rank/review'">
+            </div>
+       </section>
+
+        <section class="userPage">
+            <p style="font-size:16px;">Looking for another registered user?</p>
+            <form action="/user/search/name" method="GET">
+                <label for="name" id="searchUserNameLabel">User Name:</label>
+                <input
+                  type="text"
+                  id="searchUserNameInputText"
+                  name="searchUserName"
+                  placeholder="Enter User Name Here"
+                />
+                <input type="submit" value="Search" />
+              </form>
+              <form action="/user/search/email" method="GET">
+                <label for="email" id="searchUserEmailLabel">User Email:</label>
+                <input
+                  type="text"
+                  id="searchUserEmailInputText"
+                  name="searchUserEmail"
+                  placeholder="Enter User Email Here"
+                />
+                <input type="submit" value="Search" />
+              </form>
+        </section>
+         
+    </article>
 <script src="/public/js/us.js"></script>
 <script src="/public/js/park.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="

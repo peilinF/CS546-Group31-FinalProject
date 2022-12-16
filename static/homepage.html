@@ -10,21 +10,65 @@
 
     <link rel="stylesheet" href="/public/main-styles.css">
     <link rel="stylesheet" href="/public/document.css">
+    <style>
+        img {
+          width: 23%;
+          height: auto;
+          margin: 1%;
+          display: inline-block;
+          vertical-align: middle;
+          animation: moveInRight 1s ease-out;
+        }
+        .btn {
+         margin-top: 30px;
+         }
+        @keyframes moveInRight {
+          0% {
+            transform: translateX(-100px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+      </style>
 </head>
 
 <body>
+    <header>
+        <div class="logo"><h1>National Park Domination Map</h1></div>
+        <input type="button" value="Sign Up" class="register" onclick="location.href='/register'">
+        <input type="button" value="Login" class="login" onclick="location.href='/login'">
+    </header>
     <main>
-        <h1 class="homepage-title">National Park<br>Domination Map</h1>
-        <article>
-          <h2>Nature is Calling!</h2>
-          <p>
-              Welcome to National Park Domination Map. You can mark the park you have visited or wish to visit.
+        <article class="homepageArt">
+            <div class="subtitle"><h2>Nature is calling</h2></div>
+          <p style="text-align: center;">
+              Welcome to National Park Domination Map. You can mark the parks that you have visited or wish to visit.
           </p>
+
+          <div style="display: flex; flex-wrap: wrap;">
+            <img src="https://www.nps.gov/common/uploads/structured_data/3C7B477B-1DD8-B71B-0BCB48E009241BAA.jpg" alt="A brilliant sunset filled with hues of blue, red, orange, magenta, and purple highlight the sky.">
+            <img src="https://www.nps.gov/common/uploads/structured_data/8BA1EB23-E950-8F6E-62C7523D37E42564.jpg" alt="Vermilion Flycatcher">
+            <img src="https://www.nps.gov/common/uploads/structured_data/8BDD8415-B290-DEF8-105D75C840EBFCD2.jpg" alt="Fascinating Geology">
+            <img src="https://www.nps.gov/common/uploads/structured_data/3C7D383B-1DD8-B71B-0BEC4A4D6BDF7CAD.jpg" alt="A visitor stands on a boardwalk near a hot spring and a lake.">
+            <img src="https://www.nps.gov/common/uploads/structured_data/3C7D3BD3-1DD8-B71B-0BB607F9BAAE1271.jpg" alt="A wolf howls while standing on a snowy field.">
+            <img src="https://www.nps.gov/common/uploads/structured_data/3C87C79D-1DD8-B71B-0BB51B9A589AEC2D.jpg" alt="a Florida Panther sits in a tree.">
+            <img src="https://www.nps.gov/common/uploads/structured_data/3C7A525D-1DD8-B71B-0B8E59D2EB39F6D0.jpg" alt="a broad stone arch with rock pinnacles in the distance">
+            <img src="https://www.nps.gov/common/uploads/structured_data/3C7B12D1-1DD8-B71B-0BCE0712F9CEA155.jpg" alt="The canyon glows orange as people visit Mather Point, a rock outcropping that juts into Grand Canyon">
+            <img src="https://www.nps.gov/common/uploads/structured_data/3C7FA7B7-1DD8-B71B-0B7B45B73D1C90C3.jpg" alt="Winter sunrise on snow-covered Teton Range">
+            <img src="https://www.nps.gov/common/uploads/structured_data/3C7FAD94-1DD8-B71B-0B3909D0F78F4B29.jpg" alt="Oxbow Bend on the Snake River during fall with golden aspens and Mount Moran in the background.">
+            <img src="https://www.nps.gov/common/uploads/structured_data/8A729E5B-B263-9C49-7AD4C4B8E70064E0.jpg" alt="A river plunges into a steep, barren canyon.">
+            <img src="https://www.nps.gov/common/uploads/structured_data/3C7FC1D0-1DD8-B71B-0BE07FCB0A12AC0B.jpg" alt="Bull moose with large antlers walking through fall grasses">
+          </div>
+    
+          
           <div class="btn">
             <button id="btn_visited">Visited</button>
             <button id="btn_wishlist">Wishlist</button>
           </div>
-          <div id="map">
+          <div id="map" >
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	viewBox="0 0 1146.1 912.5" style="enable-background:new 0 0 1146.1 912.5;" xml:space="preserve">
 
@@ -265,37 +309,65 @@
         </g>
         </svg>
     </div>
-            
-          <input type="button" value="Sign Up" class="register" onclick="location.href='/register'">
-          <input type="button" value="Login" class="login" onclick="location.href='/login'">
-          <footer>
-            <nav>
-                <input type="button" value="people" onclick="location.href='/user'">
-                <input type="button" value="rank" onclick="location.href='/rank'">
-            </nav>
-          </footer>
           
-        </article>
-        
         <section class="park-search-list cute-section">
 
             <section class="search">
                 <h2>Find Your Virtual Park</h2>
-                <p>Wild places inspire us. We want the same for you.
+                <p style="font-size: 16px;">Wild places inspire us. We want the same for you.
                     Whether you are staying in a houseboat on Lake Powell, a resort in Olympic National Park, or camping in Denali National Park, the choice is up to you. 
                     Go ahead, look around. Find what inspires you.</p>
             </section>
         
             <form action="/park/search" method="GET">
-                <label for="name" id="searchParkNameLabel">FIND A PARK:</label>
+                <label for="name" id="searchParkNameLabel">Find a park</label>
                 <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here" />
                 <input type="submit" value="Search" class="cute-button" />
             </form>
         
-            <button type="button" id="get-park-list-btn">Get Park List</button>
+            <button type="button" id="get-park-list-btn" style="margin-top: 20px;">Get Park List</button>
         
             <div class="park-list"></div>
         </section>
+
+        <section class="rankPage">
+            <p style="font-size:16px;">Check out our parks, users, and reviews ranking here.</p>
+            <div class="buttonTray">
+                <input type="button" value="Park ranking" class="parkButton" onclick="location.href='../rank/park'">
+                <input type="button" value="User ranking" class="userButton" onclick="location.href='../rank/user'">
+                <input type="button" value="Review ranking" class="reviewButton" onclick="location.href='../rank/review'">
+            </div>
+       </section>
+
+        <section class="userPage">
+            <p style="font-size:16px;">Looking for another registered user?</p>
+            <form action="/user/search/name" method="GET">
+                <label for="name" id="searchUserNameLabel">User Name:</label>
+                <input
+                  type="text"
+                  id="searchUserNameInputText"
+                  name="searchUserName"
+                  placeholder="Enter User Name Here"
+                />
+                <input type="submit" value="Search" />
+              </form>
+              <form action="/user/search/email" method="GET">
+                <label for="email" id="searchUserEmailLabel">User Email:</label>
+                <input
+                  type="text"
+                  id="searchUserEmailInputText"
+                  name="searchUserEmail"
+                  placeholder="Enter User Email Here"
+                />
+                <input type="submit" value="Search" />
+              </form>
+        </section>
+            <!-- <nav>
+                <input type="button" value="people" onclick="location.href='/user'">
+                <input type="button" value="rank" onclick="location.href='/rank'">
+            </nav>  -->
+ 
+        </article>
     </main>
     <script src="../public/js/us.js"></script>
     <script src="../public/js/park.js"></script>
