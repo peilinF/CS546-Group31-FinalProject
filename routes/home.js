@@ -60,7 +60,7 @@ router.route("/parkvisited").get(async (req, res) => {
   // res.render('../views/parkstate',{park: park_state,title:"Alaska"});
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).send("You haven't logged in");
+    res.status(404).send("You haven't login");
     return;
   }
   let user = await userData.getUserById(xss(req.session.user.userId));
@@ -82,7 +82,7 @@ router.route("/parkwish").get(async (req, res) => {
   // res.render('../views/parkstate',{park: park_state,title:"Alaska"});
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).send("You haven't logged in");
+    res.status(404).send("You haven't login");
     return;
   }
   let user = await userData.getUserById(xss(req.session.user.userId));
@@ -100,7 +100,7 @@ router.route("/parkwish").get(async (req, res) => {
 
 router.route("/record").get(async (req, res) => {
   if((xss(req.session.user)).length == 0){
-    res.status(404).send("You haven't logged in");
+    res.status(404).send("You haven't login");
     return;
   }
   try {
@@ -121,7 +121,7 @@ router.route("/AK").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('AK');
@@ -137,7 +137,7 @@ router.route("/OR").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('OR');
@@ -153,7 +153,7 @@ router.route("/WA").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('WA');
@@ -169,7 +169,7 @@ router.route("/CA").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('CA');
@@ -185,7 +185,7 @@ router.route("/UT").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('UT');
@@ -201,7 +201,7 @@ router.route("/TX").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('TX');
@@ -217,7 +217,7 @@ router.route("/NM").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('NM');
@@ -233,7 +233,7 @@ router.route("/AZ").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('AZ');
@@ -249,7 +249,7 @@ router.route("/NV").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('NV');
@@ -265,7 +265,7 @@ router.route("/CO").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('CO');
@@ -281,7 +281,7 @@ router.route("/WY").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('WY');
@@ -296,7 +296,7 @@ router.route("/MT").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('MT');
@@ -312,7 +312,7 @@ router.route("/ME").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('ME');
@@ -328,7 +328,7 @@ router.route("/SD").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('SD');
@@ -344,7 +344,7 @@ router.route("/OH").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('OH');
@@ -360,7 +360,7 @@ router.route("/SC").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('SC');
@@ -376,7 +376,7 @@ router.route("/MO").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('MO');
@@ -392,7 +392,7 @@ router.route("/AR").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('AR');
@@ -408,7 +408,7 @@ router.route("/IN").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('IN');
@@ -424,7 +424,7 @@ router.route("/MI").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('MI');
@@ -440,7 +440,7 @@ router.route("/ND").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('ND');
@@ -456,7 +456,7 @@ router.route("/MN").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('MN');
@@ -472,7 +472,7 @@ router.route("/FL").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('FL');
@@ -488,7 +488,7 @@ router.route("/TN").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('TN');
@@ -504,7 +504,7 @@ router.route("/KY").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('KY');
@@ -520,7 +520,7 @@ router.route("/WV").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('WV');
@@ -537,7 +537,7 @@ router.route("/ID").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('VI');
@@ -557,7 +557,7 @@ router.route("/NE").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('NE');
@@ -577,7 +577,7 @@ router.route("/KS").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('KS');
@@ -597,7 +597,7 @@ router.route("/OK").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('OK');
@@ -617,7 +617,7 @@ router.route("/IA").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('IA');
@@ -637,7 +637,7 @@ router.route("/LA").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('LA');
@@ -657,7 +657,7 @@ router.route("/WI").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('WI');
@@ -677,7 +677,7 @@ router.route("/IL").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('IL');
@@ -696,7 +696,7 @@ router.route("/MS").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('MS');
@@ -716,7 +716,7 @@ router.route("/AL").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('AL');
@@ -736,7 +736,7 @@ router.route("/GA").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('GA');
@@ -756,7 +756,7 @@ router.route("/PA").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('PA');
@@ -776,7 +776,7 @@ router.route("/NC").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('NC');
@@ -796,7 +796,7 @@ router.route("/MD").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('MD');
@@ -816,7 +816,7 @@ router.route("/VA").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('VA');
@@ -836,7 +836,7 @@ router.route("/NY").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('NY');
@@ -856,7 +856,7 @@ router.route("/NJ").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('NJ');
@@ -876,7 +876,7 @@ router.route("/DE").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('DE');
@@ -896,7 +896,7 @@ router.route("/DC").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('DC');
@@ -916,7 +916,7 @@ router.route("/VT").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('VT');
@@ -936,7 +936,7 @@ router.route("/NH").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('NH');
@@ -956,7 +956,7 @@ router.route("/MA").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('MA');
@@ -976,7 +976,7 @@ router.route("/CT").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('CT');
@@ -996,7 +996,7 @@ router.route("/RI").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('RI');
@@ -1016,7 +1016,7 @@ router.route("/VI").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('VI');
@@ -1036,7 +1036,7 @@ router.route("/PR").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('PR');
@@ -1056,7 +1056,7 @@ router.route("/GU").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('GU');
@@ -1076,7 +1076,7 @@ router.route("/MP").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('MP');
@@ -1096,7 +1096,7 @@ router.route("/AS").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('AS');
@@ -1116,7 +1116,7 @@ router.route("/HI").get(async (req, res) => {
   //code here for GET
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let park_state = await parkData.getParkByState('HI');
@@ -1135,7 +1135,7 @@ router.route("/HI").get(async (req, res) => {
 router.route("/updatepark").post(async (req, res) => {
   try{
   if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not login'});
     return;
   }
   let list = (xss(req.body.data)).split(',');
