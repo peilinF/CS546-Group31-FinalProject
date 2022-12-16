@@ -55,13 +55,15 @@ parkNameListButton.addEventListener('click', (event) => {
                     let parklink = document.createElement("a")
                     parklink.href = `/park/search?searchParkName=${parkName}`;
                     parklink.innerText = `${parkName}`;
-                    parkWishNameList.appendChild(parklink)
+                    parkWishNameList.appendChild(parklink);
+                    parkWishNameList.appendChild(document.createElement("br"));
                 }
                 for (let parkName of parkVisitedList) {
                     let parklink = document.createElement("a")
                     parklink.href = `/park/search?searchParkName=${parkName}`;
                     parklink.innerText = `${parkName}`;
-                    parkVisitedNameList.appendChild(parklink)
+                    parkVisitedNameList.appendChild(parklink);
+                    parkVisitedNameList.appendChild(document.createElement("br"));
                 }
                 
                 profileParkList.appendChild(parkWishNameList)

@@ -48,7 +48,7 @@ header {
   padding-top: 40px;
 }
 h1 {
-  color: #2a2a2a;
+  color:#2d2b2b;
   font-size: 24px;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: 400;
@@ -287,7 +287,7 @@ li {
 .deleteUi button{
   font-family: "EB Garamond";
   font-size: 13px;
-  background-color: black;
+  background-color: rgb(65, 75, 73);
   border: none;
   border-radius: 8px;
   color: white;
@@ -313,7 +313,7 @@ li {
   color: white;
   padding: 8px 10px;
   text-align: center;
-  display: inline-block;
+  display:inline-flexbox;
   transition-duration: 0.3s;
   cursor: pointer;
 }

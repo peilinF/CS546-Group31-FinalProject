@@ -45,8 +45,13 @@
   <input type="password" name="confirmPasswordInput1" id="confirmPasswordInput1">
   <span id='message1'></span>
 
-  <button type="submit">Submit</button>
+  <div style="padding-top: 8px;">
+    <button type="submit" style="margin-bottom: 10px;">Submit</button>
+  </div>
 </form>
-<a href="/login">Back to log-in</a>
+
+<a href="/login">Back to log-in |</a>
 <a href="/">Homepage</a>
+<div>
 {{#if error}}<div class="error" id="error1">{{error}}</div>{{/if}}
+</div>

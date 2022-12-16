@@ -1,5 +1,3 @@
-
-
 (function ($) {
     var login = $("#login"),
         title = $("#title"),
