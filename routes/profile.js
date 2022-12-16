@@ -4,6 +4,7 @@ const data = require('../data');
 const helper = require("../helpers.js");
 const userData = data.users;
 const parkData = data.parks;
+const reviewData = data.reviews;
 const path = require('path');
 const xss = require('xss');
 
@@ -92,6 +93,21 @@ router.route("/parkList").get(async (req, res) => {
       parkVisitedList: parkVisitedList
     }
     res.status(200).send(parkNameList);
+    return;
+  } catch (e) {
+    res.status(500).send("failed to fetch data");
+    return;
+  }
+})
+
+router.route("/reviewList").get(async (req, res) => {
+  if (!req.query.userName) {
+    res.status(400).send("No user name");
+  }
+  try {
+    const user = await userData.getUserByName(req.query.userName);
+    let reviewList = await reviewData.getAllUserReviews(user._id.toString());
+    res.status(200).send(reviewList);
     return;
   } catch (e) {
     res.status(500).send("failed to fetch data");

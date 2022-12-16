@@ -27,12 +27,15 @@
     </section>
 </article>
 <span id="profile-user-name" style="display: none;">{{user.userName}}</span>
+<span id="is-my-profile" style="display: none;">{{myProfile}}</span>
+<button id="btn-reviews-list">Review List</button>
 {{#if myProfile}}
 <button id="btn-parkName-list">Visited/Wished Park List</button>
 <button id="btn-edit-profile">Edit your profile</button>
 {{/if}}
 <a href="/">Homepage</a>
 <div class="profile-parklist"></div>
+<div class="profile-reviewlist"></div>
 {{#if myProfile}}
 <script src="../public/js/profile.js"></script>
 {{else}}
