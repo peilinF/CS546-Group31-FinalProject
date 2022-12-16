@@ -34,7 +34,7 @@ router
 
 router.route("/update").post(async (req, res) => {
   if (!req.session.user) {
-    error = 'You have to login to add review!';
+    let error = 'You have to login to add review!';
     res.status(400).render('userLogin', { error: error, title: "login!" });
     return;
   }
@@ -49,13 +49,18 @@ router.route("/update").post(async (req, res) => {
     res.status(400).render('error', { path: 'user/update', statuscode: 400, error: e })
     return;
   }
-  const user = await userData.getUserByEmail(userEmail)
-  if (userName == user.userName && userEmail == user.email && userBirthDate == user.birthDate) {
-    console.log()
-    res.redirect('/profile')
+  if (req.session.user.userId !== userId) {
+    let error = 'Forbidden, you can not change profile of other user!';
+    res.status(403).render('error', { error: error, statuscode: 403, error: error });
     return;
   }
   try {
+    const user = await userData.getUserByEmail(userEmail)
+    if (userName == user.userName && userEmail == user.email && userBirthDate == user.birthDate) {
+      console.log()
+      res.redirect('/profile')
+      return;
+    }
     updatedUser = await userData.updateUser(userId, userName, userEmail, userBirthDate, hashedPassword)
     req.session.user.userName = userName
     res.redirect('/profile')
