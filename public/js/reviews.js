@@ -15,6 +15,7 @@
         commentId = $(".comment-id");
         deleteReview = $(".deleteReview");
         deleteReply = $(".deleteReply");
+        editReview = $(".editReview");
     if (id.is(':visible')) {
         id.hide();
     }
@@ -65,12 +66,14 @@
         var thisReply = $(this).parent().parent();
         if (isClicked && thisReply.find('.replyContent').length > 1) {
             thisReply.find('.replyContent').remove();
+            thisReply.find('.editReview').prop('disabled', false);
             isClicked = false;
             return;
         } else if (!isClicked && thisReply.find('.replyContent').length == 0 ) {
             isClicked = true;
             thisReply.append("<div class='replyContent'><form name='postReply' id='postReply'><textarea class='replyContent' id='replyContent' rows='4' cols='50' placeholder='Reply'></textarea> <input type='submit' value='Submit' /></form></div>");
             var replyClass = $("#postReply");
+            thisReply.find('.editReview').prop('disabled', true);
             replyClass.submit(replySubmit);
         } else {
             alert("Close the other reply box first");
@@ -189,5 +192,61 @@
             window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
         });
     });
+    var editIsClicked = false;
+
+    editReview.click(function (e) {
+        
+        e.preventDefault();
+        var parent = $(this).parent().parent();
+        var reviewId =parent.find('.review-id').text();
+        var reviewTitle =parent.find('.review-title').text();
+        var content =parent.find('.content').text();
+        var rating =parent.find('.rating').text();
+        if (editIsClicked && parent.find('.editContent').length > 0) {
+            parent.find('.editContent').remove();
+            editIsClicked = false;
+            times = 0;
+            parent.find('.reply').prop('disabled', false);
+            return;
+        } else if (!editIsClicked && parent.find('.editContent').length == 0) {
+            editIsClicked = true;
+            times = 1;
+            parent.append("<div class='editContent'><form name='editReview' id='editReview'><input type='text' id='editTitle' placeholder='Title' /> <textarea class='editContent' id='editContent' rows='4' cols='50' placeholder='Content'></textarea> <input type='number' id='editRating' min='1' max='5' placeholder='Out of 5' /> <input type='submit' value='Submit' /></form></div>");
+            parent.find('.reply').prop('disabled', true);
+            var editClass = $("#editReview");
+            editClass.submit(editSubmit);
+        } else {
+            alert("Close the other edit box first");
+        }
+            // editClass.submit(editSubmit);
+        
+    });
+
+    function editSubmit(e) {
+        e.preventDefault();
+        var parent = $(this).parent().parent();
+        var reviewId =parent.find('.review-id').text();
+        var reviewTitle =parent.find('#editTitle').val();
+        var content =parent.find('#editContent').val();
+        var rating =parent.find('#editRating').val();
+        var requestConfig = {
+            method: 'PUT',
+            url: '/review/edit',
+            contentType: "application/json",
+            data: JSON.stringify({
+                reviewId: reviewId,
+                reviewTitle: reviewTitle,
+                content: content,
+                rating: rating,
+            }),
+            error: function (err) {
+                alert(err.responseText);
+            },
+        };
+
+        $.ajax(requestConfig).then(function (responseMessage) {
+            window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
+        });
+    }
 
 })(window.jQuery);

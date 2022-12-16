@@ -119,6 +119,19 @@ router
 
     parkName = parkName.trim();
 
+    try{
+      rating = parseInt(rating);
+      const review = await reviewData.getReview(reviewId);
+      if(review.userId.toString() !== userId.toString()){
+        return res.status(400).json({error: 'You can only edit your own review!'});
+      }
+      await reviewData.updateReview(reviewId, reviewTitle, content, rating);
+      return res.status(200).json({parkName: parkName});
+
+    }catch(e){
+
+    }
+
   });
 
   router
