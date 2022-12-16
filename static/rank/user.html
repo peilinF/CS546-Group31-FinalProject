@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Rank User</title>
+    <title>Users ranking</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -21,10 +21,9 @@
         </nav>
       </section>
       <section class="intro rank-intro">
-        <h1>Rank User</h1>
-        <h2>Select options how to rank the user!</h2>
-        <p>
-          Welcome to Rank User Page. You can rank user with multiple options.
+        <h2>List of Users Ranked</h2>
+        <p style="font-size: 16px;">
+         All users ranked by likes received/ reviews amount / comments amount.
         </p>
       </section>
       <section class="rank-option-form">
@@ -32,7 +31,7 @@
           <label for="rankUserSelect" id="rankUserOptionLabel">Sort by:</label>
           <select name="option" id="rankUserSelect">
             <!-- <option value="followersAmount">followers amount</option> -->
-            <option value="likesReceivedAmount">likes recieved</option>
+            <option value="likesReceivedAmount">likes received</option>
             <option value="reviewsAmount">reviews amount</option>
             <option value="commentsAmount">comments amount</option>
           </select>
@@ -40,8 +39,8 @@
           <input type="number" name="itemsNum" id="rankUserItemsNumInput" value="10"/>
           <label for="rankUserReverseSelect" id="rankUserReverseLabel">Reverse:</label>
           <select name="reverse" id="rankUserReverseSelect">
-            <option value="false">false</option>
-            <option value="true">true</option>
+            <option value="false">No</option>
+            <option value="true">Yes</option>
           </select>
           <input type="submit" value="Rank" />
         </form>
