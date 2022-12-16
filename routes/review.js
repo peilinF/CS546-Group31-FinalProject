@@ -41,7 +41,7 @@ router
     }
     parkName = helper.changeParkName(parkName);
     try{
-      const review = await reviewData.getReviewById(reviewId);
+      const review = await reviewData.getReview(reviewId);
       if(review.userId.toString() !== userId.toString()){
         return res.status(400).json({error: 'You can only delete your own review!'});
       }
@@ -69,16 +69,7 @@ router
     if (!reviewTitle || !content || !rating || !parkName) {
       return res.status(400).json({ error: 'You must provide data for all fields' });
     }
-    if (!reviewId || !userId) {
-      return res.status(400).json({ error: 'You must provide review or user Id' });
-    }
 
-    if (typeof reviewId !== 'string') {
-      return res.status(400).json({ error: 'reviewId must be a string' });
-    }
-    if (reviewId.trim().length === 0) {
-      return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
-    }
     if (typeof parkName !== 'string') {
       return res.status(400).json({ error: 'parkName must be a string' });
     }
@@ -174,13 +165,6 @@ router
       }
 
       parkName = parkName.trim();
-      if (!reviewId) {
-        return res.status(400).json({ error: 'You must provide reviewId' });
-      }
-
-      if (!userId) {
-        return res.status(400).json({ error: 'You must provide userId' });
-      }
       try{
         await likesClass.removeLike(userId, reviewId);
         return res.status(200).json({parkName: parkName});

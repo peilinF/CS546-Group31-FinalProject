@@ -75,18 +75,6 @@ const getCommentById = async (id) => {
 
 const removeComment = async (commentId) => {
 
-    if (!userId) throw 'You must provide an user id';
-    if (typeof userId !== 'string' && typeof userId !== 'object')
-        throw 'Id must be a string or ObjectId';
-    if (userId.trim().length === 0)
-        throw 'id cannot be an empty string or just spaces';
-
-    if (!reviewId) throw 'You must provide an review id';
-    if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
-        throw 'Id must be a string or ObjectId';
-    if (reviewId.trim().length === 0)
-        throw 'id cannot be an empty string or just spaces';
-
     if (!commentId) throw 'You must provide an comment id';
     if (typeof commentId !== 'string' && typeof commentId !== 'object')
         throw 'Id must be a string or ObjectId';
@@ -94,12 +82,15 @@ const removeComment = async (commentId) => {
         throw 'id cannot be an empty string or just spaces';
 
     const commentCollection = await comments();
-    const comment = await comments().findOne({_id: ObjectId(commentId)});
+    const comment = await commentCollection.findOne({_id: ObjectId(commentId)});
+    
     if (comment === null) throw 'No comment with that id';
     const userId = comment.userId;
     const reviewId = comment.reviewId;
     await userClass.removeComment(userId, commentId);
+ 
     await reviewsClass.removeComment(reviewId, commentId);
+    
     const deletionInfo = await commentCollection.deleteOne({_id: ObjectId(commentId)});
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete comment with id of ${commentId}`;

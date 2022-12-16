@@ -2,6 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 const parks = mongoCollections.parks;
 const users = mongoCollections.users;
 const reviews = mongoCollections.reviews;
+const comments = mongoCollections.comments;
 const parksClass = require('./parks');
 const usersClass = require('./users');
 const {ObjectId} = require('mongodb');
@@ -139,15 +140,19 @@ const removeReview = async (reviewId) => {
       throw 'id cannot be an empty string or just spaces';
 
   reviewId = reviewId.trim();
-  const review = await getReview(reviewId);
+  const reviewCollection = await reviews();
+  const review = await reviewCollection.findOne({ _id: ObjectId(reviewId) });
   const parkId = review.parkId;
   const commentList = review.comments;
+  let commentCollection = null;
+  if (commentList.length > 0){
+    commentCollection = await comments();
+  }
   for (let i = 0; i < commentList.length; i++) {
-    await commentsClass.removeComment(commentList[i]);
+    await commentCollection.deleteOne({ _id: ObjectId(commentList[i]) });
   }
   await parksClass.removeReview(parkId, reviewId);
   await usersClass.removeReview(review.userId, reviewId);
-  const reviewCollection = await reviews();
   const deletionInfo = await reviewCollection.deleteOne({ _id: ObjectId(reviewId) });
   if (deletionInfo.deletedCount === 0) {
     throw `Could not delete review with id of ${reviewId}`;
