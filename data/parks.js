@@ -85,10 +85,10 @@ const getParkById = async (parkId) => {
 };
 
 const getParkByName = async (parkName) => {
-    if (!parkName) throw 'You must provide an id to search for';
-    if (typeof parkName !== 'string') throw 'Id must be a string';
+    if (!parkName) throw 'You must provide an parkName to search for';
+    if (typeof parkName !== 'string') throw 'ParkName must be a string';
     if (parkName.trim().length === 0)
-        throw 'id cannot be an empty string or just spaces';
+        throw 'ParkName cannot be an empty string or just spaces';
     parkName = parkName.trim();
     const parksCollection = await parks();
     const park = await parksCollection.findOne({ parkName: parkName });

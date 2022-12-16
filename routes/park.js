@@ -37,18 +37,23 @@ router.route("/search").get(async (req, res) => {
     if (!parkName) throw 'You must provide an parkName to search for';
   } catch (e) {
     res.status(400).render('error',  {path: 'park/search', statuscode: 400, error: e});
+    return;
   }
   parkName = helper.changeParkName(parkName);
-  // try {
+  if (!parkName) {
+    res.status(404).render('error',  {path: 'park/search', statuscode: 404, error: `'${req.query.searchParkName}' is not a National Park`});
+    return;
+  }
+  try {
     let park = await parkData.getParkByName(parkName);
     park = await getReview(park,user);
     req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
     res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
     return;
-  // } catch (e) {
-  //   res.status(500).render('error', {path: 'park/search', statuscode: 500, error: e});
-  //   return;
-  // }
+  } catch (e) {
+    res.status(500).render('error', {path: 'park/search', statuscode: 500, error: e});
+    return;
+  }
 });
 
 
