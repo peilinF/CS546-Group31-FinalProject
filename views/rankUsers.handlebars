@@ -40,17 +40,17 @@
 </div>
 <script>
     let rankOption = document.querySelector(".p-rank-option")
-    if (rankOption.innerText === "Sort by likesReceivedAmount") {
+    if (rankOption.innerText === "Sort by: likesReceivedAmount") {
         let allthLike = document.querySelectorAll(".th-like")
         allthLike.forEach((th) => {
             th.style.color = "#008300"
         })
-    } else if (rankOption.innerText === "Sort by reviewsAmount") {
+    } else if (rankOption.innerText === "Sort by: reviewsAmount") {
         let allthReview = document.querySelectorAll(".th-review")
         allthReview.forEach((th) => {
             th.style.color = "#008300"
         })
-    } else if (rankOption.innerText === "Sort by commentsAmount") {
+    } else if (rankOption.innerText === "Sort by: commentsAmount") {
         let allthComment = document.querySelectorAll(".th-comment")
         allthComment.forEach((th) => {
             th.style.color = "#008300"
