@@ -290,6 +290,25 @@ li {
   bottom: 0;
 }
 
+.parklist div.square {
+  width: 250px;
+  height: 300px;
+}
 
+.parklist div.square h5 {
+  text-align: center;
+  height: 0px;
+  padding: 5px;
+}
 
+.parklist div.square img.cover-img {
+  width: 230px;
+  height: 200px;
+  padding: 10px;
+}
 
+.parklist div.square form {
+  width: 230px;
+  padding: 10 px;
+  align-items: center;
+}
