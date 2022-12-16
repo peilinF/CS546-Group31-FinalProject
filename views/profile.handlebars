@@ -24,7 +24,6 @@
         </form>
     </section>
 </article>
-{{!-- <button id="btn-park-list">Display parks visited and wished list</button> --}}
 <button id="btn-parkName-list">Visited/Wished Park List</button>
 <span id="profile-user-name" style="display: none;">{{user.userName}}</span>
 {{#if myProfile}}
@@ -32,28 +31,6 @@
 {{/if}}
 <a href="/">Homepage</a>
 <div class="profile-parklist"></div>
-{{!-- <div id="profile-park-visited-and-wished" class="park-visited-and-wished" style="display:none">
-    <div class="park-visited">
-        <h5>Parks have visited:</h5>
-        <ol>
-            {{#each user.parksHaveVisited}}
-            <li>
-                <a href="/park/{{this}}">{{this}}</a>
-            </li>
-            {{/each}}
-        </ol>
-    </div>
-    <div class="park-wished">
-        <h5>Parks wish to visit:</h5>
-        <ol>
-            {{#each user.parksWishToGo}}
-            <li>
-                <a href="/park/{{this}}">{{this}}</a>
-            </li>
-            {{/each}}
-        </ol>
-    </div>
-</div> --}}
 {{#if myProfile}}
 <script src="../public/js/profile.js"></script>
 {{else}}

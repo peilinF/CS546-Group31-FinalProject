@@ -28,6 +28,13 @@ router.route("/search").get(async (req, res) => {
   } else {
     req.session.login = false;  
   }
+
+  var x = 0;
+  var y = 0;
+  if (req.session.location) {
+    x = req.session.location.x;
+    y = req.session.location.y;
+  }
   try {
     if (!parkName) throw 'You must provide an parkName to search for';
     if (typeof parkName !== 'string') throw 'parkName must be a string';
@@ -37,18 +44,23 @@ router.route("/search").get(async (req, res) => {
     if (!parkName) throw 'You must provide an parkName to search for';
   } catch (e) {
     res.status(400).render('error',  {path: 'park/search', statuscode: 400, error: e});
+    return;
   }
   parkName = helper.changeParkName(parkName);
-  // try {
+  if (!parkName) {
+    res.status(404).render('error',  {path: 'park/search', statuscode: 404, error: `'${req.query.searchParkName}' is not a National Park`});
+    return;
+  }
+  try {
     let park = await parkData.getParkByName(parkName);
     park = await getReview(park,user);
     req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
-    res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login});
+    res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login, location: {x: x, y: y}});
     return;
-  // } catch (e) {
-  //   res.status(500).render('error', {path: 'park/search', statuscode: 500, error: e});
-  //   return;
-  // }
+  } catch (e) {
+    res.status(500).render('error', {path: 'park/search', statuscode: 500, error: e});
+    return;
+  }
 });
 
 

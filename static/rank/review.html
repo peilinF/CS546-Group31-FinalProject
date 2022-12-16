@@ -29,15 +29,15 @@
       </section>
       <section class="rank-option-form">
         <form action="/rank/review/results" method="GET">
-          <label for="option" id="rankReviewOptionLabel">Sort by:</label>
-          <select name="option" id="rankReviewSelect" selected="lastUpdatedTime">
+          <label for="rankReviewSelect" id="rankReviewOptionLabel">Sort by:</label>
+          <select name="option" id="rankReviewSelect">
             <option value="lastUpdatedTime">last updated time</option>
             <option value="number_of_likes">number of likes</option>
           </select>
-          <label for="itemsNum" id="rankReviewItemsNumLabel">itemsNum:</label>
+          <label for="rankReviewItemsNumInput" id="rankReviewItemsNumLabel">itemsNum:</label>
           <input type="number" name="itemsNum" id="rankReviewItemsNumInput" value="10"/>
-          <label for="reverse" id="rankReviewReverseLabel">Reverse:</label>
-          <select name="reverse" id="rankReviewReverseSelect" selected="false">
+          <label for="rankReviewReverseSelect" id="rankReviewReverseLabel">Reverse:</label>
+          <select name="reverse" id="rankReviewReverseSelect">
             <option value="false">false</option>
             <option value="true">true</option>
           </select>

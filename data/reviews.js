@@ -194,7 +194,7 @@ const removeComment = async (reviewId, commentId) => {
   }
 };
 
-const updateReview = async (reviewId, content, reviewTitle, rating) => {
+const updateReview = async (reviewId, reviewTitle, content, rating) => {
 
   if (!reviewId) throw 'You must provide an review id to search for';
   if (typeof reviewId === 'string') {
@@ -220,7 +220,7 @@ const updateReview = async (reviewId, content, reviewTitle, rating) => {
 
   const reviewsCollection = await reviews();
   const updatedReview = {
-    reviewTitle:reviewTitle,
+    title:reviewTitle,
     content: content,
     rating: rating,
   };
@@ -229,7 +229,6 @@ const updateReview = async (reviewId, content, reviewTitle, rating) => {
     throw 'could not update review successfully';
   }
   updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $set: {lastUpdatedTime : new Date().toLocaleDateString()}});
-
   return await getReview(reviewId);
 };
 module.exports = {

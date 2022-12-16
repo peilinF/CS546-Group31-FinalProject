@@ -31,17 +31,17 @@
       </section>
       <section class="rank-option-form">
         <form action="/rank/user/results" method="GET">
-          <label for="option" id="rankUserOptionLabel">Sort by:</label>
-          <select name="option" id="rankUserSelect" selected="likesReceivedAmount">
+          <label for="rankUserSelect" id="rankUserOptionLabel">Sort by:</label>
+          <select name="option" id="rankUserSelect">
             <!-- <option value="followersAmount">followers amount</option> -->
             <option value="likesReceivedAmount">likes recieved</option>
             <option value="reviewsAmount">reviews amount</option>
             <option value="commentsAmount">comments amount</option>
           </select>
-          <label for="itemsNum" id="rankUserItemsNumLabel">itemsNum:</label>
+          <label for="rankUserItemsNumInput" id="rankUserItemsNumLabel">itemsNum:</label>
           <input type="number" name="itemsNum" id="rankUserItemsNumInput" value="10"/>
-          <label for="reverse" id="rankUserReverseLabel">Reverse:</label>
-          <select name="reverse" id="rankUserReverseSelect" selected="false">
+          <label for="rankUserReverseSelect" id="rankUserReverseLabel">Reverse:</label>
+          <select name="reverse" id="rankUserReverseSelect">
             <option value="false">false</option>
             <option value="true">true</option>
           </select>

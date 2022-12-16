@@ -19,6 +19,8 @@ router
     let parkName = req.session.pageNow[1].park.parkName;
     const reviewId = xss(req.body.reviewId);
     let content = xss(req.body.replyContent);
+    let y = xss(req.body.y);
+    req.session.location = {y: y};
     parkName = parkName.trim();
 
     if (typeof reviewId !== 'string') {
@@ -55,6 +57,8 @@ router
 
     let parkName = req.session.pageNow[1].park.parkName;
     const commentId = xss(req.body.commentId);
+    let y = xss(req.body.y);
+    req.session.location = {y: y};
     parkName = parkName.trim();
 
     console.log(commentId);
