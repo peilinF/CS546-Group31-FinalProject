@@ -28,16 +28,17 @@ router.route("/search").get(async (req, res) => {
   } else {
     req.session.login = false;  
   }
-  parkName = helper.changeParkName(parkName);
   try {
     if (!parkName) throw 'You must provide an parkName to search for';
     if (typeof parkName !== 'string') throw 'parkName must be a string';
     if (parkName.trim().length === 0)
         throw 'id cannot be an empty string or just spaces';
     parkName = parkName.trim();
+    if (!parkName) throw 'You must provide an parkName to search for';
   } catch (e) {
     res.status(400).render('error',  {path: 'park/search', statuscode: 400, error: e});
   }
+  parkName = helper.changeParkName(parkName);
   // try {
     let park = await parkData.getParkByName(parkName);
     park = await getReview(park,user);
