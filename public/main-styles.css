@@ -54,6 +54,14 @@ h1 {
   font-weight: 400;
 }
 
+h1.rank-title {
+  color: #28567b;
+  font-size: 28px;
+  left: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+
 .subtitle {
   text-align: center;
 }
