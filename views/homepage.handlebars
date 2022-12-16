@@ -304,7 +304,7 @@
         
             <form action="/park/search" method="GET">
                 <label for="name" id="searchParkNameLabel">Find a park</label>
-                <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here" />
+                <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here" style="width: 300px; height: 40px;"/>
                 <input type="submit" value="Search" class="cute-button" />
             </form>
         
@@ -325,12 +325,13 @@
         <section class="userPage">
             <p style="font-size:16px;">Looking for another registered user?</p>
             <form action="/user/search/name" method="GET">
-                <label for="name" id="searchUserNameLabel">User Name:</label>
+                <label for="name" id="searchUserNameLabel">User Name</label>
                 <input
                   type="text"
                   id="searchUserNameInputText"
                   name="searchUserName"
                   placeholder="Enter User Name Here"
+                  style="width: 300px; height: 40px;"
                 />
                 <input type="submit" value="Search" />
         </section>

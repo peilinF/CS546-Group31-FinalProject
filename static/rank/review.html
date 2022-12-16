@@ -19,25 +19,24 @@
         </nav>
       </section>
       <section class="intro rank-intro">
-        <h1>Rank Review</h1>
-        <h2>Select options how to rank the reviews!</h2>
-        <p>
-          Welcome to Rank Review Page. You can rank review with multiple options.
+        <h2>List of Reviews Ranked</h2>
+        <p style="font-size: 16px;">
+          All reviews ranked by last updated time/ number of likes.
         </p>
       </section>
       <section class="rank-option-form">
         <form action="/rank/review/results" method="GET">
-          <label for="rankReviewSelect" id="rankReviewOptionLabel">Sort by:</label>
-          <select name="option" id="rankReviewSelect">
+          <label for="rankReviewSelect" id="rankReviewOptionLabel">Sort by</label>
+          <select name="option" id="rankReviewSelect" style="width: 300px; height: 30px;">
             <option value="lastUpdatedTime">last updated time</option>
             <option value="number_of_likes">number of likes</option>
           </select>
-          <label for="rankReviewItemsNumInput" id="rankReviewItemsNumLabel">itemsNum:</label>
-          <input type="number" name="itemsNum" id="rankReviewItemsNumInput" value="10"/>
-          <label for="rankReviewReverseSelect" id="rankReviewReverseLabel">Reverse:</label>
-          <select name="reverse" id="rankReviewReverseSelect">
-            <option value="false">false</option>
-            <option value="true">true</option>
+          <label for="rankReviewItemsNumInput" id="rankReviewItemsNumLabel">Number of reviews</label>
+          <input type="number" name="itemsNum" id="rankReviewItemsNumInput" value="10" style="width: 275px; height: 8px;"/>
+          <label for="rankReviewReverseSelect" id="rankReviewReverseLabel">Reverse</label>
+          <select name="reverse" id="rankReviewReverseSelect" style="width: 300px; height: 30px;">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
           </select>
           <input type="submit" value="Rank" />
         </form>
