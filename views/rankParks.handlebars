@@ -1,18 +1,18 @@
- <section class="navigation">
-     <nav>
-        <a href="#">Parks ranking</a> |
-        <a href="./user">Users ranking</a> |
-        <a href="./review">Reviews ranking</a> |
+<section class="navigation">
+    <nav>
+        <a href="../park">Parks ranking</a> |
+        <a href="../user">Users ranking</a> |
+        <a href="../review">Reviews ranking</a> |
         <a href="/">Homepage</a>
-        </nav>
- </section>
- <h2>List of National Parks Ranked</h2>
+    </nav>
+</section>
 <section>
-    <p class="p-rank-option">Sort by {{option}}</p>
+    <h1 class="rank-title">List of National Parks</h1>
+    <p class="p-rank-option">Sort by: {{option}}</p>
     <p>Reverse? {{reverse}}</p>
 </section>
 <div>
-    <h5>Results:</h5>
+    <h1>Results:</h1>
     <table>
         <tr>
             <th>Rank</th>
@@ -36,22 +36,22 @@
 </div>
 <script>
     let rankOption = document.querySelector(".p-rank-option")
-    if (rankOption.innerText === "Sort by overallRating") {
+    if (rankOption.innerText === "Sort by: overallRating") {
         let allthOverallrating = document.querySelectorAll(".th-overallrating")
         allthOverallrating.forEach((th) => {
             th.style.color = "#008300"
         })
-    } else if (rankOption.innerText === "Sort by reviewsAmount") {
+    } else if (rankOption.innerText === "Sort by: reviewsAmount") {
         let allthReview = document.querySelectorAll(".th-reviewamount")
         allthReview.forEach((th) => {
             th.style.color = "#008300"
         })
-    } else if (rankOption.innerText === "Sort by wishedAmount") {
+    } else if (rankOption.innerText === "Sort by: wishedAmount") {
         let allthWished = document.querySelectorAll(".th-wishedamount")
         allthWished.forEach((th) => {
             th.style.color = "#008300"
         })
-    } else if (rankOption.innerText === "Sort by visitedAmount") {
+    } else if (rankOption.innerText === "Sort by: visitedAmount") {
         let allthVisited = document.querySelectorAll(".th-visitedamount")
         allthVisited.forEach((th) => {
             th.style.color = "#008300"
