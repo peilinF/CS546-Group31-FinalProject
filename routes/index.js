@@ -24,7 +24,8 @@ const constructorMethod = (app) => {
   app.use('/profile',profileRoutes);
 
   app.use('*', (req, res) => {
-    res.status(404).json({ error: 'Not found' });
+    let error = "Page not found"
+    res.status(404).render('error', { path: '', statuscode: 404, error: error });
   });
 };
 
