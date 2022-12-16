@@ -11,7 +11,7 @@ const users = mongoCollections.users;
 const xss = require('xss');
 
 const getorigin = async(park_state,req) =>{
-  let user = await userData.getUserById(req.session.user.userId);
+  let user = await userData.getUserById(xss(req.session.user.userId));
   let parkvisited = user.parksHaveVisited;
   let wish = user.parksWishToGo;
   let flag = [0,0];
