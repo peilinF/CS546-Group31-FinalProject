@@ -12,11 +12,6 @@ const userData = data.users;
 const reviewData = data.reviews;
 const commentData = data.comments;
 const xss = require('xss');
-router.route("/").get(async (req, res) => {
-  //code here for GET
-  res.sendFile(path.resolve('static/park.html'));
-  return;
-});
 
 router.route("/search").get(async (req, res) => {
   let parkName = xss(req.query.searchParkName);

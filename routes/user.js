@@ -6,12 +6,6 @@ const path = require('path');
 const xss = require('xss');
 const helper = require("../helpers");
 
-router.route("/").get(async (req, res) => {
-  //code here for GET
-  res.sendFile(path.resolve('static/user.html'));
-
-});
-
 router.route("/search/name").get(async (req, res) => {
   const userName = xss(req.query.searchUserName);
   try {
