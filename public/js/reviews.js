@@ -6,7 +6,6 @@
         content = $("#content"),
         rating = $("#rating"),
         postReview = $("#postReview"),
-        parkName = $("#park_head");
         review = $("#review");
         reply = $(".reply");
         like = $(".like");
@@ -28,7 +27,7 @@
     postReview.submit(function (e) {
         var parent = $(this).parent().parent();
         e.preventDefault();
-        if (!title.val() || !content.val() || !rating.val() || !parkName.text()) {
+        if (!title.val() || !content.val() || !rating.val()) {
             review.append("<div class='error' role='alert'>Please fill all the fields</div>");
             return;
         } else if (rating.val() < 1 || rating.val() > 5) {
@@ -46,7 +45,6 @@
                 url: '/review/add',
                 contentType: "application/json",
                 data: JSON.stringify({
-                    parkName: parkName.text(),
                     reviewTitle: title.val(),
                     content: content.val(),
                     rating: rating.val(),
@@ -88,7 +86,6 @@
             url: '/comment/add',
             contentType: "application/json",
             data: JSON.stringify({
-                parkName: parkName.text(),
                 reviewId: reviewId,
                 replyContent: replyContent,
             }),
@@ -111,7 +108,6 @@
             url: '/review/like',
             contentType: "application/json",
             data: JSON.stringify({
-                parkName: parkName.text(),
                 reviewId: reviewId,
             }),
             error: function (err) {
@@ -136,7 +132,6 @@
             url: '/review/unlike',
             contentType: "application/json",
             data: JSON.stringify({
-                parkName: parkName.text(),
                 reviewId: reviewId,
             }),
             error: function (err) {
@@ -162,7 +157,6 @@
             url: '/review/delete',
             contentType: "application/json",
             data: JSON.stringify({
-                parkName: parkName.text(),
                 reviewId: reviewId,
             }),
             error: function (err) {
@@ -177,14 +171,13 @@
 
     deleteReply.click(function (e) {
         e.preventDefault();
-        var parent = $(this).parent().parent();
+        var parent = $(this).parent();
         var commentId =parent.find('.comment-id').text();
         var requestConfig = {
             method: 'DELETE',
             url: '/comment/delete',
             contentType: "application/json",
             data: JSON.stringify({
-                parkName: parkName.text(),
                 commentId: commentId,
             }),
             error: function (err) {

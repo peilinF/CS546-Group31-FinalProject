@@ -1,12 +1,10 @@
 const mongoCollections = require('../config/mongoCollections');
-const parks = mongoCollections.parks;
-const users = mongoCollections.users;
+
 const reviews = mongoCollections.reviews;
 const comments = mongoCollections.comments;
 const parksClass = require('./parks');
 const usersClass = require('./users');
 const {ObjectId} = require('mongodb');
-const app = require('express');
 
 const createReview = async (
   parkId,
@@ -196,18 +194,42 @@ const removeComment = async (reviewId, commentId) => {
   }
 };
 
-const updateReview = async (reviewId, content, reviewTitle) => {
+const updateReview = async (reviewId, content, reviewTitle, rating) => {
+
+  if (!reviewId) throw 'You must provide an review id to search for';
+  if (typeof reviewId === 'string') {
+    if (!ObjectId.isValid(reviewId)) throw 'Id is not a valid ObjectId';
+  }
+  if (reviewId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  
+  reviewId = reviewId.trim();
+
+
+  if (!content) throw 'You must provide content for your review';
+  if (typeof content !== 'string') throw 'Content must be a string';
+  if (content.trim().length === 0) throw 'Content cannot be empty';
+
+  if (!reviewTitle) throw 'You must provide a title for your review';
+  if (typeof reviewTitle !== 'string') throw 'Title must be a string';
+  if (reviewTitle.trim().length === 0) throw 'Title cannot be empty';
+
+  if (!rating) throw 'You must provide a rating for your review';
+  if (typeof rating !== 'number') throw 'Rating must be a number';
+  if (rating < 0 || rating > 5) throw 'Rating must be between 0 and 5';
 
   const reviewsCollection = await reviews();
   const updatedReview = {
     reviewTitle:reviewTitle,
     content: content,
-    lastUpdatedTimeStamp: new Date().toLocaleDateString(),
+    rating: rating,
   };
-  const updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $set: updatedReview });
+  let updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $set: updatedReview });
   if (updatedInfo.modifiedCount === 0) {
     throw 'could not update review successfully';
   }
+  updatedInfo = await reviewsCollection.updateOne({ _id: ObjectId(reviewId) }, { $set: {lastUpdatedTime : new Date().toLocaleDateString()}});
+
   return await getReview(reviewId);
 };
 module.exports = {

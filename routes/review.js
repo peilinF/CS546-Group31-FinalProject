@@ -17,7 +17,7 @@ router
     }
     const reviewId = xss(req.body.reviewId);
     const userId = req.session.user.userId;
-    let parkName = xss(req.body.parkName);
+    let parkName = req.session.pageNow[1].park.parkName;
     if (!reviewId || !userId) {
       return res.status(400).json({ error: 'You must provide review or user Id' });
     }
@@ -28,18 +28,18 @@ router
     if (reviewId.trim().length === 0) {
       return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
     }
-    if (typeof parkName !== 'string') {
-      return res.status(400).json({ error: 'parkName must be a string' });
-    }
-    if (parkName.trim().length === 0) {
-      return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
-    }
+    // if (typeof parkName !== 'string') {
+    //   return res.status(400).json({ error: 'parkName must be a string' });
+    // }
+    // if (parkName.trim().length === 0) {
+    //   return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
+    // }
 
-    parkName = parkName.trim();
-    if (parkName === '') {
-      return res.status(400).json({ error: "Do not change my Park name!" });
-    }
-    parkName = helper.changeParkName(parkName);
+    // parkName = parkName.trim();
+    // if (parkName === '') {
+    //   return res.status(400).json({ error: "Do not change my Park name!" });
+    // }
+    // parkName = helper.changeParkName(parkName);
     try{
       const review = await reviewData.getReview(reviewId);
       if(review.userId.toString() !== userId.toString()){
@@ -64,21 +64,21 @@ router
     const reviewTitle = xss(req.body.reviewTitle);
     const content = xss(req.body.content);
     let rating = xss(req.body.rating);
-    let parkName = xss(req.body.parkName);
+    let parkName = req.session.pageNow[1].park.parkName;
     
     if (!reviewTitle || !content || !rating || !parkName) {
       return res.status(400).json({ error: 'You must provide data for all fields' });
     }
 
-    if (typeof parkName !== 'string') {
-      return res.status(400).json({ error: 'parkName must be a string' });
-    }
-    if (parkName.trim().length === 0) {
-      return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
-    }
+    // if (typeof parkName !== 'string') {
+    //   return res.status(400).json({ error: 'parkName must be a string' });
+    // }
+    // if (parkName.trim().length === 0) {
+    //   return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
+    // }
 
-    parkName = parkName.trim();
-    parkName = helper.changeParkName(parkName);
+    // parkName = parkName.trim();
+    // parkName = helper.changeParkName(parkName);
     try{
       rating = parseInt(rating);
       const park = await parksData.getParkByName(parkName);
@@ -94,6 +94,33 @@ router
     }
   });
 
+  router.route('/edit').put(async (req, res) => {
+
+    if (!req.session.user) {
+      error = 'You have to login to edit review!';
+      return res.status(400).json({ error: error });
+    }
+    const reviewId = xss(req.body.reviewId);
+    const reviewTitle = xss(req.body.reviewTitle);
+    const content = xss(req.body.content);
+    let rating = xss(req.body.rating);
+    let parkName = req.session.pageNow[1].park.parkName;
+    const userId = req.session.user.userId;
+    if (!reviewId || !reviewTitle || !content || !rating || !parkName) {
+      return res.status(400).json({ error: 'You must provide data for all fields' });
+    }
+
+    if (typeof parkName !== 'string') {
+      return res.status(400).json({ error: 'parkName must be a string' });
+    }
+    if (parkName.trim().length === 0) {
+      return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
+    }
+
+    parkName = parkName.trim();
+
+  });
+
   router
     .route('/like')
     .post(async (req, res) => {
@@ -103,7 +130,7 @@ router
       }
       const reviewId = xss(req.body.reviewId);
       const userId = req.session.user.userId;
-      let parkName = xss(req.body.parkName);
+      let parkName = req.session.pageNow[1].park.parkName;
       if (!reviewId || !userId) {
         return res.status(400).json({ error: 'You must provide reviewId or UserId' });
       }
@@ -118,14 +145,14 @@ router
       if (reviewId.trim().length === 0) {
         return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
       }
-      if (typeof parkName !== 'string') {
-        return res.status(400).json({ error: 'parkName must be a string' });
-      }
-      if (parkName.trim().length === 0) {
-        return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
-      }
+      // if (typeof parkName !== 'string') {
+      //   return res.status(400).json({ error: 'parkName must be a string' });
+      // }
+      // if (parkName.trim().length === 0) {
+      //   return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
+      // }
 
-      parkName = parkName.trim();
+      // parkName = parkName.trim();
       
       try{
         await likesClass.addLike(userId, reviewId);
@@ -145,7 +172,7 @@ router
       const reviewId = xss(req.body.reviewId);
 
       const userId = req.session.user.userId;
-      let parkName = xss(req.body.parkName);
+      let parkName = req.session.pageNow[1].park.parkName;
 
       if (!reviewId || !userId) {
         return res.status(400).json({ error: 'You must provide review or user Id' });
@@ -157,14 +184,14 @@ router
       if (reviewId.trim().length === 0) {
         return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
       }
-      if (typeof parkName !== 'string') {
-        return res.status(400).json({ error: 'parkName must be a string' });
-      }
-      if (parkName.trim().length === 0) {
-        return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
-      }
+      // if (typeof parkName !== 'string') {
+      //   return res.status(400).json({ error: 'parkName must be a string' });
+      // }
+      // if (parkName.trim().length === 0) {
+      //   return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
+      // }
 
-      parkName = parkName.trim();
+      // parkName = parkName.trim();
       try{
         await likesClass.removeLike(userId, reviewId);
         return res.status(200).json({parkName: parkName});

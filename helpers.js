@@ -2,7 +2,7 @@
 const bcrypt = require('bcryptjs');
 const { ObjectId } = require('mongodb');
 const parkNameList = require('./constant').parkNameList;
-
+const fs = require('fs');
 function validDate(date) {
   if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(date)) throw 'Date must be in the format MM/DD/YYYY';
 
@@ -162,6 +162,12 @@ function changeParkName(parkName) {
   }
 }
 
+function image() {
+  let rawdata = fs.readFileSync("image.json");
+  let images = JSON.parse(rawdata);
+  return images;
+}
+
 module.exports = {
   validDate,
   validTime,
@@ -175,5 +181,6 @@ module.exports = {
   checkParkName,
   checkReviewID,
   checkparamsUpdateUser,
-  changeParkName
+  changeParkName,
+  image
 }

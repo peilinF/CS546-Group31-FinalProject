@@ -16,7 +16,7 @@ router
       return res.status(400).json({error: error});
     }
 
-    let parkName = xss(req.body.parkName);
+    let parkName = req.session.pageNow[1].park.parkName;
     const reviewId = xss(req.body.reviewId);
     let content = xss(req.body.replyContent);
     parkName = parkName.trim();
@@ -27,14 +27,6 @@ router
     if (reviewId.trim().length === 0) {
       return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
     }
-    if (typeof parkName !== 'string') {
-      return res.status(400).json({ error: 'parkName must be a string' });
-    }
-    if (parkName.trim().length === 0) {
-      return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
-    }
-
-    parkName = parkName.trim();
     try{
       if(typeof content !== 'string') throw 'content must be a string';
       content = content.trim();
@@ -61,27 +53,22 @@ router
       return res.status(400).json({error: error});
     }
 
-    let parkName = xss(req.body.parkName);
+    let parkName = req.session.pageNow[1].park.parkName;
     const commentId = xss(req.body.commentId);
     parkName = parkName.trim();
 
+    console.log(commentId);
     if (typeof commentId !== 'string') {
       return res.status(400).json({ error: 'reviewId must be a string' });
     }
     if (commentId.trim().length === 0) {
       return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
     }
-    if (typeof parkName !== 'string') {
-      return res.status(400).json({ error: 'parkName must be a string' });
-    }
-    if (parkName.trim().length === 0) {
-      return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
-    }
 
     parkName = parkName.trim();
 
     const userId = req.session.user.userId;
-    const comment = await commentData.getCommentById(commentId.toString());
+    const comment = await commentData.getCommentById(commentId);
     if(comment.userId.toString() !== userId.toString()){
       return res.status(400).json({error: 'You are not the author of this comment!'});
     }
