@@ -16,6 +16,17 @@
         deleteReview = $(".deleteReview");
         deleteReply = $(".deleteReply");
         editReview = $(".editReview");
+        windowCoords = $("#windowCoord");
+        // xCoord = $("#xCoord").text();
+        yCoord = $("#yCoord").text();
+    var  y;
+    window.scrollTo(0, yCoord);
+    $(document).click(function (e) {
+        y = e.pageY;
+    });
+    if (windowCoords.is(':visible')) {
+        windowCoords.hide();
+    }
     if (id.is(':visible')) {
         id.hide();
     }
@@ -26,8 +37,8 @@
         window.location.href = "/login";
     });
     postReview.submit(function (e) {
-        var parent = $(this).parent().parent();
         e.preventDefault();
+        var parent = $(this).parent().parent();
         if (!title.val() || !content.val() || !rating.val()) {
             review.append("<div class='error' role='alert'>Please fill all the fields</div>");
             return;
@@ -49,6 +60,7 @@
                     reviewTitle: title.val(),
                     content: content.val(),
                     rating: rating.val(),
+                    y: y,
                 }),
                 error: function (err) {
                     // window.location.href = "/review/error/" + err.responseText;
@@ -91,6 +103,7 @@
             data: JSON.stringify({
                 reviewId: reviewId,
                 replyContent: replyContent,
+                y: y,
             }),
             error: function (err) {
                 alert(err.responseText);
@@ -153,6 +166,7 @@
 
     deleteReview.click(function (e) {
         e.preventDefault();
+        y = e.pageY;
         var parent = $(this).parent().parent();
         var reviewId =parent.find('.review-id').text();
         var requestConfig = {
@@ -161,6 +175,7 @@
             contentType: "application/json",
             data: JSON.stringify({
                 reviewId: reviewId,
+                y: y,
             }),
             error: function (err) {
                 alert(err.responseText);
@@ -174,6 +189,7 @@
 
     deleteReply.click(function (e) {
         e.preventDefault();
+        y = e.pageY;
         var parent = $(this).parent();
         var commentId =parent.find('.comment-id').text();
         var requestConfig = {
@@ -182,6 +198,7 @@
             contentType: "application/json",
             data: JSON.stringify({
                 commentId: commentId,
+                y: y,
             }),
             error: function (err) {
                 alert(err.responseText);
