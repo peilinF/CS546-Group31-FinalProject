@@ -4,8 +4,10 @@
     <ul>
         <li>Name: {{user.userName}}</li>
         <li>User ID: {{user._id}}</li>
+        {{#if myProfile}}
         <li>Email: {{user.email}}</li>
         <li>Birth Date: {{user.birthDate}}</li>
+        {{/if}}
         <li>Total Reviews Amount: {{user.reviews.length}}</li>
         <li>Total like received: {{user.likesReceivedAmount}}</li>
         <li>Total like sent: {{user.likes.length}}</li>
@@ -24,9 +26,9 @@
         </form>
     </section>
 </article>
-<button id="btn-parkName-list">Visited/Wished Park List</button>
 <span id="profile-user-name" style="display: none;">{{user.userName}}</span>
 {{#if myProfile}}
+<button id="btn-parkName-list">Visited/Wished Park List</button>
 <button id="btn-edit-profile">Edit your profile</button>
 {{/if}}
 <a href="/">Homepage</a>
