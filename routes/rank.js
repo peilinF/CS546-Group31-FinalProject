@@ -39,6 +39,7 @@ router.route("/user/results").get(async (req, res) => {
     res.status(400);
     return;
   }
+  if (!itemsNum) itemsNum = 10
   try {
     const results = await rankData.rankUsers(option, itemsNum, reverse)
     res.render('rankUsers', {option: option, itemsNum: itemsNum, reverse: reverse, results: results})
@@ -63,6 +64,7 @@ router.route("/review/results").get(async (req, res) => {
     res.status(400);
     return;
   }
+  if (!itemsNum) itemsNum = 10
   try {
     const results = await rankData.rankReviews(option, itemsNum, reverse)
     res.render('rankReviews', {option: option, itemsNum: itemsNum, reverse: reverse, results: results})
