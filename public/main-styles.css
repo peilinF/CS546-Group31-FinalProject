@@ -290,6 +290,17 @@ li {
   bottom: 0;
 }
 
+.cute-button {
+  background-color: #F8DE7E;
+  font-family: 'Comic Sans MS', 'cursive';
+  color: #FFFFFF;  /* 字体颜色为白色 */
+  font-size: 16px;  /* 字体大小为 16 像素 */
+  border: none;  /* 没有边框 */
+  padding: 10px 20px;  /* 内边距为 10 像素，外边距为 20 像素 */
+  cursor: pointer;  /* 鼠标指针变为手指 */
+}
+
+
 .parklist div.square {
   width: 250px;
   height: 310px;

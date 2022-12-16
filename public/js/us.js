@@ -545,12 +545,12 @@ wishlist.onclick = function () {
 	});
 }
 
-if(document.getElementById("Clean")!=null){
-	let clean = document.getElementById("Clean");
-	clean.onclick = function(){
-		window.location.href = "/";
-	}
-}
+// if(document.getElementById("Clean")!=null){
+// 	let clean = document.getElementById("Clean");
+// 	clean.onclick = function(){
+// 		window.location.href = "/";
+// 	}
+// }
 
 if(document.getElementById("btn-record-data")!=null){
 	let getRecordButton = document.getElementById("btn-record-data");
