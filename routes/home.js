@@ -1133,70 +1133,70 @@ router.route("/HI").get(async (req, res) => {
 });
 
 router.route("/updatepark").post(async (req, res) => {
-  try{
-  if((xss(req.session.user)).length == 0){
-    res.status(404).render('error', {path: '/homepage', statucode: 404, error: 'you have not logged in'});
+  try {
+    if ((xss(req.session.user)).length == 0) {
+      res.status(404).render('error', { path: '/homepage', statucode: 404, error: 'you have not logged in' });
+      return;
+    }
+    let list = (xss(req.body.data)).split(',');
+    let user = await userData.getUserById(xss(req.session.user.userId));
+    let parkvisited = user.parksHaveVisited;
+    let wish = user.parksWishToGo;
+    let flag = [0, 0];
+    for (i = 0; i < list.length; i++) {
+      let record = [];
+      record = list[i].split('@');
+      for (j = 0; j < parkvisited.length; j++) {
+        if (parkvisited[j] == record[0]) {
+          flag[0] = 1;
+        }
+      }
+      for (j = 0; j < wish.length; j++) {
+        if (wish[j] == record[0]) {
+          flag[1] = 1;
+        }
+      }
+      if (record[1] == 'havebeen') {
+        if (flag[0] == 0 && flag[1] == 1) {
+          await userData.removeParksWishToGO(user._id, record[0]);
+          await userData.addParksHaveVisited(user._id, record[0]);
+        } else if (flag[1] == 0 && flag[0] == 1) {
+          console.log('It is already in the list');
+        } else if (flag[1] == 1 && flag[0] == 1) {
+          await userData.removeParksWishToGO(user._id, record[0]);
+        } else if (flag[1] == 0 && flag[0] == 0) {
+          await userData.addParksHaveVisited(user._id, record[0]);
+        }
+      }
+      if (record[1] == 'never') {
+        if (flag[0] == 1 && flag[1] == 0) {
+          await userData.removeParksHaveVisited(user._id, record[0]);
+        } else if (flag[1] == 1 && flag[0] == 0) {
+          await userData.removeParksWishToGO(user._id, record[0]);
+        } else if (flag[1] == 1 && flag[0] == 1) {
+          await userData.removeParksWishToGO(user._id, record[0]);
+          await userData.removeParksHaveVisited(user._id, record[0]);
+        } else if (flag[1] == 0 && flag[0] == 0) {
+          console.log('No record on the list');
+        }
+      }
+      if (record[1] == 'wish') {
+        if (flag[0] == 1 && flag[1] == 0) {
+          await userData.removeParksHaveVisited(user._id, record[0]);
+          await userData.addParksWishToGO(user._id, record[0]);
+        } else if (flag[1] == 0 && flag[0] == 1) {
+          console.log('It is already in the list');
+        } else if (flag[1] == 1 && flag[0] == 1) {
+          await userData.removeParksHaveVisited(user._id, record[0]);
+        } else if (flag[1] == 0 && flag[0] == 0) {
+          await userData.addParksWishToGO(user._id, record[0]);
+        }
+      }
+      flag = [0, 0];
+    }
+  } catch (e) {
+    res.status(500).send("failed to fetch data");
     return;
-  }
-  let list = (xss(req.body.data)).split(',');
-  let user = await userData.getUserById(xss(req.session.user.userId));
-  let parkvisited = user.parksHaveVisited;
-  let wish = user.parksWishToGo;
-  let flag =[0,0];
-  for(i=0;i<list.length;i++){
-    let record = [];
-    record = list[i].split('@');
-    for(j=0;j<parkvisited.length;j++){
-      if(parkvisited[j]==record[0]){
-        flag[0]=1;
-      }
-    }
-    for(j=0;j<wish.length;j++){
-      if(wish[j]==record[0]){
-        flag[1]=1;
-      }
-    }
-    if(record[1]=='havebeen'){
-      if(flag[0]==0&&flag[1]==1){
-        await userData.removeParksWishToGO(user._id,record[0]);
-        await userData.addParksHaveVisited(user._id,record[0]);
-      }else if(flag[1]==0&&flag[0]==1){
-        console.log('It is already in the list');
-      }else if(flag[1]==1&&flag[0]==1){
-        await userData.removeParksWishToGO(user._id,record[0]);
-      }else if(flag[1]==0&&flag[0]==0){
-        await userData.addParksHaveVisited(user._id,record[0]);
-      }
-    }
-    if(record[1]=='never'){
-      if(flag[0]==1&&flag[1]==0){
-        await userData.removeParksHaveVisited(user._id,record[0]);
-      }else if(flag[1]==1&&flag[0]==0){
-        await userData.removeParksWishToGO(user._id,record[0]);
-      }else if(flag[1]==1&&flag[0]==1){
-        await userData.removeParksWishToGO(user._id,record[0]);
-        await userData.removeParksHaveVisited(user._id,record[0]);
-      }else if(flag[1]==0&&flag[0]==0){
-        console.log('No record on the list');
-      }
-    }
-    if(record[1]=='wish'){
-      if(flag[0]==1&&flag[1]==0){
-        await userData.removeParksHaveVisited(user._id,record[0]);
-        await userData.addParksWishToGO(user._id,record[0]);
-      }else if(flag[1]==0&&flag[0]==1){
-        console.log('It is already in the list');
-      }else if(flag[1]==1&&flag[0]==1){
-        await userData.removeParksHaveVisited(user._id,record[0]);
-      }else if(flag[1]==0&&flag[0]==0){
-        await userData.addParksWishToGO(user._id,record[0]);
-      }
-    }
-    flag =[0,0];
-  }
-}catch(e){
-  res.status(500).send("failed to fetch data");
-  return;
   }
 });
 module.exports = router;
