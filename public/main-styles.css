@@ -292,10 +292,12 @@ li {
 
 .parklist div.square {
   width: 250px;
-  height: 300px;
+  height: 310px;
 }
 
 .parklist div.square h5 {
+  font-weight: 400;
+  font-size: 17px;
   text-align: center;
   height: 0px;
   padding: 5px;
