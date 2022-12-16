@@ -25,7 +25,7 @@ const constructorMethod = (app) => {
 
   app.use('*', (req, res) => {
     let error = "Page not found"
-    res.status(404).render('error', { path: '', statuscode: 404, error: error });
+    res.status(404).render('error', { path: req.baseUrl, statuscode: 404, error: error });
   });
 };
 
