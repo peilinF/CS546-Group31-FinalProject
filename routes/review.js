@@ -33,18 +33,7 @@ router
     if (reviewId.trim().length === 0) {
       return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
     }
-    // if (typeof parkName !== 'string') {
-    //   return res.status(400).json({ error: 'parkName must be a string' });
-    // }
-    // if (parkName.trim().length === 0) {
-    //   return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
-    // }
-
-    // parkName = parkName.trim();
-    // if (parkName === '') {
-    //   return res.status(400).json({ error: "Do not change my Park name!" });
-    // }
-    // parkName = helper.changeParkName(parkName);
+   
     try{
       const review = await reviewData.getReview(reviewId);
       if(review.userId.toString() !== userId.toString()){
@@ -70,7 +59,6 @@ router
     const content = xss(req.body.content);
     let rating = xss(req.body.rating);
     let y = xss(req.body.y);
-    console.log(y);
     req.session.location = {y: y};
     let parkName = req.session.pageNow[1].park.parkName;
     
@@ -78,12 +66,12 @@ router
       return res.status(400).json({ error: 'You must provide data for all fields' });
     }
 
-    // if (typeof parkName !== 'string') {
-    //   return res.status(400).json({ error: 'parkName must be a string' });
-    // }
-    // if (parkName.trim().length === 0) {
-    //   return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
-    // }
+    if (typeof parkName !== 'string') {
+      return res.status(400).json({ error: 'parkName must be a string' });
+    }
+    if (parkName.trim().length === 0) {
+      return res.status(400).json({ error: 'parkName cannot be an empty string or just spaces' });
+    }
 
     // parkName = parkName.trim();
     // parkName = helper.changeParkName(parkName);
@@ -105,7 +93,7 @@ router
   router.route('/edit').put(async (req, res) => {
 
     if (!req.session.user) {
-      error = 'You have to login to edit review!';
+      error = 'You have to login to like review!';
       return res.status(400).json({ error: error });
     }
     const reviewId = xss(req.body.reviewId);
@@ -146,7 +134,7 @@ router
     .route('/like')
     .post(async (req, res) => {
       if(!req.session.user){
-        error = 'You have to login to add review!';
+        error = 'You have to login to unlike review!';
         return res.status(400).json({error: error});
       }
       const reviewId = xss(req.body.reviewId);

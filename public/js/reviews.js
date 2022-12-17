@@ -1,6 +1,6 @@
 (function ($) {
     var login = $("#login"),
-        title = $("#title"),
+        title = $("#submitTitle"),
         content = $("#content"),
         rating = $("#rating"),
         postReview = $("#postReview"),
@@ -37,6 +37,7 @@
     postReview.submit(function (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
+        parent.find(".error").remove();
         if (!title.val() || !content.val() || !rating.val()) {
             review.append("<div class='error' role='alert'>Please fill all the fields</div>");
             return;
@@ -75,6 +76,7 @@
         e.preventDefault();
         var thisReply = $(this).parent().parent();
         if (isClicked && thisReply.find('.replyContent').length > 1) {
+            thisReply.find(".error").remove();
             thisReply.find('.replyContent').remove();
             thisReply.find('.editReview').prop('disabled', false);
             isClicked = false;
@@ -84,7 +86,10 @@
             thisReply.append("<div class='replyContent'><form name='postReply' id='postReply'><textarea class='replyContent' id='replyContent' rows='4' cols='50' placeholder='Reply'></textarea> <input type='submit' value='Submit' /></form></div>");
             var replyClass = $("#postReply");
             thisReply.find('.editReview').prop('disabled', true);
+            var replyContent = $(this).parent().find('.replyContent').val();
+            thisReply.find('.error').remove();
             replyClass.submit(replySubmit);
+            
         } else {
             alert("Close the other reply box first");
         }
@@ -107,15 +112,27 @@
                 alert(err.responseText);
             },
         };
-        $.ajax(requestConfig).then(function (responseMessage) {
-            window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
-        });
+        if (!replyContent) {
+            parent.find('.error').remove();
+            parent.append("<div class='error' role='alert'>Please fill all the fields</div>");
+            return;
+        } else if (replyContent.length > 100) {
+            parent.find('.error').remove();
+            parent.append("<div class='error' role='alert'>Reply should be less than 100 characters</div>");
+            return;
+        } else {
+            
+            $.ajax(requestConfig).then(function (responseMessage) {
+                window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
+            });
+        }
     };
     
     like.click(likePost);
     function likePost (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
+        parent.find('.error').remove();
         var reviewId =parent.find('.review-id').text();
         var requestConfig = {
             method: 'POST',
@@ -133,6 +150,8 @@
             parent.find('.like').remove();
             parent.find('.unlikeD').remove();
             parent.find('.reply').after(' <button  type="button" class="unlike">Unlike</button> <div class="likes">Liked!</div>');
+            var likes = parent.find('.review-likes');
+            likes.text('Likes: '+(parseInt(likes.text().split(' ')[1]) + 1));
             parent.find('.unlike').click(unlikePost);
         });
     };
@@ -140,6 +159,7 @@
     function unlikePost (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
+        parent.find('.error').remove();
         var reviewId =parent.find('.review-id').text();
         var requestConfig = {
             method: 'POST',
@@ -157,6 +177,8 @@
             parent.find(".likes").remove();
             parent.find('.unlike').remove();
             parent.find('.reply').after(' <button  type="button" class="like">Like</button> <div class="unlikeD">unlike!</div>');
+            var likes = parent.find('.review-likes');
+            likes.text('Likes: '+(parseInt(likes.text().split(' ')[1]) - 1));
             parent.find('.like').click(likePost);
         });
         return;
@@ -218,12 +240,14 @@
         var content =parent.find('.content').text();
         var rating =parent.find('.rating').text();
         if (editIsClicked && parent.find('.editContent').length > 0) {
+            parent.find(".error").remove();
             parent.find('.editContent').remove();
             editIsClicked = false;
             times = 0;
             parent.find('.reply').prop('disabled', false);
             return;
         } else if (!editIsClicked && parent.find('.editContent').length == 0) {
+            parent.find('.error').remove();
             editIsClicked = true;
             times = 1;
             parent.append("<div class='editContent'><form name='editReview' id='editReview'><input type='text' id='editTitle' placeholder='Title' /> <textarea class='editContent' id='editContent' rows='4' cols='50' placeholder='Content'></textarea> <input type='number' id='editRating' min='1' max='5' placeholder='Out of 5' /> <input type='submit' value='Submit' /></form></div>");
@@ -258,10 +282,21 @@
                 alert(err.responseText);
             },
         };
+        if (reviewTitle == "" || content == "" || rating == "") {
+            parent.find('.error').remove();
+            parent.append("<div class='error' role='alert'>Please fill all the fields</div>");
+            return;
+        } else if (rating > 5 || rating < 1) {
+            parent.find('.error').remove();
+            parent.append("<div class='error' role='alert'>Rating must be between 1 and 5</div>");
+            return;
+        } else {
+            $.ajax(requestConfig).then(function (responseMessage) {
+                window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
+            });
 
-        $.ajax(requestConfig).then(function (responseMessage) {
-            window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
-        });
+        }
+        
     }
 
 })(window.jQuery);
