@@ -406,6 +406,13 @@ img:hover {
 
 .review-list-results {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.single-review {
+  margin: 5px 5px 5px 5px;
+  background-color: white;
+  width: 150px;
 }
 
 .profile-deleteUi{
@@ -498,9 +505,4 @@ input[type="password"] {
   background-image: url("/public/images/desert.png");
   background-size: cover;
   background-color: rgba(255, 255, 255, 0.5);
-}
-
-.single-review {
-  margin: 5px 5px 5px 5px;
-  background-color: white;
 }

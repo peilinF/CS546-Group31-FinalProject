@@ -139,6 +139,7 @@ reviewListButton.addEventListener('click', (event) => {
                         let deleteButton = document.createElement("button")
                         deleteButton.className = "deleteReview"
                         deleteButton.innerText = "Delete"
+                        deleteButton.style.marginTop = "0px"
                         deleteButton.addEventListener("click", deleteAction)
 
                         let deleteUI = document.createElement("div")
