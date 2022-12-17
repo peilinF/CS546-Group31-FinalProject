@@ -18,8 +18,11 @@ router
     const reviewId = xss(req.body.reviewId);
     const userId = req.session.user.userId;
     let y = xss(req.body.y);
-    req.session.location = {y: y};
-    let parkName = req.session.pageNow[1].park.parkName;
+    let parkName
+    if (y) {
+      req.session.location = {y: y};
+      parkName = req.session.pageNow[1].park.parkName;
+    }
     if (!reviewId || !userId) {
       return res.status(400).json({ error: 'You must provide review or user Id' });
     }

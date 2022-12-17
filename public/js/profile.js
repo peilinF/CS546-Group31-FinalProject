@@ -103,37 +103,57 @@ reviewListButton.addEventListener('click', (event) => {
             dataType: 'json',
             success: (reviewList) => {
                 let reviewListTitle = document.createElement("h2")
-                reviewListTitle.innerText = `Reviews Posted by ${profileUserName.innerText}`
-                let reviewListTable = document.createElement("table")
-                let reviewListTr = document.createElement("tr")
-                let reviewTitle = document.createElement("th")
-                reviewTitle.innerText = 'Title'
-                let reviewRating = document.createElement("th")
-                reviewRating.innerText = 'Rating'
-                let reviewPark = document.createElement("th")
-                reviewPark.innerText = 'Park'
-                reviewListTr.appendChild(reviewTitle)
-                reviewListTr.appendChild(reviewRating)
-                reviewListTr.appendChild(reviewPark)
-                reviewListTable.appendChild(reviewListTr)
+                reviewListTitle.innerText = `Reviews posted by ${profileUserName.innerText}`
+                let reviewListResults = document.createElement("div")
+                reviewListResults.className = "review-list-results"
+                if (reviewList.length === 0) {
+                    reviewListTitle.innerText = `${profileUserName.innerText} has not posted any review yet`
+                }
                 for (let review of reviewList) {
-                    let reviewListTr = document.createElement("tr")
-                    let reviewTitle = document.createElement("th")
+                    let singleReview = document.createElement("div")
+                    singleReview.className = "single-review"
+
+                    let reviewId = document.createElement("p")
+                    reviewId.className = "review-info"
+                    reviewId.style.display = "none"
+                    reviewId.innerText = `${review._id}`
+                    let reviewTitle = document.createElement("div")
                     reviewTitle.innerText = `${review.title}`
-                    let reviewRating = document.createElement("th")
-                    reviewRating.innerText = `${review.rating}`
-                    let reviewPark = document.createElement("th")
+                    reviewTitle.className = "sigle-review-item"
+                    let reviewRating = document.createElement("div")
+                    reviewRating.innerText = `Rating: ${review.rating}`
+                    reviewRating.className = "sigle-review-item"
+                    let reviewPark = document.createElement("div")
+                    reviewPark.className = "sigle-review-item"
                     let reviewParkLink = document.createElement("a")
                     reviewParkLink.innerText = `${review.parkName}`
                     reviewParkLink.href = `/park/search?searchParkName=${review.parkName}`;
-                    reviewPark.appendChild(reviewParkLink)
-                    reviewListTr.appendChild(reviewTitle)
-                    reviewListTr.appendChild(reviewRating)
-                    reviewListTr.appendChild(reviewPark)
-                    reviewListTable.appendChild(reviewListTr)
+                    singleReview.appendChild(reviewId)
+                    singleReview.appendChild(reviewTitle)
+                    singleReview.appendChild(reviewTitle)
+                    singleReview.appendChild(reviewRating)
+                    singleReview.appendChild(reviewPark)
+                    
+                    if (myProfile === 'true') {
+                        let deleteButton = document.createElement("button")
+                        deleteButton.className = "deleteReview"
+                        deleteButton.innerText = "Delete"
+                        deleteButton.addEventListener("click", deleteAction)
+                        let editButton = document.createElement("button")
+                        editButton.className = "editReview"
+                        editButton.innerText = "Edit"
+
+                        let deleteUI = document.createElement("div")
+                        deleteUI.className = "profile-deleteUi"
+                        deleteUI.appendChild(deleteButton)
+                        deleteUI.appendChild(editButton)
+                        singleReview.appendChild(deleteUI)
+                    }
+                    
+                    reviewListResults.appendChild(singleReview)
                 }
                 profileReviewList.appendChild(reviewListTitle)
-                profileReviewList.appendChild(reviewListTable);
+                profileReviewList.appendChild(reviewListResults);
             },
             error: (e) => {
                 alert(e.responseText);
@@ -151,3 +171,23 @@ reviewListButton.addEventListener('click', (event) => {
         button.style.background = "pink"
     }
 })
+
+const deleteAction = async (event) => {
+    event.preventDefault();
+    let singleReview = event.target.parentElement.parentElement
+    let reviewId = singleReview.firstElementChild.innerText;
+    $.ajax({
+        method: 'DELETE',
+        url: '/review/delete',
+        contentType: "application/json",
+        data: JSON.stringify({
+            reviewId: reviewId,
+        }),
+        success: () => {
+            singleReview.remove()
+        },
+        error: (err) => {
+            alert(err.responseText);
+        }
+    })
+}
