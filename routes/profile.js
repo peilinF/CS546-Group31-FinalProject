@@ -19,10 +19,10 @@ router
         res.status(200).render('profile',{ user: user, myProfile: true});
       } catch (e) {
         if (e === "User not found") {
-          res.status(404).render('error', { path: '/profile', statucode: 404, error: e })
+          res.status(404).render('error', { path: '/profile', statuscode: 404, error: e })
           return;
         } else {
-          res.status(400).render('error', { path: '/profile', statucode: 400, error: e })
+          res.status(400).render('error', { path: '/profile', statuscode: 400, error: e })
         }
       }
     } else {

@@ -1,7 +1,7 @@
 <div class="parklist">
      {{#each park}}
         <div class="square" id={{_id}}>
-            <h5>{{parkName}}</h5>
+            <p>{{parkName}}</p>
             <img class="cover-img" src="{{park_picture}}" alt="{{parkName}}" />
             <form action="http://localhost:3000/updatepark" method="post">
                 <select name="user_park" id={{@index}}>
@@ -14,6 +14,4 @@
      {{/each}}
 </div>
 <input type="submit" value="Submit" id='sub'/>
-<a href="/">
-    <input type="button" value="HomePage"/>
-</a>
+<a href="/">Homepage</a>

@@ -61,7 +61,7 @@ router.route("/review/results").get(async (req, res) => {
     res.status(200)
     return
   } catch (e) {
-    res.render('error', {path: '/rank/review/result', statucode: 500, error : e});
+    res.render('error', {path: '/rank/review/result', statuscode: 500, error : e});
     res.status(500);
     return;
   }
@@ -85,7 +85,7 @@ router.route("/park/results").get(async (req, res) => {
     res.status(200)
     return
   } catch (e) {
-    res.render('error', {path: '/rank/park/result', statucode: 500, error : e});
+    res.render('error', {path: '/rank/park/result', statuscode: 500, error : e});
     res.status(500);
     return;
   }
