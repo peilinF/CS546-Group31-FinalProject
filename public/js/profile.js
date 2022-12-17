@@ -128,6 +128,7 @@ reviewListButton.addEventListener('click', (event) => {
                     let reviewParkLink = document.createElement("a")
                     reviewParkLink.innerText = `${review.parkName}`
                     reviewParkLink.href = `/park/search?searchParkName=${review.parkName}`;
+                    reviewPark.appendChild(reviewParkLink)
                     singleReview.appendChild(reviewId)
                     singleReview.appendChild(reviewTitle)
                     singleReview.appendChild(reviewTitle)
