@@ -387,3 +387,6 @@ img:hover {
   margin-top: 50px;
   }
   
+.div.profile-btn {
+  display: flex;
+}
