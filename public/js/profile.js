@@ -5,7 +5,7 @@
 //     if (e.target.innerText === "Display parks visited and wished list") {
 //         parkList.style.display = '';
 //         e.target.innerText = "Hide parks visited and wished list";
-//         e.target.style.backgroundColor = "pink";
+//         e.target.style.backgroundColor = "#c44e6b";
 //     } else {
 //         parkList.style.display = 'none';
 //         e.target.innerText = "Display parks visited and wished list";
@@ -20,7 +20,7 @@ if (profileEditButton) {
         if (e.target.innerText === "Edit your profile") {
             profileEditForm.style.display = '';
             e.target.innerText = "Cancel";
-            e.target.style.backgroundColor = "pink";
+            e.target.style.backgroundColor = "#c44e6b";
         } else {
             profileEditForm.style.display = 'none';
             e.target.innerText = "Edit your profile";
@@ -88,7 +88,7 @@ if (myProfile === 'true') {
         } else {
             profileParkList.style.display = ""
             button.innerText = "Hidden"
-            button.style.background = "pink"
+            button.style.background = "#c44e6b"
         }
     })
 }
@@ -169,7 +169,7 @@ reviewListButton.addEventListener('click', (event) => {
     } else {
         profileReviewList.style.display = ""
         button.innerText = "Hidden(Reviews)"
-        button.style.background = "pink"
+        button.style.background = "#c44e6b"
     }
 })
 

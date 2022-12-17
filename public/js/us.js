@@ -581,7 +581,7 @@ if(document.getElementById("btn-record-data")!=null){
 			wishedRecord.style.display = ""
 			visitedRecord.style.display = ""
 			button.innerText = "Hidden"
-			button.style.background = "pink"
+			button.style.background = "#c44e6b"
 		}
 	})
 }

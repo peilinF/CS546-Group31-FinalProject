@@ -86,7 +86,7 @@ parkListButton.addEventListener("click", (e) => {
     });
     parkListContainer.appendChild(parkListResult)
     e.target.innerText = "Hide Park List";
-    e.target.style.backgroundColor = "pink";
+    e.target.style.backgroundColor = "#c44e6b";
   } else {
     let parkListResult = document.querySelector(".park-list-result")
     parkListResult.remove()
