@@ -89,6 +89,12 @@
             var replyContent = $(this).parent().find('.replyContent').val();
             thisReply.find('.error').remove();
             replyClass.submit(replySubmit);
+            $('.replyContent').keydown(function (event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    $(this).parent().submit();
+                }
+            });
             
         } else {
             alert("Close the other reply box first");
