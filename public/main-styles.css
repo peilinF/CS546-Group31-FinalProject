@@ -200,6 +200,13 @@ form {
   flex-direction: column;
 }
 
+form#myForm {
+  display: flex;
+  width: 500px;
+  margin-left: 80px;
+  flex-direction: column;
+}
+
 .input-field {
   position: relative;
   margin-top: 2rem;
@@ -433,4 +440,30 @@ input[type="password"] {
   left: 0;
   content: "✖";
   padding-left: 8px;
+}
+
+.footer {
+  position:relative;
+  height: 50px;
+  text-align: center;
+  line-height: 15px;
+  margin-top: 20px;
+  padding-top: 20px;
+  bottom: 0px;
+  width: 100%;
+}
+
+.mapImg {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.mapImg:hover {
+  transform:none
+}
+
+.loginPage {
+  background-image: url("/public/images/desert.png");
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.5);
 }
