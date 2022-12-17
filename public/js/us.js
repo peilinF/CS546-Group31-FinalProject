@@ -576,7 +576,7 @@ if(document.getElementById("btn-record-data")!=null){
 			wishedRecord.style.display = "none"
 			visitedRecord.style.display = "none"
 			button.innerText = "Records"
-			button.style.background = "#839788"
+			button.style.background = "#627d69"
 		} else {
 			wishedRecord.style.display = ""
 			visitedRecord.style.display = ""

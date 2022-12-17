@@ -91,6 +91,6 @@ parkListButton.addEventListener("click", (e) => {
     let parkListResult = document.querySelector(".park-list-result")
     parkListResult.remove()
     e.target.innerText = "Get Park List";
-    e.target.style.backgroundColor = "#839788";
+    e.target.style.backgroundColor = "#627d69";
   }
 });

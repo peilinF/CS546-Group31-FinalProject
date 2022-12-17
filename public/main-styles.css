@@ -121,7 +121,7 @@ a:link {
   color: #28567b;
 }
 a:visited {
-  color: #839788;
+  color: #627d69;
 }
 a:hover {
   color: #baa898;
@@ -142,7 +142,7 @@ a.new {
 }
 
 .footerClass {
-  color: #839788;
+  color: #627d69;
   margin-bottom: 10px;
   font-size: 20px;
   font-family: Helvetica, Arial, sans-serif;
@@ -156,7 +156,7 @@ input[type="number"] {
 button {
   font-family: "EB Garamond";
   font-size: 17px;
-  background-color: #839788;
+  background-color: #627d69;
   border: none;
   border-radius: 8px;
   color: white;
@@ -169,7 +169,7 @@ button {
 
 button:hover {
   background-color: white;
-  color: #839788;
+  color: #627d69;
 }
 
 .login {

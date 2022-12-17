@@ -9,7 +9,7 @@
 //     } else {
 //         parkList.style.display = 'none';
 //         e.target.innerText = "Display parks visited and wished list";
-//         e.target.style.backgroundColor = "#839788"
+//         e.target.style.backgroundColor = "#627d69"
 //     }
 // })
 
@@ -24,7 +24,7 @@ if (profileEditButton) {
         } else {
             profileEditForm.style.display = 'none';
             e.target.innerText = "Edit your profile";
-            e.target.style.backgroundColor = "#839788"
+            e.target.style.backgroundColor = "#627d69"
         }
     })
 }
@@ -84,7 +84,7 @@ if (myProfile === 'true') {
         if (button.innerText === "Hidden") {
             profileParkList.style.display = "none"
             button.innerText = "Visited/Wished Park List"
-            button.style.background = "#839788"
+            button.style.background = "#627d69"
         } else {
             profileParkList.style.display = ""
             button.innerText = "Hidden"
@@ -165,7 +165,7 @@ reviewListButton.addEventListener('click', (event) => {
     if (button.innerText === "Hidden(Reviews)") {
         profileReviewList.style.display = "none"
         button.innerText = `Review List`
-        button.style.background = "#839788"
+        button.style.background = "#627d69"
     } else {
         profileReviewList.style.display = ""
         button.innerText = "Hidden(Reviews)"
