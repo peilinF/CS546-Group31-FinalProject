@@ -252,10 +252,10 @@ img {
   margin-bottom: 1%;
 }
 .error {
-  color: #e20000;
+  color: red;
 }
 .error1{
-  color: #e20000;
+  color:red;
 }
 
 .backToMain {
@@ -265,7 +265,7 @@ img {
 }
 
 li {
-  color:#3e74a4;
+  color:#5681ad;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 18px;
   margin-bottom: 5px;
@@ -384,7 +384,6 @@ img:hover {
 }
 
 #btn {
-<<<<<<< HEAD
 margin-top: 50px;
 }
 
@@ -394,7 +393,6 @@ input[type="password"] {
 
 #Info {
   background-color: #fafafa;
-  line-height: 6px;
   box-sizing: border-box;
   display: none;
   text-align: left;
@@ -435,11 +433,4 @@ input[type="password"] {
   left: 0;
   content: "✖";
   padding-left: 8px;
-=======
-  margin-top: 50px;
-  }
-  
-.div.profile-btn {
-  display: flex;
->>>>>>> a48f59f6609b0b643f2059b24fe1d5ed79693b74
 }
