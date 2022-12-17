@@ -540,13 +540,13 @@ router.route("/ID").get(async (req, res) => {
     res.status(404).render('error', {path: '/homepage', statuscode: 404, error: 'you have not logged in'});
     return;
   }
-  let park_state = await parkData.getParkByState('VI');
+  let park_state = await parkData.getParkByState('ID');
   park_state = await getorigin(park_state,req);
   if(park_state==0){
-    res.render('../views/noparkstate',{title:"US Virgin Islands"});
+    res.render('../views/noparkstate',{title:"Idaho"});
     return;
   }
-  res.render('../views/parkstate',{park: park_state,title:"US Virgin Islands"});
+  res.render('../views/parkstate',{park: park_state,title:"Idaho"});
 }catch(e){
   res.status(500).send("failed to fetch data");
   return;
