@@ -27,7 +27,7 @@ router
       }
     } else {
       error = "Error page saying that the user is not logged in";
-      res.status(401).render('../views/forbiddenAccess', { error: error, title: "Non-Authenticated!" });
+      res.status(401).render('../views/forbiddenAccess', { error: error, statuscode: 401, title: "Non-Authenticated!" });
       return
     }
   });
