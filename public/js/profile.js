@@ -118,11 +118,17 @@ reviewListButton.addEventListener('click', (event) => {
                     reviewId.style.display = "none"
                     reviewId.innerText = `${review._id}`
                     let reviewTitle = document.createElement("div")
-                    reviewTitle.innerText = `${review.title}`
+                    reviewTitle.innerText = `Title: ${review.title}`
                     reviewTitle.className = "sigle-review-item"
                     let reviewRating = document.createElement("div")
                     reviewRating.innerText = `Rating: ${review.rating}`
                     reviewRating.className = "sigle-review-item"
+                    let reviewLike = document.createElement("div")
+                    reviewLike.innerText = `Like: ${review.number_of_likes}`
+                    reviewLike.className = "sigle-review-item"
+                    let reviewComment = document.createElement("div")
+                    reviewComment.innerText = `Comment: ${review.comments.length}`
+                    reviewComment.className = "sigle-review-item"
                     let reviewPark = document.createElement("div")
                     reviewPark.className = "sigle-review-item"
                     let reviewParkLink = document.createElement("a")
@@ -133,6 +139,8 @@ reviewListButton.addEventListener('click', (event) => {
                     singleReview.appendChild(reviewTitle)
                     singleReview.appendChild(reviewTitle)
                     singleReview.appendChild(reviewRating)
+                    singleReview.appendChild(reviewLike)
+                    singleReview.appendChild(reviewComment)
                     singleReview.appendChild(reviewPark)
                     
                     if (myProfile === 'true') {
