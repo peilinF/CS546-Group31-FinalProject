@@ -107,6 +107,9 @@ const getAllUserReviews = async (userId) => {
   if (!thisUser) throw 'user not found';
 
   let reviews = thisUser.reviews;
+  reviews = await Promise.all(reviews.map(async reviewId => {
+    return await getReview(reviewId)
+  }))
   return reviews;
 };
 const getReview = async (reviewId) => {
