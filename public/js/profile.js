@@ -103,7 +103,8 @@ reviewListButton.addEventListener('click', (event) => {
             dataType: 'json',
             success: (reviewList) => {
                 let reviewListTitle = document.createElement("h2")
-                reviewListTitle.innerText = `Reviews posted by ${profileUserName.innerText}`
+                reviewListTitle.innerText = `Reviews posted by ${profileUserName.innerText}`;
+                reviewListTitle.style.fontSize = "20px";
                 let reviewListResults = document.createElement("div")
                 reviewListResults.className = "review-list-results"
                 if (reviewList.length === 0) {
