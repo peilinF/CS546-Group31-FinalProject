@@ -1,9 +1,9 @@
 <form id="passForm">
   <label for="emailInput1">Email</label>
-  <input type="email" name="emailInput1" id="emailInput1">
+  <input type="email" name="emailInput1" id="emailInput1" style="width: 300px; height: 15px;">
   
   <label for="questionInput1">Select secure question</label>
-  <select name="questionsA1" id="questionsA1">
+  <select name="questionsA1" id="questionsA1" style="width: 300px; height: 25px;">
     <option value="question1">What is your mother's first name?</option>
     <option value="question2">What is your best friend's name?</option>
     <option value="question3">In what city were you born?</option>
@@ -17,10 +17,10 @@
   </select>
 
   <label for="answerInputA">Answer</label>
-  <input type="text" name="answerInputA" id="answerInputA">
+  <input type="text" name="answerInputA" id="answerInputA" style="width: 300px; height: 15px;">
 
   <label for="questionInput2">Select secure question</label>
-  <select name="questionsB1" id="questionsB1">
+  <select name="questionsB1" id="questionsB1" style="width: 300px; height: 25px;">
     <option value="question1">What is your mother's first name?</option>
     <option value="question2">What is your best friend's name?</option>
     <option value="question3">In what city were you born?</option>
@@ -34,15 +34,23 @@
   </select>
 
   <label for="answerInputB">Answer</label>
-  <input type="text" name="answerInputB" id="answerInputB">
+  <input type="text" name="answerInputB" id="answerInputB" style="width: 300px; height: 15px;">
   <span id="errorMessage1"></span>
 
 
   <label for="passwordInput1">new Password</label>
-  <input type="password" name="passwordInput1" id="passwordInput1">
+  <input type="password" name="passwordInput1" id="passwordInput1" style="width: 300px; height: 15px;" minlength="8" class = "inputFields" onblur="passwordOnBlur(this)" onfocus="passwordOnFocus(this)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter,one special character, and at least 8 or more characters">
+  <div id="Info" style="width: 100%; height: auto;">
+    <h3 style="font-size: 16px; padding-left:8px;">Password must contain the following:</h3>
+    <p id="letter" class="invalid" style="font-size: 16px; padding-left: 4px;"> &nbsp A <b>lowercase</b> letter</p>
+    <p id="capital" class="invalid" style="font-size: 16px; padding-left: 4px;">&nbsp A <b>capital (uppercase)</b> letter</p>
+    <p id="number" class="invalid" style="font-size: 16px; padding-left: 4px;">&nbsp A <b>number</b></p>
+    <p id="special" class="invalid" style="font-size: 16px; padding-left: 4px;">&nbsp A <b>special character</b></p>
+    <p id="length" class="invalid" style="font-size: 16px; padding-left: 4px;">&nbsp Minimum <b>8 characters</b></p>
+  </div>
 
   <label for="confirmPasswordInput1">Confirm Password</label>
-  <input type="password" name="confirmPasswordInput1" id="confirmPasswordInput1">
+  <input type="password" name="confirmPasswordInput1" id="confirmPasswordInput1" style="width: 300px; height: 15px;">
   <span id='message1'></span>
 
   <div style="padding-top: 8px;">
@@ -54,4 +62,66 @@
 <a href="/">Homepage</a>
 <div>
 {{#if error}}<div class="error" id="error1">{{error}}</div>{{/if}}
-</div>
+<script>
+    function passwordOnBlur(x){
+        document.getElementById("Info").style.display = "none";
+    }
+    function passwordOnFocus(x) {
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var special = document.getElementById("special");
+        var length = document.getElementById("length");
+        document.getElementById("Info").style.display = "block";
+        // When the user starts to type something inside the password field
+        x.onkeyup = function() {
+            // Validate lowercase letters
+            var lowerCaseLetters = /[a-z]/g;
+            if(x.value.match(lowerCaseLetters)) {  
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+            
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if(x.value.match(upperCaseLetters)) {  
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if(x.value.match(numbers)) {  
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+            
+            //Validate special characters
+            var specialChar  = /[!@#\$%\^\&*\)\(+=._-]/g;
+            if(x.value.match(specialChar)) {
+              special.classList.remove("invalid");
+              special.classList.add("valid");
+            }else{
+              special.classList.remove("valid");
+              special.classList.add("invalid");
+            }
+
+            // Validate length
+            if(x.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+        }
+    }  
+</script>
