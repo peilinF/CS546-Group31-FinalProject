@@ -140,14 +140,10 @@ reviewListButton.addEventListener('click', (event) => {
                         deleteButton.className = "deleteReview"
                         deleteButton.innerText = "Delete"
                         deleteButton.addEventListener("click", deleteAction)
-                        let editButton = document.createElement("button")
-                        editButton.className = "editReview"
-                        editButton.innerText = "Edit"
 
                         let deleteUI = document.createElement("div")
                         deleteUI.className = "profile-deleteUi"
                         deleteUI.appendChild(deleteButton)
-                        deleteUI.appendChild(editButton)
                         singleReview.appendChild(deleteUI)
                     }
                     
