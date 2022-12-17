@@ -370,6 +370,13 @@ li {
   padding: 5px;
 }
 
+.parklist-p {
+  font-weight: 550;
+  font-size: 15px;
+  height: 0px;
+  padding: 6px;
+}
+
 .parklist div.square img.cover-img {
   width: 230px;
   height: 200px;
