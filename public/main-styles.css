@@ -288,7 +288,6 @@ li {
 
 .deleteUi{
   position: relative;
-  bottom: 288px;
   left: 83%;
 }
 .deleteUi button{
@@ -391,7 +390,33 @@ img:hover {
 }
 
 #btn {
-margin-top: 50px;
+  margin-top: 50px;
+  }
+  
+.div.profile-btn {
+  display: flex;
+}
+
+.review-list-results {
+  display: flex;
+}
+
+.profile-deleteUi{
+  position: relative;
+}
+.profile-deleteUi button{
+  font-family: "EB Garamond";
+  font-size: 13px;
+  background-color: rgb(65, 75, 73);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 10px;
+  text-align: center;
+  display: inline-block;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  margin-top: 50px;
 }
 
 input[type="password"] {

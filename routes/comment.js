@@ -22,14 +22,14 @@ router
     let y = xss(req.body.y);
     req.session.location = {y: y};
     parkName = parkName.trim();
-
-    if (typeof reviewId !== 'string') {
-      return res.status(400).json({ error: 'reviewId must be a string' });
-    }
-    if (reviewId.trim().length === 0) {
-      return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
-    }
     try{
+      if (!reviewId) throw 'You must provide an id to search for';
+      if (typeof reviewId !== 'string') {
+        return res.status(400).json({ error: 'reviewId must be a string' });
+      }
+      if (reviewId.trim().length === 0) {
+        return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
+      }
       if(typeof content !== 'string') throw 'content must be a string';
       content = content.trim();
     }catch(e){
@@ -61,12 +61,17 @@ router
     req.session.location = {y: y};
     parkName = parkName.trim();
 
-    console.log(commentId);
-    if (typeof commentId !== 'string') {
-      return res.status(400).json({ error: 'reviewId must be a string' });
-    }
-    if (commentId.trim().length === 0) {
-      return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
+    try{
+      if (!commentId) throw 'You must provide an id to search for';
+      if (typeof commentId !== 'string') {
+        return res.status(400).json({ error: 'reviewId must be a string' });
+      }
+      if (commentId.trim().length === 0) {
+        return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
+      }
+
+    } catch(e){
+      return res.status(400).json({error: e});
     }
 
     parkName = parkName.trim();
