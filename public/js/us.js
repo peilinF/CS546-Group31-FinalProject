@@ -80,7 +80,7 @@ function appendWishText() {
 	$(list).addClass('center');
 	$('#btn').append(list);
 	$('#list').html('You wish to go:');
-	$('#list').first().css('color', '#f3488f')
+	$('#list').first().css('color', '#000000')
 }
 
 // let AK = document.getElementById("Alaska");
