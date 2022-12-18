@@ -58,7 +58,7 @@ polyline{fill:none;pointer-events:none;}
 	margin: 0 auto;
 }
 
-#btn{
+.rect{
 	display: flex;
 	flex-direction: row;
 }
