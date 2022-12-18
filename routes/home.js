@@ -48,7 +48,7 @@ router.route("/").get(async (req, res) => {
   //code here for GET
  req.session.pageNow = '/';
  if(req.session.user){
-  res.render('homepage',{userName: req.session.user.userName});
+  res.render('homepage',{userName: req.session.user.userName,title:"Homepage"});
  }else{
   res.sendFile(path.resolve('static/homepage.html'));
  }
