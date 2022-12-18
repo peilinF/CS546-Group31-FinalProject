@@ -1129,7 +1129,7 @@ router.route("/HI").get(async (req, res) => {
   let park_state = await parkData.getParkByState('HI');
   park_state = await getorigin(park_state,req);
   if(park_state==0){
-    res.status(200)s.render('../views/noparkstate',{title:"Hawaii"});
+    res.status(200).render('../views/noparkstate',{title:"Hawaii"});
     return;
   }
   res.status(200).render('../views/parkstate',{park: park_state,title:"Hawaii"});
