@@ -39,7 +39,7 @@
 
 
   <label for="passwordInput1">new Password</label>
-  <input type="password" name="passwordInput1" id="passwordInput1" style="width: 300px; height: 15px;" minlength="8" class = "inputFields" onblur="passwordOnBlur(this)" onfocus="passwordOnFocus(this)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter,one special character, and at least 8 or more characters">
+  <input type="password" name="passwordInput1" id="passwordInput1" style="width: 300px; height: 15px;" minlength="8" class = "inputFields" onblur="passwordOnBlur(this)" onfocus="passwordOnFocus(this)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%\^\&*\)\(+=._-])\.{8,}" title="Must contain at least one number and one uppercase and lowercase letter,one special character, and at least 8 or more characters">
   <div id="Info" style="width: 100%; height: auto;">
     <h3 style="font-size: 16px; padding-left:8px;">Password must contain the following:</h3>
     <p id="letter" class="invalid" style="font-size: 16px; padding-left: 4px;"> &nbsp A <b>lowercase</b> letter</p>

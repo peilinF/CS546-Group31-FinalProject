@@ -31,9 +31,12 @@
             }),
             error: function (err) {
               newErrorMessage.text(err.responseText);
+              var responseText = err.responseText.replace(/,/g, '<br>');
+              newErrorMessage.css('text-align', 'left');  //左对齐
+              newErrorMessage.html(responseText);
               setTimeout(function () {
                 newErrorMessage.text('');
-              }, 3000); 
+              }, 5000); 
             }
           }
           

@@ -21,6 +21,14 @@ router
     return res.status(400).json({error:error, title:"Welcome to login!"});
   }
 
+  try{
+    helper.validEmailAddr(email);
+    helper.checkPasswordString(passWord);
+    helper.checkPassword(passWord);
+  }catch(e){
+    return res.status(400).send(e);
+  }
+
   req.session.pageBefore = req.session.pageNow ;
   try{
     const checkUser = await usersData.checkUser(email,passWord);
