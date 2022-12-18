@@ -9,7 +9,6 @@ $('#sub').click(function(){
         data.push(string);
         i++;
     }
-    console.info(data);
     $.ajax({
         url:"/updatepark",
         type:"POST",
@@ -37,7 +36,6 @@ $(document).keyup(function(e){
         data.push(string);
         i++;
     }
-    console.info(data);
     $.ajax({
         url:"/updatepark",
         type:"POST",
