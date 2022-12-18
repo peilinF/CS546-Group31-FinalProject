@@ -25,7 +25,7 @@
         {{#each results}}
         <tr>
             <th>{{rank}}</th>
-            <th>{{parkName}}</th>
+            <th><a href="/park/search?searchParkName={{parkName}}">{{parkName}}</a></th>
             <th class="th-overallrating">{{overallRating}}</th>
             <th class="th-reviewamount">{{reviews.length}}</th>
             <th class="th-wishedamount">{{wishedAmount}}</th>
