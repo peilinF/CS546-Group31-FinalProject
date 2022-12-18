@@ -144,7 +144,7 @@ OR.onclick = function () {
 
 let WA = document.getElementById("Washington");
 WA.onclick = function () {
-	formSubmit('http://localhost:3000/wA');
+	formSubmit('http://localhost:3000/WA');
 }
 
 let CA = document.getElementById("California");
@@ -585,3 +585,5 @@ if(document.getElementById("btn-record-data")!=null){
 		}
 	})
 }
+
+
