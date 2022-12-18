@@ -64,6 +64,16 @@ router
       return res.status(400).json({ error: 'You must provide data for all fields' });
     }
 
+    if (reviewTitle.length>100) {
+      return res.status(400).json({ error: 'reviewTitle cannot be longer than 100 characters' });
+    }
+    if (content.length>500) {
+      return res.status(400).json({ error: 'content cannot be longer than 500 characters' });
+    }
+    if (rating<1 || rating>5) {
+      return res.status(400).json({ error: 'rating must be between 1 and 5' });
+    }
+
     if (typeof parkName !== 'string') {
       return res.status(400).json({ error: 'parkName must be a string' });
     }
@@ -102,6 +112,15 @@ router
       return res.status(400).json({ error: 'You must provide data for all fields' });
     }
 
+    if (reviewTitle.length > 100) {
+      return res.status(400).json({ error: 'reviewTitle cannot be longer than 100 characters' });
+    }
+    if (content.length > 500) {
+      return res.status(400).json({ error: 'content cannot be longer than 500 characters' });
+    }
+    if (rating < 1 || rating > 5) {
+      return res.status(400).json({ error: 'rating must be between 1 and 5' });
+    }
     if (typeof parkName !== 'string') {
       return res.status(400).json({ error: 'parkName must be a string' });
     }
