@@ -71,6 +71,12 @@
             };
             $.ajax(requestConfig).then(function (responseMessage) {
                 window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
+                // var main = $(".park_information");
+                // var rating = $("#park_rating");
+                // // add review to the page
+                // if (review.length == 0) {
+                //     rating.after("<div class='review'><h2>Reviews</h2> <div class = 'reviews' name = '");
+                // }
             });
         }
     });

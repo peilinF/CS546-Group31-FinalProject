@@ -14,7 +14,7 @@ function validDate(date) {
   let year = parseInt(parts[0], 10);
   
 
-  if (year < 1900 || month == 0 || month > 12) throw 'Invalid date';
+  if (year < 1899 || month == 0 || month > 12) throw 'Invalid date';
 
   let daysInMonth = new Date(year, month, 0).getDate();
   if (day < 1 || day > daysInMonth) throw 'Invalid date';

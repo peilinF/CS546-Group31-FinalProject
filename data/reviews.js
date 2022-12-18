@@ -23,6 +23,8 @@ const createReview = async (
 
   if (!reviewTitle) throw 'You must provide a review title';
   if(typeof reviewTitle !== 'string') throw 'reviewTitle must be a string';
+  if (reviewTitle.trim().length > 100) throw 'reviewTitle cannot be longer than 100 characters';
+  if(reviewTitle.trim().length === 0) throw 'reviewTitle cannot be an empty string or just spaces';
   
   if(!userId) throw 'You must provide a user id';
   if(typeof userId !== 'string' && typeof userId !== 'object') throw 'userId must be a string or ObjectId';
@@ -36,7 +38,7 @@ const createReview = async (
   if (!content) throw 'You must provide a content';
   if(typeof content !== 'string') throw 'content must be a string';
   if(content.trim().length === 0) throw 'content cannot be an empty string or just spaces';
-
+  if (content.trim().length > 500) throw 'content cannot be longer than 500 characters';
 
   if (typeof rating !== 'number') throw 'Rating must be a number';
   if (rating < 0 || rating > 5) throw 'Rating must be between 0 and 5';
