@@ -7,7 +7,7 @@
     </nav>
 </section>
 <section>
-    <h1 class="rank-title">List of Reviews</h1>
+    <h1 class="rank-title" style="font-size:22px;">List of Reviews</h1>
     <p class="p-rank-option">Sort by: {{option}}</p>
     <p>Items number: {{itemsNum}}</p>
     <p>Reverse? {{reverse}}</p>
@@ -28,7 +28,7 @@
         <tr>
             <th>{{rank}}</th>
             <th>{{title}}</th>
-            <th>{{parkName}}</th>
+            <th><a href="/park/search?searchParkName={{parkName}}">{{parkName}}</a></th>
             <th>{{userName}}</th>
             <th>{{rating}}</th>
             <th class="th-review-time">{{lastUpdatedTime}}</th>

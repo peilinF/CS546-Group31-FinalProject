@@ -38,6 +38,17 @@ router
       return;
     }
 
+    try{
+      helper.validUserName(userName);
+      helper.validEmailAddr(email);
+      helper.validDate(birthday);
+      helper.checkPasswordString(passWord);
+      helper.checkPassword(passWord);
+    }catch(e){
+      res.status(400).render('userRegister',{ error:e, partial: 'register',title:"Sign me up!"});
+      return;
+    }
+    
     const checkExist = await usersData.getUserByEmail(email);
     if (checkExist){
       console.log("User already exists");
