@@ -243,10 +243,6 @@
         
         e.preventDefault();
         var parent = $(this).parent().parent();
-        var reviewId =parent.find('.review-id').text();
-        var reviewTitle =parent.find('.review-title').text();
-        var content =parent.find('.content').text();
-        var rating =parent.find('.rating').text();
         if (editIsClicked && parent.find('.editContent').length > 0) {
             parent.find(".error").remove();
             parent.find('.editContent').remove();
@@ -290,15 +286,19 @@
                 alert(err.responseText);
             },
         };
-        if (reviewTitle == "" || content == "" || rating == "") {
-            parent.find('.error').remove();
-            parent.append("<div class='error' role='alert'>Please fill all the fields</div>");
+        if (!title.val() || !content.val() || !rating.val()) {
+            review.append("<div class='error' role='alert'>Please fill all the fields</div>");
             return;
-        } else if (rating > 5 || rating < 1) {
-            parent.find('.error').remove();
-            parent.append("<div class='error' role='alert'>Rating must be between 1 and 5</div>");
+        } else if (rating.val() < 1 || rating.val() > 5) {
+            review.append("<div class='error' role='alert'>Rating should be between 1 and 5</div>");
             return;
-        } else {
+        } else if (title.val().length > 50) {
+            review.append("<div class='error' role='alert'>Title should be less than 50 characters</div>");
+            return;
+        } else if (content.val().length > 500) {
+            review.append("<div class='error' role='alert'>Content should be less than 500 characters</div>");
+            return;
+        }  else {
             $.ajax(requestConfig).then(function (responseMessage) {
                 window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
             });

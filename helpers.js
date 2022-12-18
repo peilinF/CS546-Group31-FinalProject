@@ -4,15 +4,17 @@ const { ObjectId } = require('mongodb');
 const parkNameList = require('./constant').parkNameList;
 const fs = require('fs');
 
+
 function validDate(date) {
-  if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(date)) throw 'Date must be in the format MM/DD/YYYY';
+  if (!/^\d{4}-\d{1,2}-\d{1,2}$/.test(date)) throw 'Date must be in the format YYYY-MM-DD';
 
-  let parts = date.split("/");
-  let day = parseInt(parts[1], 10);
-  let month = parseInt(parts[0], 10);
-  let year = parseInt(parts[2], 10);
+  let parts = date.split("-");
+  let day = parseInt(parts[2], 10);
+  let month = parseInt(parts[1], 10);
+  let year = parseInt(parts[0], 10);
+  
 
-  if (year < 1900 || year > new Date().getFullYear() + 2 || month == 0 || month > 12) throw 'Invalid date';
+  if (year < 1900 || month == 0 || month > 12) throw 'Invalid date';
 
   let daysInMonth = new Date(year, month, 0).getDate();
   if (day < 1 || day > daysInMonth) throw 'Invalid date';
@@ -20,10 +22,6 @@ function validDate(date) {
   return true;
 }
 
-function validTime(time) {
-  if (!/^([1-9][0-9]|[1-9])h ([0-5][0-9]|[0-9])min$/.test(time)) throw 'Time isValid';
-  return true;
-}
 
 
 function validEmailAddr(email) {

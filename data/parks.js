@@ -1,7 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const parks = mongoCollections.parks;
 const reviews = mongoCollections.reviews;
-//const reviews = mongoCollections.reviews;
 const reviewsClass = require('./reviews');
 const {ObjectId} = require('mongodb');
 const helper = require("../helpers.js");
@@ -112,12 +111,18 @@ const addReview = async (parkId, reviewId,rating) => {
         throw 'id cannot be an empty string or just spaces';
     reviewId = reviewId.trim();
     const parksCollection = await parks();
-    parksCollection.updateOne({ _id: parkId }, { $push: { reviews: reviewId } });
 
-    const thisPark = await getParkById(parkId);
-    const reviews = thisPark.reviews;
-    let ratingSum = (reviews.length - 1)* thisPark.overallRating + rating;
-    let length = reviews.length;
+    const thisPark = await parksCollection.findOne({_id : parkId});
+    const reviewList = thisPark.reviews;
+    let ratingSum = rating ;
+    const reviewsCollection = await reviews();
+    let review = null;
+    for (let i = 0; i< reviewList.length;i ++){
+        
+        review = await reviewsCollection.findOne({_id : ObjectId(reviewList[i])});
+        ratingSum  = ratingSum +  review.rating;
+    } 
+    let length = reviewList.length + 1;
     let newRating = ratingSum/length;
     if(!Number.isInteger(newRating)){
         newRating = newRating.toFixed(1);
@@ -128,6 +133,14 @@ const addReview = async (parkId, reviewId,rating) => {
         if (updateRating.modifiedCount === 0) {
         throw 'could not update rating successfully';
         } 
+    }
+    try{
+        const updatePark =  await parksCollection.updateOne({ _id: parkId }, { $push: { reviews: reviewId } });
+        if (updatePark.modifiedCount === 0) {
+            throw "'could not update rating successfully'"
+        }
+    } catch (e) {
+        throw e;
     }
 }
 
@@ -143,28 +156,25 @@ const removeReview = async (parkId, reviewId) => {
         throw 'id cannot be an empty string or just spaces';
     reviewId = reviewId.trim();
     const parksCollection = await parks();
-    let thisPark = await getParkById(parkId);
+    let thisPark = await parksCollection.findOne({_id : parkId});
     let parkReviews = thisPark.reviews;
-    let update = 0
-    if (reviews.length === 1 && reviews[0] === reviewId){
-        update = await parksCollection.updateOne({ _id: parkId }, {$pop: { reviews: -1 }});
-    }else{
-        update = await parksCollection.updateOne({ _id: parkId}, { $pull: { reviews: reviewId } });
-    }
-    if (update.modifiedCount === 0) {
-        throw 'could not remove review successfully';
-    }
-
-    thisPark = await getParkById(parkId);
-    parkReviews = thisPark.reviews;
+    //let update = 0
     const reviewsCollection = await reviews();
-    const review = await reviewsCollection.findOne({ _id: ObjectId(reviewId) });
-    let overallRating = thisPark.overallRating;
+    let review = await reviewsCollection.findOne({ _id: ObjectId(reviewId) });
+
     let rating = review.rating;
-    let ratingSum = (parkReviews.length + 1) * overallRating - rating;
-    let newRating = ratingSum / parkReviews.length;
-    if (parkReviews.length === 0){
-        newRating = 0;
+    let ratingSum =  - rating;
+
+
+    for (let i = 0; i< parkReviews.length;i ++){
+        review = await reviewsCollection.findOne({_id : ObjectId(parkReviews[i])});
+        ratingSum  = ratingSum +  review.rating;
+    } 
+    let newRating = 0;
+    if (parkReviews.length - 1 === 0) {
+        newRating  = 0;
+    } else {
+        newRating = ratingSum / (parkReviews.length - 1);
     }
     if(!Number.isInteger(newRating)){
         newRating = newRating.toFixed(1);
@@ -174,6 +184,20 @@ const removeReview = async (parkId, reviewId) => {
         if (updateRating.modifiedCount === 0) {
         throw 'could not update rating successfully';
         }
+    }
+
+   
+    try{
+        if (reviews.length === 1 && reviews[0] === reviewId){
+            update = await parksCollection.updateOne({ _id: parkId }, {$pop: { reviews: -1 }});
+        }else{
+            update = await parksCollection.updateOne({ _id: parkId}, { $pull: { reviews: reviewId } });
+        }
+        if (update.modifiedCount === 0) {
+            throw 'could not remove review successfully';
+        }
+    } catch(e) {
+       throw e;
     }
 }
 module.exports = {
