@@ -11,6 +11,10 @@ const users = mongoCollections.users;
 const xss = require('xss');
 
 const getorigin = async(park_state,req) =>{
+  try{
+  if((xss(req.session.user)).length == 0){
+    throw 'invalid user';
+  }
   let user = await userData.getUserById(xss(req.session.user.userId));
   let parkvisited = user.parksHaveVisited;
   let wish = user.parksWishToGo;
@@ -42,6 +46,9 @@ const getorigin = async(park_state,req) =>{
     flag = [0,0];
   }
   return park_state;
+}catch(e){
+  throw e;
+}
 }
 
 router.route("/").get(async (req, res) => {
@@ -71,7 +78,7 @@ router.route("/parkvisited").get(async (req, res) => {
   }
   res.send(visitlist);
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -93,7 +100,7 @@ router.route("/parkwish").get(async (req, res) => {
   }
   res.send(wishlist);
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -112,7 +119,7 @@ router.route("/record").get(async (req, res) => {
     res.status(200).send(record)
     return;
   } catch (e) {
-    res.status(500).send("failed to fetch data");
+    res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
     return;
   }
 })
@@ -128,7 +135,7 @@ router.route("/AK").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Alaska"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -144,7 +151,7 @@ router.route("/OR").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Oregon"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -160,7 +167,7 @@ router.route("/WA").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Washington"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -176,7 +183,7 @@ router.route("/CA").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"California"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -192,7 +199,7 @@ router.route("/UT").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Utah"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -208,7 +215,7 @@ router.route("/TX").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Texas"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -224,7 +231,7 @@ router.route("/NM").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"New Mexico"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -240,7 +247,7 @@ router.route("/AZ").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Arizona"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -256,7 +263,7 @@ router.route("/NV").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Nevada"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -272,7 +279,7 @@ router.route("/CO").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Colorado"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -288,7 +295,7 @@ router.route("/WY").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Wyoming"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -303,7 +310,7 @@ router.route("/MT").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Montana"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -319,7 +326,7 @@ router.route("/ME").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Maine"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -335,7 +342,7 @@ router.route("/SD").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"South Dakota"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -351,7 +358,7 @@ router.route("/OH").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Ohio"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -367,7 +374,7 @@ router.route("/SC").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"South Carolina"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -383,7 +390,7 @@ router.route("/MO").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Missouri"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -399,7 +406,7 @@ router.route("/AR").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Arkansas"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -415,7 +422,7 @@ router.route("/IN").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Indiana"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -431,7 +438,7 @@ router.route("/MI").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Michigan"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -447,7 +454,7 @@ router.route("/ND").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"North Dakota"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -463,7 +470,7 @@ router.route("/MN").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Minnesota"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -479,7 +486,7 @@ router.route("/FL").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Florida"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -495,7 +502,7 @@ router.route("/TN").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Tennessee"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -511,7 +518,7 @@ router.route("/KY").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"Kentucky"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -527,7 +534,7 @@ router.route("/WV").get(async (req, res) => {
   park_state = await getorigin(park_state,req);
   res.render('../views/parkstate',{park: park_state,title:"West Virginia"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -548,7 +555,7 @@ router.route("/ID").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Idaho"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -568,7 +575,7 @@ router.route("/NE").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Nebraska"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -588,7 +595,7 @@ router.route("/KS").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Kansas"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -608,7 +615,7 @@ router.route("/OK").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Oklahoma"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -628,7 +635,7 @@ router.route("/IA").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Iowa"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -648,7 +655,7 @@ router.route("/LA").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Louisiana"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -668,7 +675,7 @@ router.route("/WI").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Wisconsin"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -688,7 +695,7 @@ router.route("/IL").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Illinois"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -707,7 +714,7 @@ router.route("/MS").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Mississippi"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -727,7 +734,7 @@ router.route("/AL").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Alabama"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -747,7 +754,7 @@ router.route("/GA").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Georgia"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -767,7 +774,7 @@ router.route("/PA").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Pennsylvania"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -787,7 +794,7 @@ router.route("/NC").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"North Carolina"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -807,7 +814,7 @@ router.route("/MD").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Maryland"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -827,7 +834,7 @@ router.route("/VA").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Virginia"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -847,7 +854,7 @@ router.route("/NY").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"New York"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -867,7 +874,7 @@ router.route("/NJ").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"New Jersy"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -887,7 +894,7 @@ router.route("/DE").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Delaware"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -907,7 +914,7 @@ router.route("/DC").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"DC"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -927,7 +934,7 @@ router.route("/VT").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Vermont"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -947,7 +954,7 @@ router.route("/NH").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"New Hampshire"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -967,7 +974,7 @@ router.route("/MA").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Massachusettes"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -987,7 +994,7 @@ router.route("/CT").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Connecticut"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -1007,7 +1014,7 @@ router.route("/RI").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Rhode Island"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -1027,7 +1034,7 @@ router.route("/VI").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"US Virgin Islands"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -1047,7 +1054,7 @@ router.route("/PR").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Puerto Rico"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -1067,7 +1074,7 @@ router.route("/GU").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Guam"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -1087,7 +1094,7 @@ router.route("/MP").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Northern Mariana Islands"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -1107,7 +1114,7 @@ router.route("/AS").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"American Samoa"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -1127,7 +1134,7 @@ router.route("/HI").get(async (req, res) => {
   }
   res.render('../views/parkstate',{park: park_state,title:"Hawaii"});
 }catch(e){
-  res.status(500).send("failed to fetch data");
+  res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
   return;
   }
 });
@@ -1158,44 +1165,44 @@ router.route("/updatepark").post(async (req, res) => {
       }
       if (record[1] == 'havebeen') {
         if (flag[0] == 0 && flag[1] == 1) {
-          await userData.removeParksWishToGO(user._id, record[0]);
-          await userData.addParksHaveVisited(user._id, record[0]);
+            await userData.removeParksWishToGO(user._id, record[0]);
+            await userData.addParksHaveVisited(user._id, record[0]);
         } else if (flag[1] == 0 && flag[0] == 1) {
           console.log('It is already in the list');
         } else if (flag[1] == 1 && flag[0] == 1) {
-          await userData.removeParksWishToGO(user._id, record[0]);
+            await userData.removeParksWishToGO(user._id, record[0]);
         } else if (flag[1] == 0 && flag[0] == 0) {
-          await userData.addParksHaveVisited(user._id, record[0]);
+            await userData.addParksHaveVisited(user._id, record[0]);
         }
       }
       if (record[1] == 'never') {
         if (flag[0] == 1 && flag[1] == 0) {
-          await userData.removeParksHaveVisited(user._id, record[0]);
+            await userData.removeParksHaveVisited(user._id, record[0]);
         } else if (flag[1] == 1 && flag[0] == 0) {
-          await userData.removeParksWishToGO(user._id, record[0]);
+            await userData.removeParksWishToGO(user._id, record[0]);
         } else if (flag[1] == 1 && flag[0] == 1) {
-          await userData.removeParksWishToGO(user._id, record[0]);
-          await userData.removeParksHaveVisited(user._id, record[0]);
+            await userData.removeParksWishToGO(user._id, record[0]);
+            await userData.removeParksHaveVisited(user._id, record[0]);
         } else if (flag[1] == 0 && flag[0] == 0) {
           console.log('No record on the list');
         }
       }
       if (record[1] == 'wish') {
         if (flag[0] == 1 && flag[1] == 0) {
-          await userData.removeParksHaveVisited(user._id, record[0]);
-          await userData.addParksWishToGO(user._id, record[0]);
+            await userData.removeParksHaveVisited(user._id, record[0]);
+            await userData.addParksWishToGO(user._id, record[0]);
         } else if (flag[1] == 0 && flag[0] == 1) {
           console.log('It is already in the list');
         } else if (flag[1] == 1 && flag[0] == 1) {
-          await userData.removeParksHaveVisited(user._id, record[0]);
+            await userData.removeParksHaveVisited(user._id, record[0]);
         } else if (flag[1] == 0 && flag[0] == 0) {
-          await userData.addParksWishToGO(user._id, record[0]);
+            await userData.addParksWishToGO(user._id, record[0]);
         }
       }
       flag = [0, 0];
     }
   } catch (e) {
-    res.status(500).send("failed to fetch data");
+    res.status(500).render('error', {title: 'Error Page', path: '/homepage', statuscode: 500, error: 'failed to fetch data' });
     return;
   }
 });
