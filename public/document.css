@@ -60,10 +60,12 @@ polyline{fill:none;pointer-events:none;}
 
 .rect{
 	display: flex;
-	flex-direction: row;
+	flex-direction: row-reverse;
+	width: 100%;
 }
 .rec{
 	margin-left: 10%;
+	margin-bottom: 5%;
 }
 .rec_1{
 	width:20px;
