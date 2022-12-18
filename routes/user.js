@@ -11,19 +11,19 @@ router.route("/search/name").get(async (req, res) => {
   try {
     helper.validUserName(userName)
   } catch (e) {
-    res.status(400).render('error', {path: 'user/search/name', statuscode: 400, error: e})
+    res.status(400).render('error', {title: 'Error Page',path: 'user/search/name', statuscode: 400, error: e})
   }
   try {
     const user = await userData.getUserByName(userName)
     if (user === false) throw "User not found"
-    res.status(200).render('profile', { user: user })
+    res.status(200).render('profile', {title: "profile", user: user })
     return;
   } catch (e) {
     if (e === "User not found") {
-      res.status(404).render('error', {path: 'user/search/name', statuscode: 404, error: e})
+      res.status(404).render('error', {title: 'Error Page',path: 'user/search/name', statuscode: 404, error: e})
       return;
   }
-  res.status(400).render('error', {path: 'user/search/name', statuscode: 400, error: e})
+  res.status(400).render('error', {title: 'Error Page',path: 'user/search/name', statuscode: 400, error: e})
   return;
 }
 })
@@ -35,19 +35,20 @@ router.route("/search/email").get(async (req, res) => {
     if (typeof email !== 'string') throw 'User name must be a string';
     if (email.trim().length === 0)
         throw 'User name cannot be an empty string or just spaces';
+    helper.validEmailAddr(email)
   } catch (e) {
-    res.status(400).render('error', {path: 'user/search/email', statuscode: 400, error: e})
+    res.status(400).render('error', {title: 'Error Page',path: 'user/search/email', statuscode: 400, error: e})
   }
   try {
     const user = await userData.getUserByEmail(userEmail)
-    res.status(200).render('profile', { user: user })
+    res.status(200).render('profile', {title:"profile", user: user })
     return;
   } catch (e) {
     if (e === "User not found") {
-      res.status(404).render('error', {path: 'user/search/email', statuscode: 404, error: e})
+      res.status(404).render('error', {title: 'Error Page',path: 'user/search/email', statuscode: 404, error: e})
       return;
   }
-  res.status(400).render('error', {path: 'user/search/email', statuscode: 400, error: e})
+  res.status(400).render('error', {title: 'Error Page',path: 'user/search/email', statuscode: 400, error: e})
   return;
 }
 })

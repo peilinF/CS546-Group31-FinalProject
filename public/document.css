@@ -1,8 +1,8 @@
 
 #title{font-size:60px;}
 #Total{font-size:60px;}
-#地区 path,
-#地区 rect,
+#area path,
+#area rect,
 polyline{
 	fill-rule:evenodd;
 	clip-rule:evenodd;
@@ -11,8 +11,8 @@ polyline{
 	stroke-linecap:round;
 	stroke-linejoin:round;
 }
-#地区 path,
-#地区 rect{
+#area path,
+#area rect{
 	/* fill:#FFF; */
 	cursor: pointer;
 	pointer-events: auto;

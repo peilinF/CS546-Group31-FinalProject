@@ -36,7 +36,7 @@
     <div style="display: flex; flex-wrap: wrap;">
         <img src="https://www.nps.gov/common/uploads/structured_data/5F04461D-A4FD-8285-D2F63B264237D90C.jpg" alt="Bristlecone pine tree with a dark blue sky behind it with a bright Jupiter shining">
         <img src="https://www.nps.gov/common/uploads/structured_data/AED0DAB8-0FB7-5710-46732DF80111AC64.jpg" alt="Ancient bristlecone with comet NEOWISE in the background">
-        <img src="/public/images/a lot 2.png" alt="rainbow landform">
+        <img src="/public/images/alot2.png" alt="rainbow landform">
         <img src="/public/images/bear.png" alt="Close up view of a bear.">
         <img src="https://www.nps.gov/common/uploads/structured_data/3C7FE691-1DD8-B71B-0B21F94DBD31A965.jpg" alt="Close up view of ripples on a dune.">
         <img src="https://www.nps.gov/common/uploads/structured_data/8A869F85-FB2E-5EAF-11367EB2DB75963D.jpg" alt="A herd of bison grazing through a barren and steaming thermal area.">
@@ -52,7 +52,7 @@
           <div id="map">
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	viewBox="0 0 1146.1 912.5" style="enable-background:new 0 0 1146.1 912.5;" xml:space="preserve">
-        <g id="地区">
+        <g id="area">
             <path id="Maryland" class="st1" d="M896.8,330.5h88c1.7,0,3,1.3,3,3v28c0,1.7-1.3,3-3,3h-88c-1.7,0-3-1.3-3-3v-28
                 C893.8,331.8,895.1,330.5,896.8,330.5z"/>
             <path id="Ohio" class="st1" d="M788.8,295.5h76c1.7,0,3,1.3,3,3v89c0,1.7-1.3,3-3,3h-76c-1.7,0-3-1.3-3-3v-89
@@ -293,53 +293,51 @@
         <h5 class="wished-data"></h5>
         <h5 class="visited-data"></h5>
     </div>
-      <section class="park-search-list cute-section">
-
-            <section class="search">
-                <h2>Find Your Virtual Park</h2>
-                <p style="font-size: 16px;">Wild places inspire us. We want the same for you.
-                    Whether you are staying in a houseboat on Lake Powell, a resort in Olympic National Park, or camping in Denali National Park, the choice is up to you. 
-                    Go ahead, look around. Find what inspires you.</p>
-            </section>
-        
-            <form action="/park/search" method="GET">
-                <label for="name" id="searchParkNameLabel">Find a park</label>
-                <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here" style="width: 300px; height: 40px;"/>
-                <input type="submit" value="Search" class="cute-button" />
-            </form>
-        
-            <button type="button" id="get-park-list-btn">Get Park List</button>
-        
-            <div class="park-list"></div>
+    <section class="park-search-list cute-section">
+    
+        <section class="search">
+            <h2>Find Your Virtual Park</h2>
+            <p style="font-size: 16px;">Wild places inspire us. We want the same for you.
+                Whether you are staying in a houseboat on Lake Powell, a resort in Olympic National Park, or camping in
+                Denali National Park, the choice is up to you.
+                Go ahead, look around. Find what inspires you.</p>
         </section>
-
-        <section class="rankPage">
-            <p style="font-size:16px;">Check out our parks, users, and reviews ranking here.</p>
-            <div class="buttonTray">
-                <input type="button" value="Parks ranking" class="parkButton" onclick="location.href='../rank/park'">
-                <input type="button" value="Users ranking" class="userButton" onclick="location.href='../rank/user'">
-                <input type="button" value="Reviews ranking" class="reviewButton" onclick="location.href='../rank/review'">
-            </div>
-       </section>
-
-        <section class="userPage">
-            <p style="font-size:16px;">Looking for another registered user?</p>
-            <form action="/user/search/name" method="GET">
-                <label for="name" id="searchUserNameLabel">User Name</label>
-                <input
-                  type="text"
-                  id="searchUserNameInputText"
-                  name="searchUserName"
-                  placeholder="Enter User Name Here"
-                  style="width: 300px; height: 40px;"
-                />
-                <input type="submit" value="Search" />
-        </section>
-
-        <section class="footer">
-            <p style="font-size:12px;">Peilin Feng | Leona Huang | Rocky Qin | Steve Zhu</p>
-            <p style="font-size:12px;">@Stevens CS-546-Group31 2022Fall</p>
-        </section>
+    
+        <form action="/park/search" method="GET">
+            <label for="searchParkNameInputText" id="searchParkNameLabel">Find a park</label>
+            <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here"
+                style="width: 300px; height: 40px;" />
+            <input type="submit" value="Search" class="cute-button" />
+        </form>
+    
+        <button type="button" id="get-park-list-btn">Get Park List</button>
+    
+        <div class="park-list"></div>
+    </section>
+    
+    <section class="rankPage">
+        <p style="font-size:16px;">Check out our parks, users, and reviews ranking here.</p>
+        <div class="buttonTray">
+            <input type="button" value="Parks ranking" class="parkButton" onclick="location.href='../rank/park'">
+            <input type="button" value="Users ranking" class="userButton" onclick="location.href='../rank/user'">
+            <input type="button" value="Reviews ranking" class="reviewButton" onclick="location.href='../rank/review'">
+        </div>
+    </section>
+    
+    <section class="userPage">
+        <p style="font-size:16px;">Looking for another registered user?</p>
+        <form action="/user/search/name" method="GET">
+            <label for="searchUserNameInputText" id="searchUserNameLabel">User Name</label>
+            <input type="text" id="searchUserNameInputText" name="searchUserName" placeholder="Enter User Name Here"
+                style="width: 300px; height: 40px;" />
+            <input type="submit" value="Search" />
+        </form>
+    </section>
+    
+    <section class="footer">
+        <p style="font-size:12px;">Peilin Feng | Leona Huang | Rocky Qin | Steve Zhu</p>
+        <p style="font-size:12px;">@Stevens CS-546-Group31 2022Fall</p>
+    </section>
     </article>
 <script src="/public/js/us.js"></script>
 <script src="/public/js/park.js"></script>

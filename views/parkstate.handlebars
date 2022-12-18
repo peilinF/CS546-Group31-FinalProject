@@ -5,9 +5,9 @@
             <img class="cover-img" src="{{park_picture}}" alt="{{parkName}}" />
             <form action="http://localhost:3000/updatepark" method="post">
                 <select name="user_park" id={{@index}}>
-                    <option value={{_id}}+"@havebeen" {{h0}}>VISITED</option>
-                    <option value={{_id}}+"@never" {{h1}}>NEVER</option>
-                    <option value={{_id}}+"@wish" {{h2}}>WISH TO GO</option>
+                    <option value={{_id}}@havebeen {{h0}}>VISITED</option>
+                    <option value={{_id}}@never {{h1}}>NEVER</option>
+                    <option value={{_id}}@wish {{h2}}>WISH TO GO</option>
                  </select>
             </form>
         </div>

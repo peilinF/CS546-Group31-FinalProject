@@ -27,7 +27,7 @@ $('#sub').click(function(){
 
 $(document).keyup(function(e){
   let key = e.which;
-  if(key==13){
+  if(key==13&&document.getElementById('sub')){
     let data = [];
     let string = null;
     let i = 0;

@@ -156,7 +156,7 @@ input[type="number"] {
 button {
   font-family: "EB Garamond";
   font-size: 17px;
-  background-color: #627d69;
+  background: linear-gradient(to left, #4776e6, #8e54e9);
   border: none;
   border-radius: 8px;
   color: white;
@@ -222,12 +222,18 @@ form .input-field:first-child {
 
 form input[type="submit"] {
   width: 100px;
-  background: linear-gradient(to left, #4776e6, #8e54e9);
+  background-color: #627d69;
   color: white;
+  border: none;
   border-radius: 4px;
   margin-top: 8px;
   margin-bottom: 12px;
-  padding: 8px;
+  padding: 10px 20px;  
+}
+
+form input[type="submit"]:hover {
+  background-color: white;
+  color: #627d69;
 }
 
 img {

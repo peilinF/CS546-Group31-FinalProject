@@ -16,13 +16,13 @@ router
       const userEmail = xss(req.session.user.email)
       try {
         const user = await userData.getUserByEmail(userEmail)
-        res.status(200).render('profile',{ user: user, myProfile: true});
+        res.status(200).render('profile',{title:"profile", user: user, myProfile: true});
       } catch (e) {
         if (e === "User not found") {
-          res.status(404).render('error', { path: '/profile', statuscode: 404, error: e })
+          res.status(404).render('error', {title: 'Error Page', path: '/profile', statuscode: 404, error: e })
           return;
         } else {
-          res.status(400).render('error', { path: '/profile', statuscode: 400, error: e })
+          res.status(400).render('error', {title: 'Error Page', path: '/profile', statuscode: 400, error: e })
         }
       }
     } else {
@@ -47,12 +47,12 @@ router.route("/update").post(async (req, res) => {
   try {
     helper.checkparamsUpdateUser(userId, userName, userEmail, userBirthDate, hashedPassword)
   } catch (e) {
-    res.status(400).render('error', { path: 'user/update', statuscode: 400, error: e })
+    res.status(400).render('error', {title: 'Error Page', path: 'user/update', statuscode: 400, error: e })
     return;
   }
   if (req.session.user.userId !== userId) {
     let error = 'Forbidden, you can not change profile of other user!';
-    res.status(403).render('error', { error: error, statuscode: 403, error: error });
+    res.status(403).render('error', {title: 'Error Page', error: error, statuscode: 403, error: error });
     return;
   }
   try {
@@ -67,7 +67,7 @@ router.route("/update").post(async (req, res) => {
     res.redirect('/profile')
     return;
   } catch (e) {
-    res.status(500).render('error', { path: 'user/update', statuscode: 500, error: e })
+    res.status(500).render('error', {title: 'Error Page', path: 'user/update', statuscode: 500, error: e })
     return;
   }
 })
