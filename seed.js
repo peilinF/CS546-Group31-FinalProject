@@ -71,11 +71,11 @@ const createUser = async () => {
   const user = await users.createUser(
     "aaaaa",
     "xixixixi@gmail.com",
-    "2022-12-01",
-    helper.hashPassword("Feng@fpl1997"),
-    "What is your mother's first name?",
+    "2012-12-01",
+    "Kuku@fpl1997",
+    "What is your best friend's name?",
     "Ying",
-    "What is your born city?",
+    "In what city were you born?",
     "Beijing"
   );
   return user;
@@ -84,14 +84,17 @@ const createUser = async () => {
 const createMutiUsers = async () => {
   const userList = [];
   const usersInfos = [
-    ['mike11', 'xixixixi0@gmail.com','2022-12-01',helper.hashPassword('FENG@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-    ['John22', 'xixixixi1@gmail.com','2022-12-01',helper.hashPassword('FENG@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-    ['wendy33', 'xixixixi2@gmail.com','2022-12-01',helper.hashPassword('FENG@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-    ['jack44', 'xixixixi3@gmail.com','2022-12-01',helper.hashPassword('FENG@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-    ['nick55', 'xixixixi4@gmail.com','2022-12-01',helper.hashPassword('FENG@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-    ['bobhaha66', 'xixixixi5@gmail.com','2022-12-01',helper.hashPassword('FENG@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-    ['bobhaha77', 'xixixixi6@gmail.com', '2022-12-01',helper.hashPassword('FENG@fpl1997'),"What is your mother's first name?",'Ying','What is your born city?',"Beijing"],
-] 
+    ['mike11', 'xixixixi0@gmail.com','1995-02-14','FENG@fpl1997',"What is your mother's first name?",'Sam',"Is there anything you can't live without","Sugar"],
+    ['John22', 'John1@gmail.com','1985-03-21','John@fpl1997',"What was your favorite food as a child",'Dumplings','In what city were you born?',"Beijing"],
+    ['wendy33', 'wendy2@gmail.com','1980-04-30','Wendy@fpl1997',"What is your mother's first name?",'Ming','In what city were you born?',"Beijing"],
+    ['jack44', 'jack443@gmail.com','1975-05-15','Jack@fpl1997',"Who is you love most person?",'Mom','In what city were you born?',"NewYork"],
+    ['nick55', 'nick554@gmail.com','1965-07-12','Nick@fpl1997',"What is the name of your favorite pet?",'Kitty','What was your favorite food as a child',"Pizza"],
+    ['bobhaha66', 'bobhaha66@gmail.com','1990-01-03','Bobby@fpl1997',"What is your mother's first name?",'Ying','In what city were you born?',"Beijing"],
+    ['GGboy77', 'GGboy77@gmail.com', '1992-12-01','Gboy@fpl1997',"Who is you love most person?",'Son','In what city were you born?',"Hoboken"],
+    ['Cindy77', 'Cindy776@gmail.com', '1995-02-19','Cindy@fpl1997',"Where did you meet your spouse?",'Cinema','Who is you love most person?',"Myself"],
+    ['Alice1','alice.smith@gmail.com','1990-01-01','Alice@123aa',"What is the name of your favorite pet?",'GG',"What is your best friend's name?","James"],
+    ['Bobj2','bob.johnson@gmail.com','1995-02-14','Bob@456ss',"Is there anything you can't live without?",'Phone','In what city were you born?',"Boston"]
+  ] 
 
   for (let i = 0, len = usersInfos.length; i < len; i++) {
     let userInfo = usersInfos[i];
