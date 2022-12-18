@@ -16,7 +16,7 @@ router.route("/search/name").get(async (req, res) => {
   try {
     const user = await userData.getUserByName(userName)
     if (user === false) throw "User not found"
-    res.status(200).render('profile', { user: user })
+    res.status(200).render('profile', {title: "profile", user: user })
     return;
   } catch (e) {
     if (e === "User not found") {
@@ -40,7 +40,7 @@ router.route("/search/email").get(async (req, res) => {
   }
   try {
     const user = await userData.getUserByEmail(userEmail)
-    res.status(200).render('profile', { user: user })
+    res.status(200).render('profile', {title:"profile", user: user })
     return;
   } catch (e) {
     if (e === "User not found") {
