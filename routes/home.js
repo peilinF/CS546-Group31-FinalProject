@@ -1135,7 +1135,7 @@ router.route("/HI").get(async (req, res) => {
 router.route("/updatepark").post(async (req, res) => {
   try {
     if ((xss(req.session.user)).length == 0) {
-      res.status(404).render('error', {title: 'Error Page', path: '/homepage', statuscode: 404, error: 'you have not logged in' });
+      res.status(401).render('error', {title: 'Error Page', path: '/homepage', statuscode: 401, error: 'you have not logged in' });
       return;
     }
     let list = (xss(req.body.data)).split(',');
