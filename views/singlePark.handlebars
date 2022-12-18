@@ -97,17 +97,17 @@
   <div class="leaveReview" id = "reviewForm">
     <form name = "postReview" id = "postReview">
       <label for="title">Title</label>
-      <input type="text" name="title" id="submitTitle" style="width: 500px; height: 25px;"/>
+      <input type="text" name="title" id="submitTitle" aria-label="Title" title="Type in the title of your submission" style="width: 500px; height: 25px;">
       <label for="content">Content</label>
       <textarea name="content" id="content" style="width: 500px; height: 350px;"></textarea>
       <label for="rating">Rating</label>
       <input type="number" name="rating" id="rating"  min="1" max="5" placeholder="Out of 5" style="width: 100px; height: 15px;"/>
-      <input type="submit" value="Submit" />
+      <input type="submit" id="submit-button" value="Submit" role="button" aria-label="Submit" title="Click to submit your form">
     </form>
   </div>
     {{else}}
     <div class="leaveReview" id = "review"></div>
-      <button id="login">Login to leave a review</button>
+     <button id="login" role="button" aria-label="Login to leave a review">Login to leave a review</button>
     </div>
   {{/if}}
 </div>

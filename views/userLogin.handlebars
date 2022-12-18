@@ -2,12 +2,12 @@
  <div style="display: grid; place-items: center">
     <form id="login-form" style="padding-top: 100px;">
       <label for="EmailInput">Email</label>
-      <input type="text" name="EmailInput" id="EmailInput" style="width: 240px; height: 15px;">
+      <input type="text" name="EmailInput" id="EmailInput" aria-label="Email address" title="Type in your email address" style="width: 240px; height: 15px;">
       <label for="PasswordInput">Password</label>
       <input type="password" name="PasswordInput" id="PasswordInput" style="width: 240px; height: 15px;">
       <span id='loginErr'></span>
       <div style="padding-top: 8px;">
-      <input type="submit" value="Login">
+     <input type="submit" id="login-button" value="Login" role="button" aria-label="Login" title="Click to submit your login">
   </div>
     </form>
     <div style="text-align: center;">
