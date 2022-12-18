@@ -28,31 +28,6 @@ router.route("/search/name").get(async (req, res) => {
 }
 })
 
-router.route("/search/email").get(async (req, res) => {
-  const userEmail = xss(req.query.searchUserEmail)
-  try {
-    if (!email) throw 'You must provide an user name to search for';
-    if (typeof email !== 'string') throw 'User name must be a string';
-    if (email.trim().length === 0)
-        throw 'User name cannot be an empty string or just spaces';
-    helper.validEmailAddr(email)
-  } catch (e) {
-    res.status(400).render('error', {title: 'Error Page',path: 'user/search/email', statuscode: 400, error: e})
-  }
-  try {
-    const user = await userData.getUserByEmail(userEmail)
-    res.status(200).render('profile', {title:"profile", user: user })
-    return;
-  } catch (e) {
-    if (e === "User not found") {
-      res.status(404).render('error', {title: 'Error Page',path: 'user/search/email', statuscode: 404, error: e})
-      return;
-  }
-  res.status(400).render('error', {title: 'Error Page',path: 'user/search/email', statuscode: 400, error: e})
-  return;
-}
-})
-
 // router.route("/persondetails/:id").get(async (req, res) => {
 //   //code here for GET
 //   let id = req.params.id;

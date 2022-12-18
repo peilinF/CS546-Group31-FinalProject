@@ -67,7 +67,7 @@ function appendVisitText() {
 	$(list).addClass('center');
 	$('#btn').append(list);
 	$('#list').html('You have visited:');
-	$('#list').first().css('color', '#0f7ce2')
+	$('#list').first().css('color', '#000000')
 }
 
 function appendWishText() {
