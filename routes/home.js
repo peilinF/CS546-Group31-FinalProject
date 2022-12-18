@@ -1146,6 +1146,12 @@ router.route("/updatepark").post(async (req, res) => {
       return;
     }
     let list = (xss(req.body.data)).split(',');
+    if(typeof list!= 'object'){
+      throw 'error';
+    }
+    if((xss(req.session.user)).length == 0){
+      throw 'error';
+    }
     let user = await userData.getUserById(xss(req.session.user.userId));
     let parkvisited = user.parksHaveVisited;
     let wish = user.parksWishToGo;
