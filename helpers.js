@@ -62,7 +62,6 @@ function validParkId(parkId) {
   if (!parkId) throw 'You must provide an id to search for'
   if (parkId.trim().length === 0)
     throw 'id cannot be an empty string or just spaces'
-  if (!ObjectId.isValid(parkId)) throw 'Id is not a valid ObjectId';
   parkId = parkId.trim()
   return parkId
 }
@@ -167,7 +166,6 @@ function image() {
 
 module.exports = {
   validDate,
-  validTime,
   validEmailAddr,
   validUserName,
   validParkId,
