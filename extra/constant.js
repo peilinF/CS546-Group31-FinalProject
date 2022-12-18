@@ -1,4 +1,4 @@
-const helper = require("./helpers");
+const helper = require("../helpers");
 const parkNameList = 
 [
     "Denali National Park & Preserve",

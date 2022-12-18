@@ -5,7 +5,7 @@ const users = data.users;
 const reviews = data.reviews;
 const comments = data.comments;
 const update = data.updates;
-const constant = require("./constant");
+const constant = require("./extra/constant.js");
 const { ObjectId } = require("mongodb");
 const connection = require("./config/mongoConnection");
 const axios = require("axios");
@@ -45,14 +45,9 @@ const main = async () => {
   );
 
   await createMutiLikeEvents();
-  // const comment2 = await comments.createComment(review2._id.toString(), user._id.toString(), 'comment2');
-
-  // await comments.removeComment(user._id.toString(), review2._id.toString(),comment._id.toString());
-  //await parks.updateReviewById(park._id.toString(), review._id.toString());
-  //console.log(allPark);
+  
   await connection.closeConnection();
   console.log("Done!");
-  //await parks.updateReviewById(park._id.toString(), review._id.toString());
 };
 
 const createReview = async (parkId, userID) => {
@@ -95,7 +90,6 @@ const createMutiUsers = async () => {
     ['Alice1','alice.smith@gmail.com','1990-01-01','Alice@123aa',"What is the name of your favorite pet?",'GG',"What is your best friend's name?","James"],
     ['Bobj2','bob.johnson@gmail.com','1995-02-14','Bob@456ss',"Is there anything you can't live without?",'Phone','In what city were you born?',"Boston"]
   ] 
-
   for (let i = 0, len = usersInfos.length; i < len; i++) {
     let userInfo = usersInfos[i];
     let user = await users.createUser(
@@ -110,35 +104,47 @@ const createMutiUsers = async () => {
     );
     userList.push(user);
   }
+
   return userList;
 };
 
 const createMutiLikeEvents = async () => {
-  const [userMike, userJohn, userWendy, userJack, userNick] = await createMutiUsers();
-  console.log("userMike", userMike);
-  const park = await parks.getParkByName("Lake Clark National Park & Preserve");
-  const reviewMike = await reviews.createReview(
-    park._id.toString(),
-    userMike.userId,
-    "Good place",
-    "content",
-    5
-  );
-  const reviewJohn = await reviews.createReview(
-    park._id.toString(),
-    userJohn.userId,
-    "Not good place",
-    "content",
-    3
-  );
-  await likes.addLike(userWendy.userId.toString(), reviewMike._id.toString());
-  await likes.addLike(userJack.userId.toString(), reviewMike._id.toString());
-  await likes.addLike(userNick.userId.toString(), reviewJohn._id.toString());
+  const userList = await createMutiUsers();
 
-  const park2 = await parks.getParkByName("Mount Rainier National Park")
 
-  await users.addParksWishToGO(userMike.userId.toString(), park._id.toString())
-  await users.addParksHaveVisited(userMike.userId.toString(), park2._id.toString())
+  const parkList = constant.parkNameList.splice(0, 10);
+
+  for (let i = 0, len = parkList.length; i < len; i++) {
+    let parkName = parkList[i];
+    let park = await parks.getParkByName(parkName);
+    let review;
+    let lastReview;
+    for (let j = 0, len = userList.length; j < len; j++) {
+      let user = userList[j];
+      let number = Math.floor(Math.random() * 5);
+      if (number == 0) {
+        review = await createReview(park._id.toString(), user.userId, "Very Good place", "very good", 5);
+        
+      } else if (number == 1) {
+        review = await createReview(park._id.toString(), user.userId, "Good place", "good", 4);
+      } else if (number == 2) {
+        review= await createReview(park._id.toString(), user.userId, "Not Good place", "normal", 3);
+      } else if (number == 3) {
+        review= await createReview(park._id.toString(), user.userId, "Bad place", "bad", 2);
+      } else if (number == 4) {
+        review= await createReview(park._id.toString(), user.userId, "Very Bad place", "shit", 1);
+      }
+      await users.addParksHaveVisited(user.userId.toString(), park._id.toString())
+      await likes.addLike(user.userId.toString(), review._id.toString());
+      if (lastReview) {
+        await comments.createComment( review._id.toString(), user.userId.toString(), "agree");
+      }
+      
+      lastReview = review;
+    }
+    
+  }
+
 };
 
 const parsePark = (park) => {
