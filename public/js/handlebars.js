@@ -6,6 +6,15 @@ $('#sub').click(function(){
     while($('#'+i+' option:selected').val()!=undefined){
         string = $('#'+i+' option:selected').val();
         string=string.trim().replace(/["+]/g,"");
+        let p = string.split('@');
+        if(p.length<2){
+          alert('Something went wrong, please refresh the page!');
+          return;
+        }
+        if(p[1]!='havebeen'&&p[1]!='never'&&p[1]!='wish'){
+          alert('Something went wrong, please refresh the page!');
+          return;
+        }
         data.push(string);
         i++;
     }
@@ -33,9 +42,19 @@ $(document).keyup(function(e){
     while($('#'+i+' option:selected').val()!=undefined){
         string = $('#'+i+' option:selected').val();
         string=string.trim().replace(/["+]/g,"");
+        let p = string.split('@');
+        if(p.length<2){
+          alert('Something went wrong, please refresh the page!');
+          return;
+        }
+        if(p[1]!='havebeen'&&p[1]!='never'&&p[1]!='wish'){
+          alert('Something went wrong, please refresh the page!');
+          return;
+        }
         data.push(string);
         i++;
     }
+    console.info(data);
     $.ajax({
         url:"/updatepark",
         type:"POST",
