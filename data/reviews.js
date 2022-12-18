@@ -2,6 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 
 const reviews = mongoCollections.reviews;
 const comments = mongoCollections.comments;
+const parks = mongoCollections.parks;
 const parksClass = require('./parks');
 const usersClass = require('./users');
 const {ObjectId} = require('mongodb');
@@ -25,7 +26,7 @@ const createReview = async (
   if(typeof reviewTitle !== 'string') throw 'reviewTitle must be a string';
   if (reviewTitle.trim().length > 100) throw 'reviewTitle cannot be longer than 100 characters';
   if(reviewTitle.trim().length === 0) throw 'reviewTitle cannot be an empty string or just spaces';
-  
+
   if(!userId) throw 'You must provide a user id';
   if(typeof userId !== 'string' && typeof userId !== 'object') throw 'userId must be a string or ObjectId';
   if(typeof userId === 'string'){

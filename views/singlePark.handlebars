@@ -30,10 +30,9 @@
     {{/each}}
   </ul>
   <p id="park_rating">Overall Rating: {{park.overallRating}}</p>
-
-  {{#if park.hasReviews}}
-  <div class="review">
+  <div id="review">
     <h2>Reviews</h2>
+    {{#if park.hasReviews}}
     {{#each park.reviews}}
       <div class="reviews" name = "{{this._id}}">
         <section class="review-info">
@@ -44,8 +43,8 @@
           <p class="review-date">Date: {{this.lastUpdatedTime}}</p>
           <p class="review-likes">Likes: {{this.number_of_likes}}</p>
         </section>
-        <section class="review-content">
-          <p class="review">Content: {{this.content}}</p>
+        <section class="review-section">
+          <p class="review-content">Content: {{this.content}}</p>
         </section>
         
         {{#if this.liked}}
@@ -76,7 +75,7 @@
                 <p class="comment-username">Reply from: {{this.userName}}</p>
               </section>
               <section class="comment-content">
-                <p class="comment">content: {{this.content}}</p>
+                <p class="comment">Content: {{this.content}}</p>
               </section>
               {{#if this.isReplyOwner}}
                 <div class="deleteReply">
@@ -95,7 +94,7 @@
 
 
   {{#if login}}
-  <div class="leaveReview" id = "review">
+  <div class="leaveReview" id = "reviewForm">
     <form name = "postReview" id = "postReview">
       <label for="title">Title</label>
       <input type="text" name="title" id="submitTitle" style="width: 500px; height: 25px;"/>
@@ -105,9 +104,11 @@
       <input type="number" name="rating" id="rating"  min="1" max="5" placeholder="Out of 5" style="width: 100px; height: 15px;"/>
       <input type="submit" value="Submit" />
     </form>
-    {{else}}
-    <button id="login">Login to leave a review</button>
   </div>
+    {{else}}
+    <div class="leaveReview" id = "review"></div>
+      <button id="login">Login to leave a review</button>
+    </div>
   {{/if}}
 </div>
 

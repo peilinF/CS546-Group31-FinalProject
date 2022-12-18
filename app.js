@@ -50,12 +50,6 @@ app.use (function (req, res, next) {
   next();
 });
 
-app.use( (req, res, next) => {
-  if (req.session.pageNow === '/') {
-    req.session.location = {y: 0};
-  }
-  next();
-});
 
 app.use('/login', (req, res, next) => {
   if (req.session.user) {

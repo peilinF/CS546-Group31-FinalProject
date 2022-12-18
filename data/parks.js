@@ -200,6 +200,41 @@ const removeReview = async (parkId, reviewId) => {
        throw e;
     }
 }
+
+const updateRating = async (parkName) => {
+    if (!parkName) throw 'You must provide an park name to search for';
+    if (typeof parkName !== 'string') throw 'Id must be a string';
+    if (parkName.trim().length === 0)
+        throw 'id cannot be an empty string or just spaces';
+    parkName = parkName.trim();
+    try{
+        const parksCollection = await parks();
+        const reviewsCollection = await reviews();
+        let thisPark = await parksCollection.findOne({parkName : parkName});
+        let parkId = thisPark._id;
+        let parkReviews = thisPark.reviews;
+        let ratingSum = 0;
+        let review;
+        for (let i = 0; i< parkReviews.length;i ++){
+            review = await reviewsCollection.findOne({_id : ObjectId(parkReviews[i])});
+            ratingSum  = ratingSum +  review.rating;
+        } 
+        let newRating = ratingSum / parkReviews.length;
+        if(!Number.isInteger(newRating)){
+            newRating = newRating.toFixed(1);
+        }
+        if (newRating != thisPark.overallRating){
+            const updateRating = await parksCollection.updateOne({ _id: parkId }, {$set: {overallRating : newRating}});
+            if (updateRating.modifiedCount === 0) {
+            throw 'could not update rating successfully';
+            }
+        }
+    } catch (e) {
+        throw e;
+    }
+    
+}
+
 module.exports = {
     createPark,
     getAllParks,
@@ -207,5 +242,6 @@ module.exports = {
     getParkByName,
     getParkByState,
     addReview,
-    removeReview
+    removeReview,
+    updateRating
 }
