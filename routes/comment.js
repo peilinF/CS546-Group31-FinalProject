@@ -13,7 +13,7 @@ router
   .post(async (req, res) => {
     if(!req.session.user){
       error = 'You have to login to reply!';
-      return res.status(400).json({error: error});
+      return res.status(401).json({error: error});
     }
 
     let parkName = req.session.pageNow[1].park.parkName;

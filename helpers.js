@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { ObjectId } = require('mongodb');
 const parkNameList = require('./constant').parkNameList;
 const fs = require('fs');
+
 function validDate(date) {
   if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(date)) throw 'Date must be in the format MM/DD/YYYY';
 
@@ -32,6 +33,7 @@ function validEmailAddr(email) {
   if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) throw 'Email address is not valid';
   return true;
 }
+
 
 function validUserName(name) {
   if (!name) throw 'You must provide an user name to search for';
@@ -140,11 +142,7 @@ function checkparamsUpdateUser(userId, userName, email, birthDate, hashedPasswor
   if (userId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   userId = userId.trim(); 
-  if (!userName) throw 'You must provide a user name';
-  if (typeof userName !== 'string') throw 'User name must be a string';
-  if (userName.trim().length === 0)
-    throw 'User name cannot be an empty string or just spaces';
-  userName = userName.trim();
+  userName = validUserName(userName)
   if (!email) throw 'You must provide an email';
   if (typeof email !== 'string') throw 'Email must be a string';
   if (email.trim().length === 0)
@@ -152,6 +150,7 @@ function checkparamsUpdateUser(userId, userName, email, birthDate, hashedPasswor
   email = email.trim();
   if (!validEmailAddr(email)) throw 'Email is not valid';
   if (!birthDate) throw 'You must provide a birth date';
+  validDate(birthDate)
 }
 
 function changeParkName(parkName) {
