@@ -57,7 +57,6 @@ function link() {
 // 	return form;
 // }
 
-//创建选择菜单
 function appendVisitText() {
 	// let list=document.createElement("div");
 	// $(list).addClass('center');
