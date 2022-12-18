@@ -104,7 +104,7 @@
             return;
         } else if (thisReply.find('.replyContent').length === 0 ) {
             isClicked = true;
-            thisReply.append("<div class='replyContent'><form name='postReply' id='postReply'><textarea class='replyContent' id='replyContent' rows='4' cols='50' placeholder='Reply'></textarea> <input type='submit' value='Submit' /></form></div>");
+            thisReply.append("<div class='replyContent'><form name='postReply' id='postReply'><label for='replyContent'>Reply Content</label><textarea class='replyContent' id='replyContent' rows='4' cols='50' placeholder='Reply'></textarea> <input type='submit' value='Submit' id='submitReply' aria-label='Reply Submit'/></form></div>");
             var replyClass = $("#postReply");
             thisReply.find('.editReview').prop('disabled', true);
             thisReply.find('.error').remove();
@@ -286,7 +286,7 @@
             parent.find('.error').remove();
             editIsClicked = true;
             times = 1;
-            parent.append("<div class='editContent'><form name='editReview' id='editReview'><input type='text' id='editTitle' placeholder='Title' /> <textarea class='editContent' id='editContent' rows='4' cols='50' placeholder='Content'></textarea> <input type='number' id='editRating' min='1' max='5' placeholder='Out of 5' /> <input type='submit' value='Submit' /></form></div>");
+            parent.append("<div class='editContent'><form name='editReview' id='editReview'><label for='editTitle'>Title</label><input type='text' id='editTitle' placeholder='Title' aria-label='editTitle'/><label for='editContent'>editContent</label> <textarea class='editContent' id='editContent' rows='4' cols='50' placeholder='Content'></textarea><label for='editRating'>editRating</label> <input type='number' name='editRating' id='editRating' min='1' max='5' placeholder='Out of 5' style='width: 100px; height: 15px';/> <input type='submit' value='Submit' aria-label='Submit' /></form></div>");
             parent.find('.reply').prop('disabled', true);
             
         }
