@@ -72,7 +72,8 @@
                 error: function (err) {
 
                     $('#review').find('.error').remove();
-                    review.append(` <div class='error' role='alert'>${err.responseText}</div>`);
+                    var error = $.parseJSON(err.responseText);
+                    parent.append(` <div class='error' role='alert'>${error.error}</div>`);
                 },
             };
             $.ajax(requestConfig).then(function (responseMessage) {
@@ -143,7 +144,8 @@
                 error: function (err) {
 
                     parent.find('.error').remove();
-                    parent.append(` <div class='error' role='alert'>${err.responseText}</div>`);
+                    var error = $.parseJSON(err.responseText);
+                    parent.append(` <div class='error' role='alert'>${error.error}</div>`);
                 },
             };
         
@@ -165,7 +167,6 @@
         var parent = $(this).parent().parent();
         parent.find('.error').remove();
         var reviewId =parent.find('.review-id').text();
-        //alert(reviewId);
         var requestConfig = {
             method: 'POST',
             url: '/review/like',
@@ -174,7 +175,8 @@
                 reviewId: reviewId,
             }),
             error: function (err) {
-                parent.append(` <div class='error' role='alert'>${err.responseText}</div>`);
+                var error = $.parseJSON(err.responseText);
+                parent.append(` <div class='error' role='alert'>${error.error}</div>`);
             },
         };
 
@@ -200,7 +202,8 @@
                 reviewId: reviewId,
             }),
             error: function (err) {
-                parent.append(` <div class='error' role='alert'>${err.responseText}</div>`);
+                var error = $.parseJSON(err.responseText);
+                parent.append(` <div class='error' role='alert'>${error.error}</div>`);
             },
         };
 
@@ -229,7 +232,8 @@
                 
             }),
             error: function (err) {
-                parent.append(` <div class='error' role='alert'>${err.responseText}</div>`);
+                var error = $.parseJSON(err.responseText);
+                parent.append(` <div class='error' role='alert'>${error.error}</div>`);
             },
         };
 
@@ -256,7 +260,8 @@
                 
             }),
             error: function (err) {
-                parent.parent().append(` <div class='error' role='alert'>${err.responseText}</div>`);
+                var error = $.parseJSON(err.responseText);
+                parent.append(` <div class='error' role='alert'>${error.error}</div>`);
             },
         };
 
@@ -283,10 +288,8 @@
             times = 1;
             parent.append("<div class='editContent'><form name='editReview' id='editReview'><input type='text' id='editTitle' placeholder='Title' /> <textarea class='editContent' id='editContent' rows='4' cols='50' placeholder='Content'></textarea> <input type='number' id='editRating' min='1' max='5' placeholder='Out of 5' /> <input type='submit' value='Submit' /></form></div>");
             parent.find('.reply').prop('disabled', true);
-            // var editClass = $("#editReview");
-            // editClass.submit(editSubmit);
+            
         }
-            // editClass.submit(editSubmit);
         
     };
 
@@ -329,7 +332,8 @@
                     rating: rating,
                 }),
                 error: function (err) {
-                    parent.append(` <div class='error' role='alert'>${err.responseText}</div>`);
+                    var error = $.parseJSON(err.responseText);
+                    parent.append(` <div class='error' role='alert'>${error.error}</div>`);
                 },
             };
             

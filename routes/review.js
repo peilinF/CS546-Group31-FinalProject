@@ -89,7 +89,7 @@ router
   router.route('/edit').put(async (req, res) => {
 
     if (!req.session.user) {
-      error = 'You have to login to like review!';
+      error = 'You have to login to edit review!';
       return res.status(400).json({ error: error });
     }
     const reviewId = xss(req.body.reviewId);
@@ -133,7 +133,7 @@ router
     .route('/like')
     .post(async (req, res) => {
       if(!req.session.user){
-        error = 'You have to login to unlike review!';
+        error = 'You have to login to like review!';
         return res.status(400).json({error: error});
       }
       const reviewId = xss(req.body.reviewId);
@@ -169,7 +169,7 @@ router
     .route('/unlike')
     .post(async (req, res) => {
       if(!req.session.user){
-        error = 'You have to login to add review!';
+        error = 'You have to login to unlike!';
         return res.status(400).json({error: error});
       }
       const reviewId = xss(req.body.reviewId);
