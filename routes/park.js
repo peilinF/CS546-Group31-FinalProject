@@ -50,7 +50,7 @@ router.route("/search").get(async (req, res) => {
     let park = await parkData.getParkByName(parkName);
     park = await getReview(park,user);
     req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
-    res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login, location: {x: x, y: y}});
+    res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login, location: {x: x, y: y}, title: park.parkName ,isPark:true});
     return;
   } catch (e) {
     res.status(500).render('error', {path: 'park/search', statuscode: 500, error: e});
