@@ -16,7 +16,7 @@ router.route("/search/name").get(async (req, res) => {
   try {
     const user = await userData.getUserByName(userName)
     if (user === false) throw "User not found"
-    res.status(200).render('profile', {title: "profile", user: user })
+    res.status(200).render('profile', {title: "profile", isPark: true, hideTitle: true, user: user })
     return;
   } catch (e) {
     if (e === "User not found") {

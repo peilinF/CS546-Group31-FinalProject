@@ -15,12 +15,10 @@
         deleteReply = $(".deleteReply");
         editReview = $(".editReview");
         windowCoords = $("#windowCoord");
-        // xCoord = $("#xCoord").text();
-        yCoord = $("#yCoord").text();
-    var  y;
+       
     window.scrollTo(0, yCoord);
     $(document).click(function (e) {
-        y = e.pageY;
+        
     });
     if (windowCoords.is(':visible')) {
         windowCoords.hide();
@@ -35,8 +33,15 @@
         window.location.href = "/login";
     });
 
-    //keydown input text to next input text
-
+    
+    $('#review').on('click', '.deleteReview', deleteReviewPost);
+    $('#review').on('click', '.deleteReply', deleteReplyPost);
+    $('#review').on('click', '.editReview', editReviewPost);
+    $('#review').on('click', '.reply', replyCheck);
+    $('#review').on('click', '.like', likePost);
+    $('#review').on('click', '.unlike', unlikePost);
+    $('#review').on('submit', '#postReply', replySubmit);
+    $('#review').on('submit', '#editReview', editSubmit);
     postReview.submit(function (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
@@ -62,41 +67,48 @@
                     reviewTitle: title.val(),
                     content: content.val(),
                     rating: rating.val(),
-                    y: y,
+                    
                 }),
                 error: function (err) {
-                    // window.location.href = "/review/error/" + err.responseText;
-                    alert(err.responseText);
+
+                    $('#review').find('.error').remove();
+                    var error = $.parseJSON(err.responseText);
+                    parent.append(` <div class='error' role='alert'>${error.error}</div>`);
                 },
             };
             $.ajax(requestConfig).then(function (responseMessage) {
-                window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
-                // var main = $(".park_information");
-                // var rating = $("#park_rating");
-                // // add review to the page
-                // if (review.length == 0) {
-                //     rating.after("<div class='review'><h2>Reviews</h2> <div class = 'reviews' name = '");
-                // }
+                var review = responseMessage.review;
+                var rating = $("#park_rating");
+                var reviewClass = $("#review");
+                reviewClass.find(".leaveReview").before(`<div class = 'reviews' name = ${review._id}> <section class = 'review-info'> <p class = 'review-id'>${review._id}</p> <p class = 'review-title'>Title: ${review.title} </p>  <p class = 'review-username'>Author: ${review.userName} </p> <p class = 'review-rating'>Rating: ${review.rating} </p>  <p class = 'review-date'>Date: ${review.lastUpdatedTime}</p> <p class="review-likes">Likes: ${review.number_of_likes}</p></section> <section class = 'review-content'> <p class = 'review-content'>Content: ${review.content}</p> </section> <div class = 'replyUi'> <button type='button' class = 'reply'>Reply</button> <button type="button" class = 'like'>Like</button></div> <div class = 'deleteUi'> <button type='button' class = 'deleteReview'>Delete</button> <button type='button' class = 'editReview'>Edit</button> </div> </div>`);
+                if ( reviewClass.find('.review-id').is(':visible')) {
+                    reviewClass.find('.review-id').hide();
+                }
+                $('#park_rating').text(`Overall Rating: ${responseMessage.rating}`);
+                title.val("");
+                content.val("");
+                rating.val("");
+                $('#review').find('.error').remove();
+                return;
             });
         }
     });
-    var isClicked = false;
-    reply.click(function (e) {
+    function replyCheck(e) {
         e.preventDefault();
         var thisReply = $(this).parent().parent();
-        if (isClicked && thisReply.find('.replyContent').length > 1) {
+        if (thisReply.find('.replyContent').length === 2 ) {
             thisReply.find(".error").remove();
             thisReply.find('.replyContent').remove();
             thisReply.find('.editReview').prop('disabled', false);
             isClicked = false;
             return;
-        } else if (!isClicked && thisReply.find('.replyContent').length == 0 ) {
+        } else if (thisReply.find('.replyContent').length === 0 ) {
             isClicked = true;
             thisReply.append("<div class='replyContent'><form name='postReply' id='postReply'><textarea class='replyContent' id='replyContent' rows='4' cols='50' placeholder='Reply'></textarea> <input type='submit' value='Submit' /></form></div>");
             var replyClass = $("#postReply");
             thisReply.find('.editReview').prop('disabled', true);
             thisReply.find('.error').remove();
-            replyClass.submit(replySubmit);
+            
             $('.replyContent').keydown(function (event) {
                 if (event.keyCode === 13) {
                     event.preventDefault();
@@ -104,28 +116,13 @@
                 }
             });
             
-        } else {
-            alert("Close the other reply box first");
-        }
-    });
+        } 
+    };
     function replySubmit(e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
         var replyContent = $(this).parent().find('.replyContent').val();
         var reviewId = $(this).parent().parent().find('.review-id').text();
-        var requestConfig = {
-            method: 'POST',
-            url: '/comment/add',
-            contentType: "application/json",
-            data: JSON.stringify({
-                reviewId: reviewId,
-                replyContent: replyContent,
-                y: y,
-            }),
-            error: function (err) {
-                alert(err.responseText);
-            },
-        };
         if (!replyContent) {
             parent.find('.error').remove();
             parent.append("<div class='error' role='alert'>Please fill all the fields</div>");
@@ -135,14 +132,36 @@
             parent.append("<div class='error' role='alert'>Reply should be less than 100 characters</div>");
             return;
         } else {
+            var requestConfig = {
+                method: 'POST',
+                url: '/comment/add',
+                contentType: "application/json",
+                data: JSON.stringify({
+                    reviewId: reviewId,
+                    replyContent: replyContent,
+                    
+                }),
+                error: function (err) {
+
+                    parent.find('.error').remove();
+                    var error = $.parseJSON(err.responseText);
+                    parent.append(` <div class='error' role='alert'>${error.error}</div>`);
+                },
+            };
+        
             
             $.ajax(requestConfig).then(function (responseMessage) {
-                window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
+                parent.find('.error').remove();
+                var userName = responseMessage.userName;
+                var comment = responseMessage.comment;
+                parent.append(`<div class = 'comments' name = ${comment._id}> <section class = 'comment-info'> <p class = 'comment-id'>${comment._id}</p> <p class = 'comment-username'>Reply from: ${userName} </p> </section> <section class = 'comment-content'> <p class = 'comment-content'>Content: ${comment.content}</p> </section> <div class = 'deleteReply'> <button type='button' class = 'deleteReplyButton'>Delete this Reply</button> </div> </div>`);
+                parent.find('.replyContent').remove();
+                parent.find('.comment-id').hide();
             });
         }
     };
     
-    like.click(likePost);
+    
     function likePost (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
@@ -156,7 +175,8 @@
                 reviewId: reviewId,
             }),
             error: function (err) {
-                alert(err.responseText);
+                var error = $.parseJSON(err.responseText);
+                parent.append(` <div class='error' role='alert'>${error.error}</div>`);
             },
         };
 
@@ -169,7 +189,6 @@
             parent.find('.unlike').click(unlikePost);
         });
     };
-    unlike.click(unlikePost);
     function unlikePost (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
@@ -183,7 +202,8 @@
                 reviewId: reviewId,
             }),
             error: function (err) {
-                alert(err.responseText);
+                var error = $.parseJSON(err.responseText);
+                parent.append(` <div class='error' role='alert'>${error.error}</div>`);
             },
         };
 
@@ -198,9 +218,9 @@
         return;
     };
 
-    deleteReview.click(function (e) {
+    function deleteReviewPost(e) {
         e.preventDefault();
-        y = e.pageY;
+        
         var parent = $(this).parent().parent();
         var reviewId =parent.find('.review-id').text();
         var requestConfig = {
@@ -209,21 +229,26 @@
             contentType: "application/json",
             data: JSON.stringify({
                 reviewId: reviewId,
-                y: y,
+                
             }),
             error: function (err) {
-                alert(err.responseText);
+                var error = $.parseJSON(err.responseText);
+                parent.append(` <div class='error' role='alert'>${error.error}</div>`);
             },
         };
 
         $.ajax(requestConfig).then(function (responseMessage) {
-            window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
+            parent.find('.error').remove();
+            $('#park_rating').text(`Overall Rating: ${responseMessage.rating}`);
+            parent.remove();
         });
-    });
+        
+       
+    };
 
-    deleteReply.click(function (e) {
+    function deleteReplyPost(e) {
         e.preventDefault();
-        y = e.pageY;
+        
         var parent = $(this).parent();
         var commentId =parent.find('.comment-id').text();
         var requestConfig = {
@@ -232,81 +257,95 @@
             contentType: "application/json",
             data: JSON.stringify({
                 commentId: commentId,
-                y: y,
+                
             }),
             error: function (err) {
-                alert(err.responseText);
+                var error = $.parseJSON(err.responseText);
+                parent.append(` <div class='error' role='alert'>${error.error}</div>`);
             },
         };
 
         $.ajax(requestConfig).then(function (responseMessage) {
-            window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
+            parent.parent().find('.error').remove();
+            parent.remove();
         });
-    });
-    var editIsClicked = false;
+    };
 
-    editReview.click(function (e) {
+    function editReviewPost(e) {
         
         e.preventDefault();
         var parent = $(this).parent().parent();
-        if (editIsClicked && parent.find('.editContent').length > 0) {
+        if (parent.find('.editContent').length > 0) {
             parent.find(".error").remove();
             parent.find('.editContent').remove();
             editIsClicked = false;
             times = 0;
             parent.find('.reply').prop('disabled', false);
             return;
-        } else if (!editIsClicked && parent.find('.editContent').length == 0) {
+        } else if (parent.find('.editContent').length === 0) {
             parent.find('.error').remove();
             editIsClicked = true;
             times = 1;
             parent.append("<div class='editContent'><form name='editReview' id='editReview'><input type='text' id='editTitle' placeholder='Title' /> <textarea class='editContent' id='editContent' rows='4' cols='50' placeholder='Content'></textarea> <input type='number' id='editRating' min='1' max='5' placeholder='Out of 5' /> <input type='submit' value='Submit' /></form></div>");
             parent.find('.reply').prop('disabled', true);
-            var editClass = $("#editReview");
-            editClass.submit(editSubmit);
-        } else {
-            alert("Close the other edit box first");
+            
         }
-            // editClass.submit(editSubmit);
         
-    });
+    };
 
     function editSubmit(e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
+         
+        var oldTitle = parent.find('.review-title').text().split(':')[1].trim();
+        var oldContent = parent.find('.review-content').text().split(':')[1].trim();
+        var oldRating = parent.find('.review-rating').text().split(':')[1].trim();
         var reviewId =parent.find('.review-id').text();
         var reviewTitle =parent.find('#editTitle').val();
         var content =parent.find('#editContent').val();
         var rating =parent.find('#editRating').val();
-        var requestConfig = {
-            method: 'PUT',
-            url: '/review/edit',
-            contentType: "application/json",
-            data: JSON.stringify({
-                reviewId: reviewId,
-                reviewTitle: reviewTitle,
-                content: content,
-                rating: rating,
-            }),
-            error: function (err) {
-                alert(err.responseText);
-            },
-        };
-        if (!title.val() || !content.val() || !rating.val()) {
-            review.append("<div class='error' role='alert'>Please fill all the fields</div>");
+        if (!reviewTitle|| !content || !rating) {
+            parent.append("<div class='error' role='alert'>Please fill all the fields</div>");
             return;
-        } else if (rating.val() < 1 || rating.val() > 5) {
-            review.append("<div class='error' role='alert'>Rating should be between 1 and 5</div>");
+        } else if (rating < 1 || rating > 5) {
+            parent.append("<div class='error' role='alert'>Rating should be between 1 and 5</div>");
             return;
-        } else if (title.val().length > 50) {
-            review.append("<div class='error' role='alert'>Title should be less than 50 characters</div>");
+        } else if (reviewTitle.length > 50) {
+            parent.append("<div class='error' role='alert'>Title should be less than 50 characters</div>");
             return;
-        } else if (content.val().length > 500) {
-            review.append("<div class='error' role='alert'>Content should be less than 500 characters</div>");
+        } else if (content.length > 500) {
+            parent.append("<div class='error' role='alert'>Content should be less than 500 characters</div>");
             return;
-        }  else {
+        } else if ( reviewTitle === oldTitle && content === oldContent && rating === oldRating){
+            parent.append("<div class='error' role='alert'>No changes made</div>");
+            return;
+
+        } else {
+            var requestConfig = {
+                method: 'PUT',
+                url: '/review/edit',
+                contentType: "application/json",
+                data: JSON.stringify({
+                    reviewId: reviewId,
+                    reviewTitle: reviewTitle,
+                    content: content,
+                    rating: rating,
+                }),
+                error: function (err) {
+                    var error = $.parseJSON(err.responseText);
+                    parent.append(` <div class='error' role='alert'>${error.error}</div>`);
+                },
+            };
+            
             $.ajax(requestConfig).then(function (responseMessage) {
-                window.location.href = `/park/search?searchParkName=${responseMessage.parkName}`;
+                var reviewObject = responseMessage.review;
+                parent.find('.error').remove();
+                parent.find('.editContent').remove();
+                parent.find('.review-title').text(`Title: ${reviewObject.title}`);
+                parent.find('.review-content').text(`Content: ${reviewObject.content}`);
+                parent.find('.review-date').text(`Date: ${reviewObject.lastUpdatedTime}`);
+                parent.find('.review-rating').text(`Rating: ${reviewObject.rating}`);
+                $('#park_rating').text(`Overall Rating: ${responseMessage.rating}`);
             });
 
         }

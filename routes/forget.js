@@ -31,6 +31,14 @@ router
       return;
     }
 
+    try{
+      helper.validEmailAddr(email);
+      helper.checkPasswordString(passWord);
+      helper.checkPassword(passWord);
+    }catch(e){
+      return res.status(400).send(e);
+    }
+    
     const checkExist = await usersData.getUserByEmail(email);
     if (!checkExist){
       console.log("User cannot be found");

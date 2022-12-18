@@ -24,12 +24,7 @@ router.route("/search").get(async (req, res) => {
     req.session.login = false;  
   }
 
-  var x = 0;
-  var y = 0;
-  if (req.session.location) {
-    x = req.session.location.x;
-    y = req.session.location.y;
-  }
+
   try {
     if (!parkName) throw 'You must provide an parkName to search for';
     if (typeof parkName !== 'string') throw 'parkName must be a string';
@@ -50,7 +45,7 @@ router.route("/search").get(async (req, res) => {
     let park = await parkData.getParkByName(parkName);
     park = await getReview(park,user);
     req.session.pageNow = ['singlePark', {partial : 'parkSubReview', park: park, login: req.session.login}]
-    res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login, location: {x: x, y: y}, title: park.parkName ,isPark:true});
+    res.status(200).render('singlePark', {partial : 'parkSubReview', park: park, login: req.session.login, title: park.parkName ,isPark:true});
     return;
   } catch (e) {
     res.status(500).render('error', {title: 'Error Page', path: 'park/search', statuscode: 500, error: e});

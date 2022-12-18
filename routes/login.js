@@ -21,6 +21,14 @@ router
     return res.status(400).json({error:error, title:"Welcome to login!"});
   }
 
+  try{
+    helper.validEmailAddr(email);
+    helper.checkPasswordString(passWord);
+    helper.checkPassword(passWord);
+  }catch(e){
+    return res.status(400).send(e);
+  }
+
   req.session.pageBefore = req.session.pageNow ;
   try{
     const checkUser = await usersData.checkUser(email,passWord);
@@ -28,17 +36,16 @@ router
     if (checkUser.authenticatedUser) {
       req.session.user = {userName: checkUser.userName,  email: email, userId: checkUser.userId};
       if (req.session.pageBefore === '/') {
-        //res.json({url: '/login/homepage'});
+        
         return res.status(200).json({url:'/'});
       } else {
         req.session.pageBefore[1].login = true;
-        //res.redirect(`/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`);
-        //res.json({url: `/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`});
+       
         return res.status(200).json({url:`/park/search?searchParkName=${req.session.pageBefore[1].park.parkName}`});
       }
     }
   }catch(e){
-    //error = "Either the username or password is invalid."
+    
     return res.status(400).send(e);
   }
 })

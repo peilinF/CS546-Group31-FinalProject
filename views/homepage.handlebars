@@ -1,27 +1,4 @@
-<style>
-        img {
-          width: 23%;
-          height: auto;
-          margin: 1%;
-          display: inline-block;
-          vertical-align: middle;
-          animation: moveInRight 1s ease-out;
-          transition: all 0.3s ease-in-out;
-        }
-
-        @keyframes moveInRight {
-          0% {
-            transform: translateX(-100px);
-            opacity: 0;
-          }
-          100% {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
- </style>
-
- <div class="session">
+<div class="session">
     <div class="logo"><h1>U.S. National Park Domination Map</h1></div>
     <a href="/profile">Welcome {{userName}}</a>
     <a href="/logout">Logout</a>
@@ -38,31 +15,12 @@
         <img src="https://www.nps.gov/common/uploads/structured_data/AED0DAB8-0FB7-5710-46732DF80111AC64.jpg" alt="Ancient bristlecone with comet NEOWISE in the background">
         <img src="/public/images/alot2.png" alt="rainbow landform">
         <img src="/public/images/bear.png" alt="Close up view of a bear.">
-        <img src="https://www.nps.gov/common/uploads/structured_data/3C7FE691-1DD8-B71B-0B21F94DBD31A965.jpg" alt="Close up view of ripples on a dune.">
         <img src="https://www.nps.gov/common/uploads/structured_data/8A869F85-FB2E-5EAF-11367EB2DB75963D.jpg" alt="A herd of bison grazing through a barren and steaming thermal area.">
-        <img src="https://www.nps.gov/common/uploads/structured_data/3C84C3C0-1DD8-B71B-0BFF90B64283C3D8.jpg" alt="A mountain reflecting in a lake.">
-        <img src="https://www.nps.gov/common/uploads/structured_data/C19B20BB-C8CC-5BAB-22E3CA6AF9B2B67C.jpg" alt="A double waterfall blurs over layered rocks.">
     </div>
     
     <div id="btn">
         <button id="btn_visited">Visited</button>
         <button id="btn_wishlist">Wishlist</button>
-        <div class="rect">
-            <div class="rec">
-            <div class="rec_1">1</div>
-            <div class="rec_2">2</div>
-            <div class="rec_3">3</div>
-            <div class="rec_4">4</div>
-            <div class="rec_5">>=5</div>
-        </div>
-        <div class="rec">
-            <div class="rec_6">1</div>
-            <div class="rec_7">2</div>
-            <div class="rec_8">3</div>
-            <div class="rec_9">4</div>
-            <div class="rec_10">>=5</div>
-        </div>
-        </div>
     </div>
 
           <div id="map">
@@ -304,10 +262,26 @@
         </g>
         </svg>
     </div>
+    <div class="rect">
+            <div class="rec">
+            <div class="rec_1">1</div>
+            <div class="rec_2">2</div>
+            <div class="rec_3">3</div>
+            <div class="rec_4">4</div>
+            <div class="rec_5">>=5</div>
+        </div>
+        <div class="rec">
+            <div class="rec_6">1</div>
+            <div class="rec_7">2</div>
+            <div class="rec_8">3</div>
+            <div class="rec_9">4</div>
+            <div class="rec_10">>=5</div>
+        </div>
+    </div>
     <div class="wished-visited-data" style="margin-bottom: 16px;">
         <button id="btn-record-data">Records</button>
-        <h5 class="wished-data"></h5>
-        <h5 class="visited-data"></h5>
+        <h3 class="wished-data"></h3>
+        <h3 class="visited-data"></h3>
     </div>
     <section class="park-search-list cute-section">
     

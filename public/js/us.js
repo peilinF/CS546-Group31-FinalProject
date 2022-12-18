@@ -57,7 +57,6 @@ function link() {
 // 	return form;
 // }
 
-//创建选择菜单
 function appendVisitText() {
 	// let list=document.createElement("div");
 	// $(list).addClass('center');
@@ -68,7 +67,7 @@ function appendVisitText() {
 	$(list).addClass('center');
 	$('#btn').append(list);
 	$('#list').html('You have visited:');
-	$('#list').first().css('color', '#0f7ce2')
+	$('#list').first().css('color', '#000000')
 }
 
 function appendWishText() {
@@ -81,7 +80,7 @@ function appendWishText() {
 	$(list).addClass('center');
 	$('#btn').append(list);
 	$('#list').html('You wish to go:');
-	$('#list').first().css('color', '#f3488f')
+	$('#list').first().css('color', '#000000')
 }
 
 // let AK = document.getElementById("Alaska");

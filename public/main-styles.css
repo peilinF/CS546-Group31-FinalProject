@@ -400,7 +400,7 @@ img {
   transition: transform 1s;
 }
 img:hover {
-  transform: scale(1.5, 2);
+  transform: scale(0.8);
 }
 
 #btn {

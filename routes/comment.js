@@ -5,6 +5,7 @@ const helper = require("../helpers.js");
 const parkData = data.parks;
 const reviewData = data.reviews;
 const commentData = data.comments;
+const usersData = data.users;
 const path = require('path');
 const xss = require('xss');
 
@@ -19,28 +20,27 @@ router
     let parkName = req.session.pageNow[1].park.parkName;
     const reviewId = xss(req.body.reviewId);
     let content = xss(req.body.replyContent);
-    let y = xss(req.body.y);
-    req.session.location = {y: y};
     parkName = parkName.trim();
-    try{
-      if (!reviewId) throw 'You must provide an id to search for';
-      if (typeof reviewId !== 'string') {
-        return res.status(400).json({ error: 'reviewId must be a string' });
-      }
-      if (reviewId.trim().length === 0) {
-        return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
-      }
-      if(typeof content !== 'string') throw 'content must be a string';
-      content = content.trim();
-    }catch(e){
-      return res.status(400).json({error: e});
+
+    if (!reviewId) return res.status(400).json({ error: 'You must provide an id to search for' });
+    if (typeof reviewId !== 'string') {
+      return res.status(400).json({ error: 'reviewId must be a string' });
     }
+    if (reviewId.trim().length === 0) {
+      return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
+    }
+    if(typeof content !== 'string') return res.status(400).json({error: 'content must be a string'});
+    if(content.trim().length === 0) return res.status(400).json({error: 'content cannot be an empty string or just spaces'});
+    content = content.trim();
+  
   
     const userId = req.session.user.userId;
     try{
-      await commentData.createComment(reviewId.toString(), userId.toString(), content);
-      let park = await parkData.getParkByName(parkName);
-      return res.status(200).json({parkName: park.parkName});
+      console.log('create comment');
+      const comment = await commentData.createComment(reviewId.toString(), userId.toString(), content);
+      const user = await usersData.getUserById(userId);
+      comment._id = comment._id.toString();
+      return res.status(200).json({userName: user.userName,comment: comment});
     }catch(e){
       return res.status(400).json({error: e});
     }
@@ -57,12 +57,10 @@ router
 
     let parkName = req.session.pageNow[1].park.parkName;
     const commentId = xss(req.body.commentId);
-    let y = xss(req.body.y);
-    req.session.location = {y: y};
     parkName = parkName.trim();
 
-    try{
-      if (!commentId) throw 'You must provide an id to search for';
+
+      if (!commentId) return res.status(400).json({ error: 'You must provide an id to search for' });
       if (typeof commentId !== 'string') {
         return res.status(400).json({ error: 'reviewId must be a string' });
       }
@@ -70,9 +68,7 @@ router
         return res.status(400).json({ error: 'reviewId cannot be an empty string or just spaces' });
       }
 
-    } catch(e){
-      return res.status(400).json({error: e});
-    }
+      if (!parkName) return res.status(400).json({ error: 'You must provide an id to search for' });
 
     parkName = parkName.trim();
 
