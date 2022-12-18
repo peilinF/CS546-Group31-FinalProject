@@ -38,8 +38,8 @@
 <body>
     <header>
         <div class="logo"><h1>U.S. National Park Domination Map</h1></div>
-        <input type="button" value="Sign Up" class="register" onclick="location.href='/register'">
-        <input type="button" value="Login" class="login" onclick="location.href='/login'">
+        <input type="button" id="signup-button" value="Sign Up" class="register" role="button" aria-label="Sign up" title="Click to create a new account" onclick="location.href='/register'">
+        <input type="button" id="login-button" value="Login" class="login" role="button" aria-label="Login" title="Click to log in to your account" onclick="location.href='/login'">
     </header>
     <main>
         <article class="homepageArt">
@@ -324,8 +324,8 @@
         
             <form action="/park/search" method="GET">
                 <label for="searchParkNameInputText" id="searchParkNameLabel">Find a park</label>
-                <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here" style="width: 300px; height: 40px;"/>
-                <input type="submit" value="Search" class="cute-button" />
+                <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here" aria-label="Search park name" title="Type in the name of the park you want to search for" style="width: 300px; height: 40px;">
+                <input type="submit" id="search-button" value="Search" class="cute-button" role="button" aria-label="Search" title="Click to submit your search">
             </form>
         
             <button type="button" id="get-park-list-btn" style="margin-top: 20px;">Get Park List</button>
@@ -348,14 +348,8 @@
             <p style="font-size:16px;">Looking for another registered user?</p>
             <form action="/user/search/name" method="GET">
                 <label for="searchUserNameInputText" id="searchUserNameLabel">User Name</label>
-                <input
-                  type="text"
-                  id="searchUserNameInputText"
-                  name="searchUserName"
-                  placeholder="Enter User Name Here"
-                  style="width: 300px; height: 40px;"
-                />
-                <input type="submit" value="Search" />
+                <input type="text" id="searchUserNameInputText" name="searchUserName" placeholder="Enter User Name Here" aria-label="Search user name" title="Type in the name of the user you want to search for" style="width: 300px; height: 40px;">
+                <input type="submit" id="search-button" value="Search" role="button" aria-label="Search" title="Click to submit your search">
               </form>
           </section>
         </div>
