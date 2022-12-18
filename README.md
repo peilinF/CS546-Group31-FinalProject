@@ -3,7 +3,7 @@
 ## Park Domination Map
 
 ### Notice
-This project is basically tested on "Google Chrome", We highly recommend you run this project on the same browser.
+This project is tested on "Google Chrome", We highly recommend you run this project on the same browser.
 
 ### About
 “National Park Domination Map” is a light-weight and fun informational site for outdoor travelers. Users can select each national park that they have visited from a dominant map, and the corresponding map area will be highlighted. Users can also mark the national park that they wish to visit.
@@ -25,6 +25,8 @@ Users can like comments. Then the website ranks parks/users/reviews from user in
   * express-session
   * xss
 * Mongodb
+* Javascript
+* Ajax
 * HTML, CSS
 
 ### Install
