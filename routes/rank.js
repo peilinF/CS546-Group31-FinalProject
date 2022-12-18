@@ -28,16 +28,16 @@ router.route("/user/results").get(async (req, res) => {
     itemsNum = req.query.itemsNum
     reverse = req.query.reverse
   } catch (e) {
-    res.status(400).render('error', {path: '/rank/user/result', statuscode: 400, error : e});
+    res.status(400).render('error', {title: 'Error Page',path: '/rank/user/result', statuscode: 400, error : e});
     return;
   }
   if (!itemsNum) itemsNum = 10
   try {
     const results = await rankData.rankUsers(option, itemsNum, reverse)
-    res.status(200).render('rankUsers', {option: option, itemsNum: itemsNum, reverse: reverse, results: results})
+    res.status(200).render('rankUsers', {title:"Rank User",option: option, itemsNum: itemsNum, reverse: reverse, results: results})
     return
   } catch (e) {
-    res.status(500).render('error', {path: '/rank/user/result', statuscode: 500, error : e});
+    res.status(500).render('error', {title: 'Error Page',path: '/rank/user/result', statuscode: 500, error : e});
     return;
   }
 });
@@ -50,18 +50,18 @@ router.route("/review/results").get(async (req, res) => {
     itemsNum = req.query.itemsNum
     reverse = req.query.reverse
   } catch (e) {
-    res.render('error', {path: '/rank/review/result', statuscode: 400, error : e});
+    res.render('error', {title: 'Error Page',path: '/rank/review/result', statuscode: 400, error : e});
     res.status(400);
     return;
   }
   if (!itemsNum) itemsNum = 10
   try {
     const results = await rankData.rankReviews(option, itemsNum, reverse)
-    res.render('rankReviews', {option: option, itemsNum: itemsNum, reverse: reverse, results: results})
+    res.render('rankReviews', {title:"Rank Review",option: option, itemsNum: itemsNum, reverse: reverse, results: results})
     res.status(200)
     return
   } catch (e) {
-    res.render('error', {path: '/rank/review/result', statuscode: 500, error : e});
+    res.render('error', {title: 'Error Page',path: '/rank/review/result', statuscode: 500, error : e});
     res.status(500);
     return;
   }
@@ -74,18 +74,18 @@ router.route("/park/results").get(async (req, res) => {
     option = req.query.option;
     reverse = req.query.reverse
   } catch (e) {
-    res.render('error', {path: '/rank/park/result', statuscode: 400, error : e});
+    res.render('error', {title: 'Error Page',path: '/rank/park/result', statuscode: 400, error : e});
     res.status(400);
     return;
   }
   try {
     console.log(option);
     const results = await rankData.rankParks(option, reverse)
-    res.render('rankParks', {option: option, reverse: reverse, results: results})
+    res.render('rankParks', {title:"Rank park", option: option, reverse: reverse, results: results})
     res.status(200)
     return
   } catch (e) {
-    res.render('error', {path: '/rank/park/result', statuscode: 500, error : e});
+    res.render('error', {title: 'Error Page',path: '/rank/park/result', statuscode: 500, error : e});
     res.status(500);
     return;
   }

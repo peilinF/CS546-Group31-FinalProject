@@ -293,53 +293,51 @@
         <h5 class="wished-data"></h5>
         <h5 class="visited-data"></h5>
     </div>
-      <section class="park-search-list cute-section">
-
-            <section class="search">
-                <h2>Find Your Virtual Park</h2>
-                <p style="font-size: 16px;">Wild places inspire us. We want the same for you.
-                    Whether you are staying in a houseboat on Lake Powell, a resort in Olympic National Park, or camping in Denali National Park, the choice is up to you. 
-                    Go ahead, look around. Find what inspires you.</p>
-            </section>
-        
-            <form action="/park/search" method="GET">
-                <label for="name" id="searchParkNameLabel">Find a park</label>
-                <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here" style="width: 300px; height: 40px;"/>
-                <input type="submit" value="Search" class="cute-button" />
-            </form>
-        
-            <button type="button" id="get-park-list-btn">Get Park List</button>
-        
-            <div class="park-list"></div>
+    <section class="park-search-list cute-section">
+    
+        <section class="search">
+            <h2>Find Your Virtual Park</h2>
+            <p style="font-size: 16px;">Wild places inspire us. We want the same for you.
+                Whether you are staying in a houseboat on Lake Powell, a resort in Olympic National Park, or camping in
+                Denali National Park, the choice is up to you.
+                Go ahead, look around. Find what inspires you.</p>
         </section>
-
-        <section class="rankPage">
-            <p style="font-size:16px;">Check out our parks, users, and reviews ranking here.</p>
-            <div class="buttonTray">
-                <input type="button" value="Parks ranking" class="parkButton" onclick="location.href='../rank/park'">
-                <input type="button" value="Users ranking" class="userButton" onclick="location.href='../rank/user'">
-                <input type="button" value="Reviews ranking" class="reviewButton" onclick="location.href='../rank/review'">
-            </div>
-       </section>
-
-        <section class="userPage">
-            <p style="font-size:16px;">Looking for another registered user?</p>
-            <form action="/user/search/name" method="GET">
-                <label for="name" id="searchUserNameLabel">User Name</label>
-                <input
-                  type="text"
-                  id="searchUserNameInputText"
-                  name="searchUserName"
-                  placeholder="Enter User Name Here"
-                  style="width: 300px; height: 40px;"
-                />
-                <input type="submit" value="Search" />
-        </section>
-
-        <section class="footer">
-            <p style="font-size:12px;">Peilin Feng | Leona Huang | Rocky Qin | Steve Zhu</p>
-            <p style="font-size:12px;">@Stevens CS-546-Group31 2022Fall</p>
-        </section>
+    
+        <form action="/park/search" method="GET">
+            <label for="searchParkNameInputText" id="searchParkNameLabel">Find a park</label>
+            <input type="text" id="searchParkNameInputText" name="searchParkName" placeholder="Enter Park Name Here"
+                style="width: 300px; height: 40px;" />
+            <input type="submit" value="Search" class="cute-button" />
+        </form>
+    
+        <button type="button" id="get-park-list-btn">Get Park List</button>
+    
+        <div class="park-list"></div>
+    </section>
+    
+    <section class="rankPage">
+        <p style="font-size:16px;">Check out our parks, users, and reviews ranking here.</p>
+        <div class="buttonTray">
+            <input type="button" value="Parks ranking" class="parkButton" onclick="location.href='../rank/park'">
+            <input type="button" value="Users ranking" class="userButton" onclick="location.href='../rank/user'">
+            <input type="button" value="Reviews ranking" class="reviewButton" onclick="location.href='../rank/review'">
+        </div>
+    </section>
+    
+    <section class="userPage">
+        <p style="font-size:16px;">Looking for another registered user?</p>
+        <form action="/user/search/name" method="GET">
+            <label for="searchUserNameInputText" id="searchUserNameLabel">User Name</label>
+            <input type="text" id="searchUserNameInputText" name="searchUserName" placeholder="Enter User Name Here"
+                style="width: 300px; height: 40px;" />
+            <input type="submit" value="Search" />
+        </form>
+    </section>
+    
+    <section class="footer">
+        <p style="font-size:12px;">Peilin Feng | Leona Huang | Rocky Qin | Steve Zhu</p>
+        <p style="font-size:12px;">@Stevens CS-546-Group31 2022Fall</p>
+    </section>
     </article>
 <script src="/public/js/us.js"></script>
 <script src="/public/js/park.js"></script>

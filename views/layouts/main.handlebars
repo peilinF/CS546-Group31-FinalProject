@@ -11,7 +11,10 @@
 </head>
 <body>
   <main>
-    <h1>{{title}}</h1>
+    {{#if isPark}}
+    {{else}}
+      <h1>{{title}}</h1>
+    {{/if}}
     {{{body}}}
   </main>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="

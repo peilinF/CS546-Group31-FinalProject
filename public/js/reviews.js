@@ -34,6 +34,9 @@
     login.click(function () {
         window.location.href = "/login";
     });
+
+    //keydown input text to next input text
+
     postReview.submit(function (e) {
         e.preventDefault();
         var parent = $(this).parent().parent();
@@ -86,7 +89,6 @@
             thisReply.append("<div class='replyContent'><form name='postReply' id='postReply'><textarea class='replyContent' id='replyContent' rows='4' cols='50' placeholder='Reply'></textarea> <input type='submit' value='Submit' /></form></div>");
             var replyClass = $("#postReply");
             thisReply.find('.editReview').prop('disabled', true);
-            var replyContent = $(this).parent().find('.replyContent').val();
             thisReply.find('.error').remove();
             replyClass.submit(replySubmit);
             $('.replyContent').keydown(function (event) {
