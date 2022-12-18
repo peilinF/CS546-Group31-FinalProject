@@ -84,11 +84,11 @@ const createUser = async () => {
 const createMutiUsers = async () => {
   const userList = [];
   const usersInfos = [
-    ['mike11', 'xixixixi0@gmail.com','1995-02-14','FENG@fpl1997',"What is your mother's first name?",'Sam',"Is there anything you can't live without","Sugar"],
-    ['John22', 'John1@gmail.com','1985-03-21','John@fpl1997',"What was your favorite food as a child",'Dumplings','In what city were you born?',"Beijing"],
+    ['mike11', 'xixixixi0@gmail.com','1995-02-14','FENG@fpl1997',"What is your mother's first name?",'Sam',"Is there anything you can't live without?","Sugar"],
+    ['John22', 'John1@gmail.com','1985-03-21','John@fpl1997',"What was your favorite food as a child?",'Dumplings','In what city were you born?',"Beijing"],
     ['wendy33', 'wendy2@gmail.com','1980-04-30','Wendy@fpl1997',"What is your mother's first name?",'Ming','In what city were you born?',"Beijing"],
     ['jack44', 'jack443@gmail.com','1975-05-15','Jack@fpl1997',"Who is you love most person?",'Mom','In what city were you born?',"NewYork"],
-    ['nick55', 'nick554@gmail.com','1965-07-12','Nick@fpl1997',"What is the name of your favorite pet?",'Kitty','What was your favorite food as a child',"Pizza"],
+    ['nick55', 'nick554@gmail.com','1965-07-12','Nick@fpl1997',"What is the name of your favorite pet?",'Kitty','What was your favorite food as a child?',"Pizza"],
     ['bobhaha66', 'bobhaha66@gmail.com','1990-01-03','Bobby@fpl1997',"What is your mother's first name?",'Ying','In what city were you born?',"Beijing"],
     ['GGboy77', 'GGboy77@gmail.com', '1992-12-01','Gboy@fpl1997',"Who is you love most person?",'Son','In what city were you born?',"Hoboken"],
     ['Cindy77', 'Cindy776@gmail.com', '1995-02-19','Cindy@fpl1997',"Where did you meet your spouse?",'Cinema','Who is you love most person?',"Myself"],
