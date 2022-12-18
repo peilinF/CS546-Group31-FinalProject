@@ -18,8 +18,11 @@
         mySpan.css('color', 'red');
         mySpan.html('Please fill all the fields!');
         return;
-      }
-      else {
+      } else if (email.val().indexOf('@') === -1 || email.val().indexOf('.') === -1) {
+        mySpan.css('color', 'red');
+        mySpan.html('Please enter a valid email address!');
+        return;
+      } else {
         mySpan.html('')
         var requestConfig = {
             method: 'POST',

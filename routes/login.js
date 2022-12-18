@@ -26,7 +26,7 @@ router
     helper.checkPasswordString(passWord);
     helper.checkPassword(passWord);
   }catch(e){
-    return res.status(400).send(e);
+    return res.status(400).json({error:e, title:"Welcome to login!"});
   }
 
   req.session.pageBefore = req.session.pageNow ;

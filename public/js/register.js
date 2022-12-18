@@ -28,7 +28,11 @@
             errorMessage.html('');
             mySpan.css('color', 'red');
             mySpan.html('not matching');
-        } else {
+        } else if (email.val().indexOf('@') === -1 || email.val().indexOf('.') === -1) {
+            errorMessage.css('color', 'red');
+            errorMessage.html('Please enter a valid email address!');
+            return;
+        } else{
             mySpan.css('color', 'green');
             mySpan.html('matching');
             var requestConfig = {
@@ -47,7 +51,8 @@
                 }),
                 error: function (err) {
                     errorMessage.css('color', 'red');
-                    errorMessage.html(err.responseText);
+                    var error = $.parseJSON(err.responseText);
+                    errorMessage.html(error.error);
                 }
             }
             

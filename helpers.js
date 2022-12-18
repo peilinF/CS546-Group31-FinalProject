@@ -28,7 +28,8 @@ function validEmailAddr(email) {
   if (typeof email !== 'string') throw 'Email must be a string';
   if (email.trim().length === 0)
     throw 'Email cannot be an empty string or just spaces';
-  if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) throw 'Email address is not valid';
+    var regx = /^([a-zA-Z0-9_\-])+@([a-zA-Z0-9_\-])+(\.[a-zA-Z0-9_\-])+$/; 
+  if (regx.test(email)) throw 'Email address is not valid';
   return true;
 }
 

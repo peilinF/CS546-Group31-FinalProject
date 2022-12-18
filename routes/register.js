@@ -34,22 +34,24 @@ router
 
     if(!userName || !passWord || !email || !birthday ||!question1 ||!answer1 ||!question2 ||!answer2){
       error = 'All fields need to have valid values';
-      res.status(400).render('userRegister',{ error:errorMessage, partial: 'register',title:"Sign me up!"});
-      return;
+      return res.status(400).json ({error: error});
+    }
+    try{
+      helper.validEmailAddr(email);
+    }catch(e){
+      return res.status(400).json ({error: error});;
     }
     
     const checkExist = await usersData.getUserByEmail(email);
     if (checkExist){
-      console.log("User already exists");
-      res.status(400).send("Email already registered");
-      return;
+      error = 'Email already exists';
+      return res.status(400).json ({error: error});
     }
     try{
       await usersData.createUser(userName,email,birthday,passWord,question1,answer1,question2,answer2);
-      res.redirect('/login');
+      return res.status(200).json({url:'/login'});
     } catch(e){
-      res.status(403).send(e);
-      return;
+      return res.status(403).json ({error: e});
     };
   })
 
