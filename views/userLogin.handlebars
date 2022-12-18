@@ -1,18 +1,21 @@
-<body class="loginPage">
-  <form id="login-form">
-    <label for="EmailInput">Email</label>
-    <input type="text" name="EmailInput" id="EmailInput">
-    <label for="PasswordInput">Password</label>
-    <input type="password" name="PasswordInput" id="PasswordInput">
-    <span id='loginErr'></span>
-    <div style="padding-top: 8px;">
-    <input type="submit" value="Login">
-    </div>
-  </form>
-  <a href="/register">Click here to register!</a>
-  <a href="/forget">Forget Password?</a>
-  <a href="/">Homepage</a>
-  <div>
-  {{#if error}}<div class="error" id="error2">{{error}}</div>{{/if}}
+<div class="loginPage" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+ <div style="display: grid; place-items: center">
+    <form id="login-form" style="padding-top: 100px;">
+      <label for="EmailInput">Email</label>
+      <input type="text" name="EmailInput" id="EmailInput" style="width: 240px; height: 15px;">
+      <label for="PasswordInput">Password</label>
+      <input type="password" name="PasswordInput" id="PasswordInput" style="width: 240px; height: 15px;">
+      <span id='loginErr'></span>
+      <div style="padding-top: 8px;">
+      <input type="submit" value="Login">
   </div>
-</body>
+    </form>
+    <div style="text-align: center;">
+    <a href="/register">Click here to register!</a>
+    <a href="/forget">Forget Password?</a>
+    <a href="/">Homepage</a>
+   </div>
+
+    {{#if error}}<div class="error" id="error2">{{error}}</div>{{/if}}
+  </div>
+ </div>
