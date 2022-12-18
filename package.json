@@ -18,8 +18,6 @@
     "express-session": "^1.17.3",
     "handlebars": "^4.7.7",
     "mongodb": "^4.12.0",
-    "nodemo": "^1.0.0",
-    "nodemon": "^2.0.20",
     "xss": "^1.0.14"
   }
 }
