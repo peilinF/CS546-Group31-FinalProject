@@ -1,12 +1,19 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
+const parks = mongoCollections.parks;
 const {ObjectId} = require('mongodb');
 const helper = require("../helpers.js");
+const bcrypt = require("bcryptjs");
+const { helpers } = require('handlebars');
 const createUser = async (
   userName,
   email,
   birthDate,
-  hashedPassword
+  Password,
+  question1,
+  answer1,
+  question2,
+  answer2
 ) => {
   
   let reviews = [];
@@ -14,11 +21,11 @@ const createUser = async (
   let parksHaveVisited = [];
   let parksWishToGo = [];
   let likes = [];
+  let followers = [];
 
+  //check UserName
   if (!userName) throw 'You must provide a user name';
-  if (typeof userName !== 'string') throw 'User name must be a string';
-  if (userName.trim().length === 0)
-    throw 'User name cannot be an empty string or just spaces';
+  helper.validUserName(userName);
   userName = userName.trim();
   
   if (!email) throw 'You must provide an email';
@@ -26,30 +33,55 @@ const createUser = async (
   if (email.trim().length === 0)
     throw 'Email cannot be an empty string or just spaces';
   email = email.trim();
-  if (!helper.vaildEmailAddr(email)) throw 'Email is not valid';
+  if (!helper.validEmailAddr(email)) throw 'Email is not valid';
 
   if (!birthDate) throw 'You must provide a birth date';
-  if (typeof birthDate !== 'string') throw 'Birth date must be a string';
-  if (birthDate.trim().length === 0)
-    throw 'Birth date cannot be an empty string or just spaces';
-  birthDate = birthDate.trim();
-  if (!helper.validDate(birthDate)) throw 'Birth date is not valid';
+  // if (typeof birthDate !== 'string') throw 'Birth date must be a string';
+  // if (birthDate.trim().length === 0)
+  //   throw 'Birth date cannot be an empty string or just spaces';
+  // birthDate = birthDate.trim();
+  if(!Password) throw 'You must provide password!';
+   //check email
+   helper.validEmailAddr(email);
+   //check password
+   helper.checkPasswordString(Password);
+   helper.checkPassword(Password);
 
+   Password = helper.hashPassword(Password);
+
+  if(!question1) throw '1-You must select secure questions!';
+  if(!answer1) throw '1-You must answer question!';
+  if(answer1.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
+  answer1 = answer1.trim();
+
+  if(!question2) throw '2-You must select secure questions!';
+  if(!answer2) throw '2-You must answer question!';
+  if(answer2.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
+  answer2 = answer2.trim();
+
+  let likesReceivedAmount = 0;
   const newUser = {
     userName: userName,
-    email: email,
+    email: email.toLowerCase(),
     birthDate: birthDate,
-    hashedPassword: hashedPassword,
+    Password: Password,
+    question1:question1,
+    answer1:answer1,
+    question2:question2,
+    answer2:answer2,
     reviews: reviews,
     comments: comments,
+    followers: followers,
     parksHaveVisited: parksHaveVisited,
     parksWishToGo: parksWishToGo,
     likes: likes,
+    likesReceivedAmount: likesReceivedAmount,
   };
   const userCollection = await users();
   const insertInfo = await userCollection.insertOne(newUser);
   if (insertInfo.insertedCount === 0) throw 'Could not add user';
-  return await getUserById(insertInfo.insertedId.toString());
+  //return await getUserById(insertInfo.insertedId.toString());
+  return {userInserted: true, userId: insertInfo.insertedId.toString()};
 };
 
 const getAllUsers = async () => {
@@ -74,19 +106,19 @@ const getUserById = async (userId) => {
   userId = userId.trim();
   const userCollection = await users();
   const user = await userCollection.findOne({ _id: ObjectId(userId) });
-  if (!user) throw 'Movie not found';
+  if (!user) throw 'User not found';
   user._id = user._id.toString();
   return user;
 };
-const getUserByName = async (userName) => {
-  if (!userName) throw 'You must provide an user name to search for';
-  if (typeof userName !== 'string') throw 'User name must be a string';
-  if (userName.trim().length === 0)
+const getUserByName = async (name) => {
+  if (!name) throw 'You must provide an user name to search for';
+  if (typeof name !== 'string') throw 'User name must be a string';
+  if (name.trim().length === 0)
       throw 'User name cannot be an empty string or just spaces';
-  userName = userName.trim();
+  name = name.trim();
   const userCollection = await users();
-  const user = await userCollection.findOne({ userName: userName });
-  if (!user) throw 'User not found';
+  const user = await userCollection.findOne({ userName: name });
+  if (!user) return false;
   user._id = user._id.toString();
   return user;
 };
@@ -107,6 +139,19 @@ const removeUser = async (userId) => {
   }
   
   return userId;
+};
+
+const getUserByEmail = async (email) => {
+  if (!email) throw 'You must provide an user name to search for';
+  if (typeof email !== 'string') throw 'User name must be a string';
+  if (email.trim().length === 0)
+      throw 'User name cannot be an empty string or just spaces';
+  email = email.trim();
+  const userCollection = await users();
+  const user = await userCollection.findOne({ email: email.toLowerCase() });
+  if (!user) return false;
+  user._id = user._id.toString();
+  return user;
 };
 
 const updateUser = async (
@@ -136,7 +181,7 @@ const updateUser = async (
   if (email.trim().length === 0)
     throw 'Email cannot be an empty string or just spaces';
   email = email.trim();
-  if (!helper.validateEmail(email)) throw 'Email is not valid';
+  if (!helper.validEmailAddr(email)) throw 'Email is not valid';
 
   if (!birthDate) throw 'You must provide a birth date';
   if (typeof birthDate !== 'string') throw 'Birth date must be a string';
@@ -148,9 +193,9 @@ const updateUser = async (
   const update = {
 
     userName: userName,
-    email: email,
+    email: email.toLowerCase(),
     birthDate: birthDate,
-    hashedPassword: hashedPassword,
+    Password: hashedPassword
   };
 
   const userCollection = await users();
@@ -168,6 +213,81 @@ const updateUser = async (
   return await getUserById(userId);
 
 
+};
+
+const checkUser = async (email, password) => {
+  if(!email || !password){
+    throw 'All fields need to have valid values.'
+  }
+
+  //check email
+  helper.validEmailAddr(email);
+  //check password
+  helper.checkPasswordString(password);
+  helper.checkPassword(password);
+
+  //Query the db for the username supplied, if it is not found, throw an error
+  const usersCollection = await users();
+  const user = await usersCollection.findOne({email: email.toLowerCase()});
+  if(user === null) throw 'Email is not sign up'
+  const compareToPassword = await bcrypt.compare(password,user.Password);
+  if(compareToPassword){
+    return {authenticatedUser: true, userName: user.userName, userId: user._id};
+  }else{
+    throw 'Either the username or password is invalid.'
+  }
+};
+
+const forgetPassword = async (email, password, question1, answer1, question2, answer2) => {
+  if(!email) throw "Please enter your register email!";
+  if(!password) throw "Please enter password!";
+  if (email.trim().length === 0)
+      throw 'User name cannot be an empty string or just spaces';
+  if (typeof email !== 'string') throw 'User name must be a string';
+   //check email
+  helper.validEmailAddr(email);
+  email = email.trim();
+  //check password
+  if(!password) throw 'You must provide password!';
+  helper.checkPasswordString(password);
+  helper.checkPassword(password);
+  
+
+  const user = await getUserByEmail(email);
+  // if(user === 'false') throw "No user with that email!";
+
+  if(!question1) throw "You must select secure questions!";
+  if(!answer1) throw "Please enter you answer!";
+  if(answer1.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
+  answer1 = answer1.trim();
+
+  if(!question2) throw 'You must select secure questions!';
+  if(!answer2) throw 'Please enter you answer!';
+  if(answer2.trim().length === 0) throw "Answer cannot be an empty string or just spaces";
+  answer2 = answer2.trim();
+
+  if(question1 !== user.question1) throw "Either questions or answers are wrong!";
+  if(answer1 !== user.answer1) throw "Either questions or answers are wrong!";
+
+  if(question2 !== user.question2) throw "Either questions or answers are wrong!";
+  if(answer2 !== user.answer2) throw "Either questions or answers are wrong!";
+
+  password = helper.hashPassword(password);
+  const update = {
+    Password: password,
+  };
+
+  const userCollection = await users();
+  const updateData = await userCollection.updateOne(
+    {email: user.email},
+    {$set: update}
+  );
+
+  if (updateData.modifiedCount === 0) {
+    throw 'could not update password successfully';
+  }
+  
+  return {passwordChanged: true};
 };
 
 const addReview = async (userId, reviewId) => {
@@ -219,7 +339,7 @@ const removeReview = async (userId, reviewId) => {
   const user = await userCollection.findOne({ _id: ObjectId(userId) });
   let updatedUser = 0;
   let userReview = user.reviews;
-  if ( userReview.length === 1){
+  if ( userReview.length === 1 && userReview[0] === reviewId){
     updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { reviews: -1 } });
   } else {
     updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { reviews: reviewId } });
@@ -249,8 +369,12 @@ const addComment = async (userId, commentId) => {
       throw 'id cannot be an empty string or just spaces';
   commentId = commentId.trim();
 
-  const userCollection = await users();
-  const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { comments: commentId } });
+  try{
+    const userCollection = await users();
+    const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { comments: commentId } });
+  } catch(e){
+    throw e;
+  }
 };
 
 const removeComment = async (userId, commentId) => {
@@ -277,7 +401,7 @@ const removeComment = async (userId, commentId) => {
   const user = await userCollection.findOne({ _id: ObjectId(userId) });
   let updatedUser = 0;
   let userComment = user.comments;
-  if ( userComment.length === 1){
+  if ( userComment.length === 1 && userComment[0] === commentId){
     updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { comments: -1 } });
   } else {
     updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { comments: commentId } });
@@ -303,15 +427,18 @@ const addParksWishToGO = async (userId, parkId) => {
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   parkId = parkId.trim();
-
+  const parkCollection = await parks();
+  const park = await parkCollection.findOne({_id: parkId});
+  const updatedPark = await parkCollection.updateOne({_id: parkId}, {$set: {wishedAmount: park.wishedAmount+1}})
+  if (updatedPark.modifiedCount === 0) {
+    throw 'could not update park successfully';
+  }
   const userCollection = await users();
   const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { parksWishToGo: parkId } });
   if (updatedUser.modifiedCount === 0) {
     throw 'could not add park successfully';
   }
 };
-
-
 
 const removeParksWishToGO = async (userId, parkId) => {
   if (!userId) throw 'You must provide an id to search for';
@@ -329,7 +456,12 @@ const removeParksWishToGO = async (userId, parkId) => {
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   parkId = parkId.trim();
-
+  const parkCollection = await parks();
+  const park = await parkCollection.findOne({_id: parkId});
+  const updatedPark = await parkCollection.updateOne({_id: parkId}, {$set: {wishedAmount: park.wishedAmount-1}})
+  if (updatedPark.modifiedCount === 0) {
+    throw 'could not update park successfully';
+  }
   const userCollection = await users();
   const user = await userCollection.findOne({ _id: ObjectId(userId) });
   let updatedUser = 0;
@@ -361,7 +493,12 @@ const addParksHaveVisited = async (userId, parkId) => {
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   parkId = parkId.trim();
-
+  const parkCollection = await parks();
+  const park = await parkCollection.findOne({_id: parkId});
+  const updatedPark = await parkCollection.updateOne({_id: parkId}, {$set: {visitedAmount: park.visitedAmount+1}})
+  if (updatedPark.modifiedCount === 0) {
+    throw 'could not update park successfully';
+  }
   const userCollection = await users();
   const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { parksHaveVisited: parkId } });
   if (updatedUser.modifiedCount === 0) {
@@ -385,7 +522,12 @@ const removeParksHaveVisited = async (userId, parkId) => {
   if (parkId.trim().length === 0)
       throw 'id cannot be an empty string or just spaces';
   parkId = parkId.trim();
-
+  const parkCollection = await parks();
+  const park = await parkCollection.findOne({_id: parkId});
+  const updatedPark = await parkCollection.updateOne({_id: parkId}, {$set: {visitedAmount: park.visitedAmount-1}})
+  if (updatedPark.modifiedCount === 0) {
+    throw 'could not update park successfully';
+  }
   const userCollection = await users();
   const user = await userCollection.findOne({ _id: ObjectId(userId) });
   let updatedUser = 0;
@@ -400,14 +542,81 @@ const removeParksHaveVisited = async (userId, parkId) => {
   }
 };
 
+const addLike = async (userId, reviewId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
 
+  if (!reviewId) throw 'You must provide an id to search for';
+  if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (reviewId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  reviewId = reviewId.trim();
+
+  const userCollection = await users();
+  const updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $push: { likes: reviewId } });
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not add like successfully';
+  }
+};
+
+const removeLike = async (userId, reviewId) => {
+  if (!userId) throw 'You must provide an id to search for';
+  if (typeof userId !== 'string' && typeof userId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (typeof userId === 'string') {
+    if (!ObjectId.isValid(userId)) throw 'Id is not a valid ObjectId';
+  }
+  if (userId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  userId = userId.trim();
+
+  if (!reviewId) throw 'You must provide an id to search for';
+  if (typeof reviewId !== 'string' && typeof reviewId !== 'object')
+    throw 'Id must be a string or ObjectId';
+  if (reviewId.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+  reviewId = reviewId.trim();
+
+  const userCollection = await users();
+  const user = await userCollection.findOne({ _id: ObjectId(userId) });
+  let updatedUser = 0;
+  let userLike = user.likes;
+  for (let i = 0; i < userLike.length; i++){
+    if (userLike[i] === reviewId && userLike.length === 1){
+      updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pop: { likes: -1 } });
+      break;
+    } else if (userLike[i] === reviewId){
+      updatedUser =await userCollection.updateOne( {_id: ObjectId(userId)},{ $pull: { likes: reviewId } });
+      break;
+    }
+  }
+
+  if(updatedUser === 0){
+    throw 'could not remove like successfully';
+  }
+
+  if (updatedUser.modifiedCount === 0) {
+    throw 'could not remove like successfully';
+  }
+};
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
   removeUser,
+  getUserByEmail,
   updateUser,
   getUserByName,
+  checkUser,
+  forgetPassword,
   addReview,
   removeReview,
   addComment,

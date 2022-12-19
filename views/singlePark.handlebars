@@ -1,0 +1,116 @@
+<div id="windowCoord">
+  <p id="yCoord">{{location.y}}</p>
+</div>
+<div class="park_information">
+  <h1 id="park_head"><a
+      href="{{park.linkInformation}}"
+      id="park_url"
+      target="_blank"
+    >{{park.parkName}}</a></h1>
+  <img src="{{park.park_picture}}" alt="{{park.parkName}}" />
+  <p id="park_description"> Park introduction: {{park.introduction}}</p>
+  <p id="park_address">Park address:
+    <a href="{{park.map}}" target="_blank"> {{park.address}}</a></p>
+  <ul class="contacts">
+    {{#each park.contacts}}
+      <li>
+        <p class="phone">Phone Number: {{this.phone}}</p>
+        <p class="phone">Type: {{this.type}}</p>
+      </li>
+    {{/each}}
+  </ul>
+
+  <ul class="fee">
+    {{#each park.entranceFees}}
+      <li>
+        <p class="fee">Cost: {{this.cost}}</p>
+        <p class="fee">Description: {{this.description}}</p>
+        <p class="fee">Title: {{this.title}}</p>
+      </li>
+    {{/each}}
+  </ul>
+  <p id="park_rating">Overall Rating: {{park.overallRating}}</p>
+  <div id="review">
+    <h2>Reviews</h2>
+    {{#if park.hasReviews}}
+    {{#each park.reviews}}
+      <div class="reviews" name = "{{this._id}}">
+        <section class="review-info">
+          <p class="review-id">{{this._id}}</p>
+          <p class="review-title">Title: {{this.title}}</p>
+          <p class="review-username">Author: {{this.userName}}</p>
+          <p class="review-rating">Rating: {{this.rating}}</p>
+          <p class="review-date">Date: {{this.lastUpdatedTime}}</p>
+          <p class="review-likes">Likes: {{this.number_of_likes}}</p>
+        </section>
+        <section class="review-section">
+          <p class="review-content">Content: {{this.content}}</p>
+        </section>
+        
+        {{#if this.liked}}
+        <div class="replyUi">
+          <button type="button" class="reply" >Reply</button>
+          <button type="button" class="unlike" >Unlike</button>
+        </div>
+          <div class="likes" > Liked!</div>
+        {{else}}
+        <div class="replyUi">
+          <button type="button" class="reply" >Reply</button>
+          <button type="button" class="like" >Like</button>
+        </div>
+        {{/if}}
+        
+        {{#if this.isOwner}}
+          <div class="deleteUi">
+            <button type="button" class="deleteReview" >Delete</button>
+            <button type="button" class="editReview" >Edit</button>
+          </div>
+        {{/if}}
+
+        {{#if this.hasComments}}
+          {{#each this.comments}}
+            <div class="comments" name = "{{this._id}}">
+              <section class="comment-info">
+                <p class="comment-id">{{this._id}}</p>
+                <p class="comment-username">Reply from: {{this.userName}}</p>
+              </section>
+              <section class="comment-content">
+                <p class="comment">Content: {{this.content}}</p>
+              </section>
+              {{#if this.isReplyOwner}}
+                <div class="deleteReply">
+                  <button type="button" class="deleteReplyButton" >Delete this Reply</button>
+                </div>
+              {{/if}}
+            </div>
+          {{/each}}
+        {{/if}}
+
+      
+      </div>
+
+    {{/each}}
+  {{/if}}
+
+
+  {{#if login}}
+  <div class="leaveReview" id = "reviewForm">
+    <form name = "postReview" id = "postReview">
+      <label for="title">Title</label>
+      <input type="text" name="title" id="submitTitle" aria-label="Title" title="Type in the title of your submission" style="width: 500px; height: 25px;">
+      <label for="content">Content</label>
+      <textarea name="content" id="content" style="width: 500px; height: 350px;"></textarea>
+      <label for="rating">Rating</label>
+      <input type="number" name="rating" id="rating"  min="1" max="5" placeholder="Out of 5" style="width: 100px; height: 15px;"/>
+      <input type="submit" id="submit-button" value="Submit" role="button" aria-label="Submit" title="Click to submit your form">
+    </form>
+  </div>
+    {{else}}
+    <div class="leaveReview" id = "review"></div>
+     <button id="login" role="button" aria-label="Login to leave a review">Login to leave a review</button>
+    </div>
+  {{/if}}
+</div>
+
+
+<a href="/" class = "backToMain"> Main Page</a>

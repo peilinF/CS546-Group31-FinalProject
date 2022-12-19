@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review rank</title>
+
+    <link rel="stylesheet" href="/public/main-styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="navigation">
+        <nav>
+            <a href="./park">Parks ranking</a> |
+            <a href="./user">Users ranking</a> |
+            <a href="#">Reviews ranking</a> |
+            <a href="/">Homepage</a>
+        </nav>
+      </section>
+      <section class="intro rank-intro">
+        <h1 class="rank-title">List of Reviews Ranked</h1>
+        <p style="font-size: 16px;">
+          All reviews ranked by last updated time/ number of likes.
+        </p>
+      </section>
+      <section class="rank-option-form">
+        <form action="/rank/review/results" method="GET">
+          <label for="rankReviewSelect" id="rankReviewOptionLabel">Sort by</label>
+          <select name="option" id="rankReviewSelect" style="width: 300px; height: 30px;">
+            <option value="lastUpdatedTime">last updated time</option>
+            <option value="number_of_likes">number of likes</option>
+          </select>
+          <label for="rankReviewItemsNumInput" id="rankReviewItemsNumLabel">Number of reviews</label>
+          <input type="number" name="itemsNum" id="rankReviewItemsNumInput" value="10" style="width: 275px; height: 8px;"/>
+          <label for="rankReviewReverseSelect" id="rankReviewReverseLabel">Reverse</label>
+          <select name="reverse" id="rankReviewReverseSelect" style="width: 300px; height: 30px;">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+          <input type="submit" value="Rank" />
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

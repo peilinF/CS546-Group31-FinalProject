@@ -1,0 +1,21 @@
+<div class="loginPage" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+ <div style="display: grid; place-items: center">
+    <form id="login-form" style="padding-top: 100px;">
+      <label for="EmailInput">Email</label>
+      <input type="text" name="EmailInput" id="EmailInput" aria-label="Email address" title="Type in your email address" style="width: 240px; height: 15px;">
+      <label for="PasswordInput">Password</label>
+      <input type="password" name="PasswordInput" id="PasswordInput" style="width: 240px; height: 15px;">
+      <span id='loginErr'></span>
+      <div style="padding-top: 8px;">
+     <input type="submit" id="login-button" value="Login" role="button" aria-label="Login" title="Click to submit your login">
+  </div>
+    </form>
+    <div style="text-align: center;">
+    <a href="/register">Click here to register! |</a>
+    <a href="/forget">Forget Password?  |</a>
+    <a href="/">Homepage</a>
+   </div>
+
+    {{#if error}}<div class="error" id="error2">{{error}}</div>{{/if}}
+  </div>
+ </div>

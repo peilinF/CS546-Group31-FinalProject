@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Users ranking</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="/public/main-styles.css" />
+  </head>
+
+  <body>
+    <main>
+      <section class="navigation">
+        <nav>
+            <a href="./park">Parks ranking</a> |
+            <a href="#">Users ranking</a> |
+            <a href="./review">Reviews ranking</a> |
+            <a href="/">Homepage</a>
+        </nav>
+      </section>
+      <section class="intro rank-intro">
+        <h1 class="rank-title">List of Users Ranked</h1>
+        <p style="font-size: 16px;">
+         All users ranked by likes received/ reviews amount / comments amount.
+        </p>
+      </section>
+      <section class="rank-option-form">
+        <form action="/rank/user/results" method="GET">
+          <label for="rankUserSelect" id="rankUserOptionLabel">Sort by</label>
+          <select name="option" id="rankUserSelect" style="width: 300px; height: 30px;">
+            <!-- <option value="followersAmount">followers amount</option> -->
+            <option value="likesReceivedAmount">likes received</option>
+            <option value="reviewsAmount">reviews amount</option>
+            <option value="commentsAmount">comments amount</option>
+          </select>
+          <label for="rankUserItemsNumInput" id="rankUserItemsNumLabel">Number of users</label>
+          <input type="number" name="itemsNum" id="rankUserItemsNumInput" value="10" style="width: 275px; height: 8px;"/>
+          <label for="rankUserReverseSelect" id="rankUserReverseLabel">Reverse</label>
+          <select name="reverse" id="rankUserReverseSelect" style="width: 300px; height: 30px;">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+          <input type="submit" value="Rank" />
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,68 +1,519 @@
-* {
-	box-sizing: border-box;
-}
-
-html,
 body {
-	font-size: 14pt;
+  background: #fff2e8;
 }
 
 body {
-	font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  display: flex;
 }
 
 main {
-	max-width: 75%;
-	margin: auto;
+  max-width: 50%;
+  margin: auto;
 }
 
 header {
-	border-bottom: 1px solid #afafaf;
+  position:fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 48px;
+  background-color: #fff2e8;
+  color: #fff;
+  font-size: 18px;
+  /*line-height: 60px;*/
+  text-align: center;
+  z-index: 999;
+}
+.logo {
+  text-align: left;
+  padding-left: 16px;
+  margin-top: -6px; 
 }
 
-h1{
-	color: rgb(247, 5, 5);
-	margin-bottom: 5px;
-    font-size: 2rem;
+.session {
+  position:fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 48px;
+  background-color: #fff2e8;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  z-index: 999;
 }
 
+.homepageArt {
+  justify-content: center;
+  padding-top: 40px;
+}
+h1 {
+  color:#2d2b2b;
+  font-size: 24px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
 
+h1.rank-title {
+  color: #28567b;
+  font-size: 28px;
+  left: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+
+.subtitle {
+  text-align: center;
+}
 h2 {
-	font-size: 1.5rem;
+  color: #28567b;
+  font-size: 28px;
+  left: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 500;
 }
-p {
-	font-size: 1rem;
-	line-height: 2;
-}
-.people li{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: rgb(248, 152, 200);
-}
-.not-found{
-    background-color: red;
-    color: white;
-    font-size: 2rem;
-    text-align: center;
-    padding: 10px;
+h3 {
+  color: #28567b;
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  display: block;
 }
 
-.personFound{
-    background-color: rgb(61, 248, 61);
-    color: black;
-    font-size: 2rem;
-    text-align: left;
-    padding: 10px;
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-top: 5px solid #baa898;
 }
-.personFound dl{
-    justify-content: space-between;
-    color: black;
-    font-size: 2rem;
-    padding: 10px;
-    margin: 0;
+
+.rankPage {
+  background-color: #f6f9e4;
+  margin-top: 20px;
+  color: #FFFFFF; 
+  font-size: 16px;   
+  padding: 10px 10px 30px 10px; 
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
 }
-.personFound dd{
-    text-decoration: underline;
-    text-align: center;
+.userPage {
+  background-color: #fafaed;
+  margin-top: 20px;
+  color: #FFFFFF; 
+  padding: 10px 20px;  
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+}
+
+p,
+label {
+  color: #28567b;
+  font-size: 20px;
+  line-height: 1.5;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  margin-bottom: 6px;
+  z-index: 997;
+}
+
+a:link {
+  color: #28567b;
+}
+a:visited {
+  color: #627d69;
+}
+a:hover {
+  color: #baa898;
+}
+a:active {
+  color: #baa898;
+}
+a.new {
+  color: #6b705c;
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.text-goes-here {
+  color: #525252;
+}
+
+.footerClass {
+  color: #627d69;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+
+input[type="number"] {
+  padding: 8px 10px;
+}
+
+button {
+  font-family: "EB Garamond";
+  font-size: 17px;
+  /* background: linear-gradient(to left, #4776e6, #8e54e9); */
+  background: #627d69;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 10px;
+  text-align: center;
+  display: inline-block;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: white;
+  color: #627d69;
+}
+
+.login {
+  position: absolute;
+  top: 10px;
+  right: 85px;
+}
+
+.register {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+a[href="/profile"] {
+  position: absolute;
+  top: 10px;
+  right: 100px;
+}
+a[href="/logout"] {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form#myForm {
+  display: flex;
+  width: 500px;
+  margin-left: 80px;
+  flex-direction: column;
+}
+
+.input-field {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.input-field input {
+  padding: 0.8rem;
+}
+
+form .input-field:first-child {
+  margin-bottom: 1.5rem;
+}
+
+form input[type="submit"] {
+  width: 100px;
+  background-color: #627d69;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  padding: 10px 20px;  
+}
+
+form input[type="submit"]:hover {
+  background-color: white;
+  color: #627d69;
+}
+
+img {
+  width: 100%;
+  height: 70%;
+  display: flex;
+}
+
+#park_head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#park_url {
+  text-decoration: none;
+}
+
+.reviews {
+  /* display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
+  border: black 2px solid;
+  margin-bottom: 5%;
+}
+.comments {
+  border-top: black 1px solid;
+  margin-bottom: 5%;
+}
+.review {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.error {
+  color: red;
+}
+.error1{
+  color:red;
+}
+
+.backToMain {
+  position: absolute;
+  top: 10px;
+  right: 85px;
+}
+
+li {
+  color:#3e74a4;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.likes{
+  color: green;
+}
+
+.unlikeD{
+  color: red;
+}
+
+.deleteUi{
+  position: relative;
+  left: 83%;
+}
+.deleteUi button{
+  font-family: "EB Garamond";
+  font-size: 13px;
+  background-color: rgb(65, 75, 73);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 10px;
+  text-align: center;
+  display: inline-block;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+.deleteReply{
+  position: relative;
+  bottom: 88px;
+  left: 83%;
+}
+
+.deleteReply button{
+  font-family: "EB Garamond";
+  font-size: 13px;
+  background-color: black;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 10px;
+  text-align: center;
+  display:inline-flexbox;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+
+.wished-visited-data {
+  position: relative;
+  left: 20px;
+  bottom: 0;
+}
+
+.cute-button {
+  width: 80px;
+  background-color: #F8DE7E;
+  font-family: 'Comic Sans MS', 'cursive';
+  color: #FFFFFF; 
+  font-size: 16px;  
+  border: none;  
+  padding: 10px 20px;  
+  cursor: pointer;  /* 鼠标指针变为手指 */
+}
+
+.cute-section {
+  background-color: #f7ffed;
+  color: #FFFFFF; 
+  font-size: 16px;  
+  padding: 10px 20px;  
+  margin-top: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+}
+
+
+.parklist div.square {
+  width: 250px;
+  height: 310px;
+}
+
+.parklist div.square p {
+  font-weight: 400;
+  font-size: 17px;
+  text-align: center;
+  height: 0px;
+  padding: 5px;
+}
+
+.parklist-p {
+  font-weight: 550;
+  font-size: 15px;
+  height: 0px;
+  padding: 6px;
+}
+
+.parklist div.square img.cover-img {
+  width: 230px;
+  height: 200px;
+  padding: 10px;
+}
+
+.parklist div.square form {
+  width: 230px;
+  padding: 10 px;
+  align-items: center;
+}
+
+img {
+  transition: transform 1s;
+}
+img:hover {
+  transform: scale(0.8);
+}
+
+#btn {
+  margin-top: 50px;
+  }
+  
+.div.profile-btn {
+  display: flex;
+}
+
+.review-list-results {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.single-review {
+  margin: 5px 5px 5px 5px;
+  background-color: white;
+  width: 150px;
+}
+
+.profile-deleteUi{
+  position: relative;
+}
+.profile-deleteUi button{
+  font-family: "EB Garamond";
+  font-size: 13px;
+  background-color: rgb(65, 75, 73);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 10px;
+  text-align: center;
+  display: inline-block;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+input[type="password"] {
+  display: block;
+}
+
+#Info {
+  background-color: #fafafa;
+  box-sizing: border-box;
+  display: none;
+  text-align: left;
+  float: left; 
+  width: 96%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 15px;
+  padding: 1%;
+  margin-top: 8px;
+  display:none;
+  /* position: relative; */
+}
+
+.valid {
+  color: green;
+  text-align: left;
+  padding-left: 8px;
+}
+
+.valid:before {
+  position: relative;
+  text-align: left;
+  left: 0;
+  content: "✔";
+  padding-left: 8px;
+}
+
+.invalid {
+  color: red;
+  text-align: left;
+  padding-left: 8px;
+}
+
+.invalid:before {
+  position: relative;
+  text-align: left;
+  left: 0;
+  content: "✖";
+  padding-left: 8px;
+}
+
+.footer {
+  position:relative;
+  height: 50px;
+  text-align: center;
+  line-height: 15px;
+  margin-top: 20px;
+  padding-top: 20px;
+  bottom: 0px;
+  width: 100%;
+}
+
+.mapImg {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.mapImg:hover {
+  transform:none
+}
+
+.loginPage {
+  background-image: url("/public/images/desert.png");
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.5);
 }

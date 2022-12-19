@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parks ranking</title>
+
+    <link rel="stylesheet" href="/public/main-styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="navigation">
+        <nav>
+            <a href="#">Parks ranking</a> |
+            <a href="./user">Users ranking</a> |
+            <a href="./review">Reviews ranking</a> |
+            <a href="/">Homepage</a>
+        </nav>
+      </section>
+      <section class="intro rank-intro">
+        <h1 class="rank-title">List of National Parks Ranked</h1>
+        <p style="font-size: 16px;">
+          All 63 US National parks ranked by overallRating/ reviews amount/ visited amount/ wish to visit amount.
+        </p>
+      </section>
+      <section class="rank-option-form">
+        <form action="/rank/park/results" method="GET">
+          <label for="rankParkSelect" id="rankParkOptionLabel">Sort by</label>
+          <select name="option" id="rankParkSelect" style="width: 300px; height: 30px;">
+            <option value="overallRating">overall rating</option>
+            <option value="reviewsAmount">reviews amount</option>
+            <option value="wishedAmount">wish to visit amount</option>
+            <option value="visitedAmount">visited amount</option>
+          </select>
+          <label for="rankParkReverseSelect" id="rankParkReverseLabel">Reverse</label>
+          <select name="reverse" id="rankParkReverseSelect" style="width: 300px; height: 30px;">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+          <input type="submit" value="Rank" />
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

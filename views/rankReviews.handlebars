@@ -1,0 +1,53 @@
+<section class="navigation">
+    <nav>
+        <a href="../park">Parks ranking</a> |
+        <a href="../user">Users ranking</a> |
+        <a href="../review">Reviews ranking</a> |
+        <a href="/">Homepage</a>
+    </nav>
+</section>
+<section>
+    <h1 class="rank-title" style="font-size:22px;">List of Reviews</h1>
+    <p class="p-rank-option">Sort by: {{option}}</p>
+    <p>Items number: {{itemsNum}}</p>
+    <p>Reverse? {{reverse}}</p>
+</section>
+<div>
+    <h1>Results:</h1>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Review title</th>
+            <th>Associated Park Name</th>
+            <th>Author</th>
+            <th>Rating given</th>
+            <th class="th-review-time">Last Update Time</th>
+            <th class="th-reivew-like">Likes Amount</th>
+        </tr>
+        {{#each results}}
+        <tr>
+            <th>{{rank}}</th>
+            <th>{{title}}</th>
+            <th><a href="/park/search?searchParkName={{parkName}}">{{parkName}}</a></th>
+            <th>{{userName}}</th>
+            <th>{{rating}}</th>
+            <th class="th-review-time">{{lastUpdatedTime}}</th>
+            <th class="th-reivew-like">{{number_of_likes}}</th>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+<script>
+    let rankOption = document.querySelector(".p-rank-option")
+    if (rankOption.innerText === "Sort by: lastUpdatedTime") {
+        let allthTime = document.querySelectorAll(".th-review-time")
+        allthTime.forEach((th) => {
+            th.style.color = "#008300"
+        })
+    } else if (rankOption.innerText === "Sort by: number_of_likes") {
+        let allthLike = document.querySelectorAll(".th-reivew-like")
+        allthLike.forEach((th) => {
+            th.style.color = "#008300"
+        })
+    }
+</script>
