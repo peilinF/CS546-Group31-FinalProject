@@ -1,0 +1,4 @@
+aiohttp==3.8.1
+asyncio==3.4.3
+beautifulsoup4==4.11.1
+certifi==2023.7.22

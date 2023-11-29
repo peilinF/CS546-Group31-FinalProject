@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - mynetwork
+
+  data-service:
+    build: ./data-service
+    restart: on-failure
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    networks:
+      - mynetwork
+
+  react-service:
+    build: ./react-service
+    ports:
+      - "3000:3000"
+    depends_on:
+      - data-service
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
